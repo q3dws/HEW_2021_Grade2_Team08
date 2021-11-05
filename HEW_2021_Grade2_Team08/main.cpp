@@ -1,0 +1,19 @@
+/*////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
+
+    HEW2021 AT12B173 08”Ç
+
+//////////////////////////////////////////////////////
+////////////////////////////////////////////////////*/
+
+#include "main.h"
+
+INT WINAPI WinMain(_In_ HINSTANCE hInstance, _In_opt_ HINSTANCE, _In_ LPSTR, _In_ INT)
+{
+	if (auto p_game = std::make_unique<Game>())
+	{
+		if (p_game->Initialize(hInstance))
+			p_game->Application();
+		p_game->Shutdown();
+	}
+}

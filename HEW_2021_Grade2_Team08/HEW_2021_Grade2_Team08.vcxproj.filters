@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Game">
+      <UniqueIdentifier>{fd48a50c-f54e-4bbc-862b-36e29a6e03d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要">
+      <UniqueIdentifier>{477f5684-688d-416c-a58d-9a17a1959611}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\texture">
+      <UniqueIdentifier>{5c7c6a51-89cd-484a-8934-84b434993972}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\sprite">
+      <UniqueIdentifier>{fb0504c2-5152-4699-9d13-ac90dc44fafe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\renderer">
+      <UniqueIdentifier>{eac665b1-f26b-4d46-8db4-53cb565874d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\sound">
+      <UniqueIdentifier>{75d9a4b6-5bd4-44f7-a31c-105493480337}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\input">
+      <UniqueIdentifier>{063077fc-0e8d-413d-9fbc-99f1837502b3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{fbefdc9c-323c-4059-a0c9-bba4f07f100a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="書き換え不要\main">
+      <UniqueIdentifier>{0e84de89-0888-46b6-8a98-5bbe28da93be}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="書き換え不要\Window">
+      <UniqueIdentifier>{f221a8b1-d9a2-405f-ac53-0bfde4400f49}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Math">
+      <UniqueIdentifier>{4eec65dd-e90b-4c45-8ae2-3946539704fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="AnimationTestObj">
+      <UniqueIdentifier>{08e98a36-de8c-4cb1-b4a4-93f81c589639}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント">
+      <UniqueIdentifier>{263309ef-4c44-4850-94a2-9e3a555b441c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\SpriteComponent">
+      <UniqueIdentifier>{51df30d3-4687-4f7b-bc6e-4f7c7818ecd2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\BGSpriteComponent">
+      <UniqueIdentifier>{9684378a-e003-4e28-bacd-64495b395aa2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\AnimSpriteComponent">
+      <UniqueIdentifier>{b692e05c-6cf9-45fb-9fef-57593ec9512b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\Component">
+      <UniqueIdentifier>{ff166473-76be-47ad-8bd7-53abf1c25232}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\MoveComponent">
+      <UniqueIdentifier>{19256d29-f8dc-4210-9005-edac5791611c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40コンポーネント\InputComponent">
+      <UniqueIdentifier>{ac0eede4-3c15-442c-95d9-13237a016baf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40ステート">
+      <UniqueIdentifier>{52450b31-dce5-41a6-bd5b-7db5cb2e9cf8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40ステート\StateMachine">
+      <UniqueIdentifier>{603c462c-3837-4b51-90e5-800a99bc97ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40ステート\State">
+      <UniqueIdentifier>{3b5e582e-77c0-4aeb-aa7f-6eebb4bf987b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="%40ステート\GameScene">
+      <UniqueIdentifier>{f49c9d40-5a82-4461-be05-29aed1933f03}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game</Filter>
+    </ClCompile>
+    <ClCompile Include="Window.cpp">
+      <Filter>書き換え不要\Window</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>書き換え不要\main</Filter>
+    </ClCompile>
+    <ClCompile Include="input.cpp">
+      <Filter>書き換え不要\input</Filter>
+    </ClCompile>
+    <ClCompile Include="sound.cpp">
+      <Filter>書き換え不要\sound</Filter>
+    </ClCompile>
+    <ClCompile Include="renderer.cpp">
+      <Filter>書き換え不要\renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="sprite.cpp">
+      <Filter>書き換え不要\sprite</Filter>
+    </ClCompile>
+    <ClCompile Include="Texture.cpp">
+      <Filter>書き換え不要\texture</Filter>
+    </ClCompile>
+    <ClCompile Include="Actor.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="State.cpp">
+      <Filter>%40ステート\State</Filter>
+    </ClCompile>
+    <ClCompile Include="StateContext.cpp">
+      <Filter>%40ステート\StateMachine</Filter>
+    </ClCompile>
+    <ClCompile Include="Component.cpp">
+      <Filter>%40コンポーネント\Component</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimSpriteComponent.cpp">
+      <Filter>%40コンポーネント\AnimSpriteComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="BGSpriteComponent.cpp">
+      <Filter>%40コンポーネント\BGSpriteComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="SpriteComponent.cpp">
+      <Filter>%40コンポーネント\SpriteComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationTestObj.cpp">
+      <Filter>AnimationTestObj</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>%40コンポーネント\MoveComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="InputComponent.cpp">
+      <Filter>%40コンポーネント\InputComponent</Filter>
+    </ClCompile>
+    <ClCompile Include="GameScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Math.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="BattleStage.cpp" />
+    <ClCompile Include="TestBullet.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Window.h">
+      <Filter>書き換え不要\Window</Filter>
+    </ClInclude>
+    <ClInclude Include="main.h">
+      <Filter>書き換え不要\main</Filter>
+    </ClInclude>
+    <ClInclude Include="input.h">
+      <Filter>書き換え不要\input</Filter>
+    </ClInclude>
+    <ClInclude Include="sound.h">
+      <Filter>書き換え不要\sound</Filter>
+    </ClInclude>
+    <ClInclude Include="renderer.h">
+      <Filter>書き換え不要\renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="sprite.h">
+      <Filter>書き換え不要\sprite</Filter>
+    </ClInclude>
+    <ClInclude Include="Texture.h">
+      <Filter>書き換え不要\texture</Filter>
+    </ClInclude>
+    <ClInclude Include="Actor.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>%40ステート\State</Filter>
+    </ClInclude>
+    <ClInclude Include="StateContext.h">
+      <Filter>%40ステート\StateMachine</Filter>
+    </ClInclude>
+    <ClInclude Include="Component.h">
+      <Filter>%40コンポーネント\Component</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimSpriteComponent.h">
+      <Filter>%40コンポーネント\AnimSpriteComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="BGSpriteComponent.h">
+      <Filter>%40コンポーネント\BGSpriteComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="SpriteComponent.h">
+      <Filter>%40コンポーネント\SpriteComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="Math.h">
+      <Filter>Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationTestObj.h">
+      <Filter>AnimationTestObj</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponent.h">
+      <Filter>%40コンポーネント\MoveComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="InputComponent.h">
+      <Filter>%40コンポーネント\InputComponent</Filter>
+    </ClInclude>
+    <ClInclude Include="GameScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="BattleStage.h" />
+    <ClInclude Include="TestBullet.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="sankou_1.txt">
+      <Filter>リソース ファイル</Filter>
+    </Text>
+  </ItemGroup>
+</Project>
