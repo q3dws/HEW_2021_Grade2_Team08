@@ -5,6 +5,9 @@
 #include "Actor.h"
 #include "BGSpriteComponent.h"
 #include "main.h"
+#include "Snow.h"
+#include "Stage.h"
+
 class StartScene : public State<class Game>
 {
 public:
@@ -29,5 +32,7 @@ public:
     //void Draw(Game* game) override;
 private:
     class AnimationTestObj* obj;
+    class Stage* stg;
+
 };
 #endif // !GAMESCENE_H

@@ -9,6 +9,7 @@
 #include "input.h"
 #include "AnimationTestObj.h"
 #include "TestBullet.h"
+
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
 /////////////////////////////////////////////////////////
@@ -33,6 +34,7 @@ StartScene::StartScene(Game* game)
 		game->GetTexture(L"Data/Image/titledoon.png")
 	};
 	bg->SetBGTextures(bgtexs);
+
 }
 StartScene::~StartScene()
 {
@@ -53,7 +55,6 @@ void StartScene::HandleInput(Game* game)
 
 void StartScene::Update(Game* game)
 {
-	
 }
 
 /////////////////////////////////////////////////////////
@@ -79,6 +80,7 @@ BattleScene::BattleScene(Game* game)
 	obj = new AnimationTestObj(game);
 	obj->SetPosition(Vec2(300, WINDOW_HEIGHT - 240));
 	
+	stg = new Stage(game);
 }
 
 BattleScene::~BattleScene()
@@ -112,9 +114,15 @@ void BattleScene::HandleInput(Game* game)
 	{
 		obj->SetPosition(Vec2(obj->GetPosition().x_ + 120, obj->GetPosition().y_));
 	}
+	if (GetKeyboardRelease(DIK_E))
+	{
+		stg->SetSnow(0);
+	}
+
+	
 }
 
 void BattleScene::Update(Game* game)
 {
-
+	 
 }

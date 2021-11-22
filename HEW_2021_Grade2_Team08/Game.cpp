@@ -133,6 +133,12 @@ void Game::Update()
 		actor->Update(deltatime_);
 	updating_actors_ = false;
 
+	for (auto pending : pending_actors_)
+	{
+		actors_.emplace_back(pending);
+	}
+	pending_actors_.clear();
+
 	pgame_state_context_->Update();
 
 }

@@ -138,6 +138,8 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="TestBullet.cpp" />
+    <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="Stage.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -202,6 +204,8 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="TestBullet.h" />
+    <ClInclude Include="Snow.h" />
+    <ClInclude Include="Stage.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">
