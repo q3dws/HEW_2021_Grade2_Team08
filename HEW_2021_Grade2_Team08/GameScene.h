@@ -5,6 +5,8 @@
 #include "Actor.h"
 #include "BGSpriteComponent.h"
 #include "main.h"
+#include "Score.h"
+
 class StartScene : public State<class Game>
 {
 public:
@@ -29,5 +31,8 @@ public:
     //void Draw(Game* game) override;
 private:
     class AnimationTestObj* obj;
+    
+    Score* p_score;
+    Score2* p_score2;
 };
 #endif // !GAMESCENE_H

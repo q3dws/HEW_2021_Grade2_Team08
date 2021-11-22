@@ -9,6 +9,7 @@
 #include "input.h"
 #include "AnimationTestObj.h"
 #include "TestBullet.h"
+#include "Score.h"
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
 /////////////////////////////////////////////////////////
@@ -61,6 +62,7 @@ void StartScene::Update(Game* game)
 /////////////////////////////////////////////////////////
 BattleScene::BattleScene(Game* game)
 {
+	
 	auto temp = new Actor(game);
 	temp->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
 	BGSpriteComponent* bg = new BGSpriteComponent(temp, 10);
@@ -69,6 +71,7 @@ BattleScene::BattleScene(Game* game)
 		game->GetTexture(L"Data/Image/BattleBG_Test.png")
 	};
 	bg->SetBGTextures(bgtexs);
+
 	bg = new BGSpriteComponent(temp, 15);
 	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
 	bgtexs = {
@@ -79,6 +82,9 @@ BattleScene::BattleScene(Game* game)
 	obj = new AnimationTestObj(game);
 	obj->SetPosition(Vec2(300, WINDOW_HEIGHT - 240));
 	
+	p_score = new Score(game);
+
+	p_score2 = new Score2(game);
 }
 
 BattleScene::~BattleScene()
