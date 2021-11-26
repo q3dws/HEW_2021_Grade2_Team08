@@ -85,6 +85,7 @@ BattleScene::BattleScene(Game* game)
 	p_score = new Score(game);
 
 	p_score2 = new Score2(game);
+	
 }
 
 BattleScene::~BattleScene()
@@ -118,6 +119,11 @@ void BattleScene::HandleInput(Game* game)
 	{
 		obj->SetPosition(Vec2(obj->GetPosition().x_ + 120, obj->GetPosition().y_));
 	}
+	if (GetKeyboardRelease(DIK_Y))
+	{
+		p_score->AddScore(1);
+	}
+	
 }
 
 void BattleScene::Update(Game* game)

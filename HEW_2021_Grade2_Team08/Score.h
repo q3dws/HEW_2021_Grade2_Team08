@@ -19,8 +19,9 @@ public:
 	void UpdateActor(float deltatime) override;
 	void AddScore(int add);
 private:
-	
+	SpriteComponent* score;
 };
+
 class Score2 : public Actor
 {
 public:

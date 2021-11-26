@@ -4,6 +4,7 @@
 #include "SpriteComponent.h"
 #include "input.h"
 
+
 //*****************************************************************************
 // マクロ定義
 //*****************************************************************************
@@ -28,11 +29,8 @@ Score::Score(Game* game)
 	int number = g_score;
 	for (int i = 0; i < SCORE_DIGIT; i++)
 	{
-		// 今回表示する桁の数字
-		float x = (float)(number % 10);
-		
-		auto score = new SpriteComponent(this, 50);
-		score->SetTexture(game->GetTexture(L"Data/Image/number.png"),Vec2(g_w + i , g_h),Vec2(0.0f,1.0f),Vec2(0.1f, 1));
+		/*score = new SpriteComponent(this, 50);
+		score->SetTexture(game->GetTexture(L"Data/Image/number.png"),Vec2(g_w, g_h),Vec2(0.1f,1.0f),Vec2(0.1f, 1));*/
 
 		
 		// 次の桁へ
@@ -52,11 +50,21 @@ Score::Score(Game* game)
 	//スコア表示
 	SetPosition(Vec2(400, 50));
 
+	
 }
 
 void Score::UpdateActor(float deltatime)
 {
 	Actor::UpdateActor(deltatime);
+	
+	float a;
+
+	a = g_score * 0.1f;
+
+	delete score;
+	this->RemoveComponent(score);
+	score = new SpriteComponent(this, 50);
+	score->SetTexture(GetGame()->GetTexture(L"Data/Image/number.png"), Vec2(g_w, g_h), Vec2(a, 1.0f), Vec2(0.1f, 1));
 }
 
 void Score::AddScore(int add)
@@ -77,9 +85,6 @@ Score2::Score2(Game* game):Actor(game)
 	int number = g_score;
 	for (int i = 0; i < SCORE_DIGIT; i++)
 	{
-		// 今回表示する桁の数字
-		float x = (float)(number % 10);
-
 		auto score = new SpriteComponent(this, 50);
 		score->SetTexture(game->GetTexture(L"Data/Image/number.png"), Vec2(g_w + i, g_h), Vec2(0.0f, 1.0f), Vec2(0.1f, 1));
 
@@ -87,9 +92,10 @@ Score2::Score2(Game* game):Actor(game)
 		// 次の桁へ
 		number /= 10;
 	}
+
 	//スコアボード表示
 	auto temp2 = new Actor(game);
-	temp2->SetPosition(Vec2(600, 50));
+	temp2->SetPosition(Vec2(550, 50));
 	BGSpriteComponent* scorebg2 = new BGSpriteComponent(temp2, 45);
 	scorebg2->SetScreenSize(Vec2(80, 80));
 	std::vector<int > bgtexs2 = {
@@ -99,5 +105,8 @@ Score2::Score2(Game* game):Actor(game)
 
 
 	//スコア表示
-	SetPosition(Vec2(600, 50));
+	SetPosition(Vec2(550, 50));
+
+	
+
 }
