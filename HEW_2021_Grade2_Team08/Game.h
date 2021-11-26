@@ -58,7 +58,7 @@ private:
     bool updating_actors_;
     std::vector<class Actor*> actors_;
     std::vector<class Actor*> pending_actors_;
-    std::vector<class SpriteComponent*> sprites_;
+    std::list<class SpriteComponent*> sprites_;
     StateContext<Game> * pgame_state_context_;
 };
 

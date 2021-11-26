@@ -5,6 +5,11 @@
 #include "Actor.h"
 #include "BGSpriteComponent.h"
 #include "main.h"
+
+#define STAGE_HEIGHT 320
+#define STAGESCREEN_X 622
+#define STAGESCREEN_Y 262
+
 class StartScene : public State<class Game>
 {
 public:
@@ -29,5 +34,10 @@ public:
     //void Draw(Game* game) override;
 private:
     class AnimationTestObj* obj;
+    class Player* player;
+    class Stage* stg;
+    class Score* p_score;
+    class Score2* p_score2;
+    int testtex;
 };
 #endif // !GAMESCENE_H

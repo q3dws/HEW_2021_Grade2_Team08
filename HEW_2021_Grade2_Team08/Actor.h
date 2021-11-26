@@ -2,10 +2,16 @@
 #ifndef ACTOR_H
 #define ACTOR_H
 #include <vector>
+#include <list>
 #include "Math.h"
 class Actor
 {
 public:
+    enum State
+    {
+        Active,
+        Dead
+    };
     Actor(class Game* game);
     virtual ~Actor();
 
@@ -20,16 +26,20 @@ public:
           float GetRotation(               ) const { return rotation_; }
           void  SetRotation(float rotation )       { rotation_ = rotation; }
           Vec2  GetForward (               ) const { return Vec2(cosf(rotation_), sinf(rotation_)); }
+
+          State GetState() const { return state_; }
+          void  SetState(State state) { state_ = state; }
     class Game* GetGame() { return game_; }
 
     void AddComponent(class Component* component);
     void RemoveComponent(class Component* component);
 private:
+    State state_;
     Vec2 position_;
     float scale_; 
     float rotation_;
 
-    std::vector<class Component*> components_;
+    std::list<class Component*> components_;
     class Game* game_;
 };
 #endif // !ACTOR_H

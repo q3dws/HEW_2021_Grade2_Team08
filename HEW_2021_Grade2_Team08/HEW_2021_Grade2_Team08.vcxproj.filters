@@ -138,6 +138,18 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="TestBullet.cpp" />
+    <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WallState.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
+    <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="Score.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -202,6 +214,18 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="TestBullet.h" />
+    <ClInclude Include="Skill.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WallState.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState.h" />
+    <ClInclude Include="Snow.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="Score.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">

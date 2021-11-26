@@ -133,6 +133,20 @@ void Game::Update()
 		actor->Update(deltatime_);
 	updating_actors_ = false;
 
+	for (auto pending : pending_actors_)
+	{
+		actors_.emplace_back(pending);
+	}
+	pending_actors_.clear();
+	
+	std::vector<Actor*> dead_actors;
+	for (auto actor : actors_)
+		if (actor->GetState() == Actor::Dead)
+			dead_actors.emplace_back(actor);
+
+	for (auto actor : dead_actors)
+		delete actor;
+
 	pgame_state_context_->Update();
 
 }
@@ -190,6 +204,7 @@ void Game::RemoveActor(Actor* actor)
 	auto iter = std::find(pending_actors_.begin(), pending_actors_.end(), actor);
 	if (iter != pending_actors_.end())
 	{
+		//pending_actors_.erase(iter);
 		std::iter_swap(iter, pending_actors_.end() - 1);
 		pending_actors_.pop_back();
 	}
@@ -197,6 +212,7 @@ void Game::RemoveActor(Actor* actor)
 	iter = std::find(actors_.begin(), actors_.end(), actor);
 	if (iter != actors_.end())
 	{
+		//actors_.erase(iter);
 		std::iter_swap(iter, actors_.end() - 1);
 		actors_.pop_back();
 	}
@@ -220,5 +236,5 @@ void Game::RemoveSprite(SpriteComponent* sprite)
 
 int Game::GetTexture(wchar_t const * file_name)
 {
-	return LoadTexture(file_name);
+ 	return LoadTexture(file_name);
 }
