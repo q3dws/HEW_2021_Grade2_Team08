@@ -34,5 +34,6 @@ private:
     
     Score* p_score;
     Score2* p_score2;
+   
 };
 #endif // !GAMESCENE_H
