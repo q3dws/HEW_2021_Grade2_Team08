@@ -13,14 +13,14 @@ Bullet::Bullet(Game* game, int tex)
 
 Bullet::~Bullet()
 {
-   
-}
+    
+ }
 
 void Bullet::UpdateActor(float deltatime)
 {
     Actor::UpdateActor(deltatime);
 
     SetPosition(Vec2(GetPosition().x_ + snow_vel_, GetPosition().y_));
-   /* if (GetPosition().x_ > WINDOW_WIDTH)
-        delete[] this;*/
+   if (GetPosition().x_ > WINDOW_WIDTH)
+        SetState(Dead);
 }

@@ -74,6 +74,9 @@
     <Filter Include="%40ステート\GameScene">
       <UniqueIdentifier>{f49c9d40-5a82-4461-be05-29aed1933f03}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{4f859a08-09d9-49e3-8d41-948b089fef9b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -143,13 +146,26 @@
     <ClCompile Include="WallState.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="Snow.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaA.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaB.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="enemytestB.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -219,13 +235,26 @@
     <ClInclude Include="WallState.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="Snow.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="PlayerState.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaA.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaB.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="enemytestB.h">
+      <Filter>Player</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">

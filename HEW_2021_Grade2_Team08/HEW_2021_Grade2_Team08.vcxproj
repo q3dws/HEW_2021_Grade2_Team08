@@ -151,6 +151,8 @@
     <ClCompile Include="BGSpriteComponent.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="CharaA.cpp" />
+    <ClCompile Include="CharaB.cpp" />
     <ClCompile Include="Component.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -192,6 +194,7 @@
     <ClCompile Include="Texture.cpp" />
     <ClCompile Include="WallState.cpp" />
     <ClCompile Include="Window.cpp" />
+    <ClCompile Include="enemytestB.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.h" />
@@ -203,11 +206,14 @@
     <ClInclude Include="BGSpriteComponent.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="CharaA.h" />
+    <ClInclude Include="CharaB.h" />
     <ClInclude Include="Component.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="enemytestB.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="input.h" />

@@ -13,6 +13,10 @@
 #include "Snow.h"
 #include "Stage.h"
 #include "Score.h"
+#include "CharaA.h"
+#include "CharaB.h"
+#include "enemytestB.h"
+
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
 /////////////////////////////////////////////////////////
@@ -106,8 +110,10 @@ BattleScene::BattleScene(Game* game)
 	p_score = new Score(game);
 	p_score2 = new Score2(game);
 	stg = new Stage(game);
-	player = new Player(game, stg);
-
+	
+	player = new CharaA(game, stg);
+	//player = new CharaB(game, stg);
+	player = new EnemytestB(game, stg);
 }
 
 BattleScene::~BattleScene()

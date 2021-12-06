@@ -19,6 +19,7 @@ void AnimSpriteComponent::Update(float delta_time)
 
         float tempdiv = 1.f / divide_;
         SetUV(Vec2(0.f + (tempdiv * static_cast<int>(current_frame_)), 0.f), Vec2(tempdiv, 1.f));
+        
     }
     
 }
@@ -28,5 +29,5 @@ void AnimSpriteComponent::SetAnimTextures(const int tex_num, const Vec2& tex_siz
     current_frame_ = 0;
     animation_fps_ = anim_fps;
     divide_ = divide;
-    SetTexture(tex_num, tex_size, Vec2(0, 0), Vec2(0, 0));
+    SetTexture(tex_num, tex_size, Vec2(0, 0), Vec2(1.f / divide_, 1));
 }
