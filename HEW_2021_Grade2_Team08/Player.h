@@ -15,7 +15,10 @@
 #include "AnimSpriteComponent.h"
 #include "SpriteComponent.h"
 
+#include "SnowCost.h"
+
 class Bullet;
+class Golem;
 
 class Player : public Actor
 {
@@ -32,12 +35,17 @@ protected:
   
     int bullettex_;                              //弾のテクスチャ
     std::vector<class Bullet*> bullets_; //弾のオブジェクトを作る動的配列
-    //int * a[12]
-  
+    
+    std::vector<class Golem*> golems_; //ゴーレムのオブジェクトを作る動的配列
+    class SnowCost* snowcost_;                        //持っている雪の数を表示するオブジェクトを作る
+
     class AnimSpriteComponent* asc_;    
     int     player_mode_;                          //プレイヤーのステート(Playerだけで完結する版)
     float idlecount_;                                //待機状態に入るまでのタイマー
     int     idle_timeto_;                           //timetoまで数えると待機状態になる
+
+    int     player_layer_;                           //プレイヤーの描画の優先度
+    const int k_player_layer_var;           //プレイヤーの描画の優先度の変化量
 
     const int k_player_snow_max_;     //プレイヤーの持てる雪の上限
     const int k_player_snow_min_ ;     //プレイヤーの持てる雪の下限
@@ -47,15 +55,19 @@ protected:
     const Vec2 k_player_vel_;          //プレイヤーの移動速度
     const Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
 
+    //キャラの画像の番号をステートを同時に表す列挙型
     enum class PlayerMotion :int
     {
         IDLE,                   //待機
         ATTACK,             //攻撃
         MOVE_FRONT,     //前移動
         MOVE_BACK,      //後ろ移動
+        MOVE_UPANDDOWN,     //上下移動 
+
         COLLECT_IN,     //雪集め開始
         COLLECT_LOOP,   //雪集め中
         COLLECT_OUT,       //雪集め終了
+        USE_SKILL,          //スキル使用中
     };
 
     StateContext<Player>* pplayer_state_context_;
@@ -72,6 +84,9 @@ public:
     void Player_snow_collect();
     void Player_snow_throw(float deltatime);
     void Player_idlecheck(float deltatime);
+    void Player_useskill(void);
+    int Player_getsnow(void);
+    virtual void Player_UniqueSkill(void) = 0;
     virtual void Player_texchange(int texnum) = 0;
     //void Player_Draw(int mode);
 };

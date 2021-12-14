@@ -33,10 +33,10 @@ void Snow::UpdateActor(float deltatime)
 
 	if (timer_ < TIMER_MAX)
 	{
-		/*if (sprite_actor_)
+		if (timer_ == 0)
 		{
-			delete sprite_actor_;
-		}*/
+			is_snow_ = false;
+		}
 
 		if (timer_ == 40)
 		{

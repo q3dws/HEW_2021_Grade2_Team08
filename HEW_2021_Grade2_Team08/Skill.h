@@ -3,6 +3,7 @@
 #include "Actor.h"
 #include "StateContext.h"
 #include <memory>
+
 class Skill :
     public Actor
 {

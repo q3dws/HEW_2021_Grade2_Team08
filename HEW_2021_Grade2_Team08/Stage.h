@@ -16,6 +16,7 @@ public:
 	void UpdateActor(float deltatime) override;
 	void SetSnow(int index, int timer = 0) { snows_[index]->SetTimer(timer); }
 
+	bool GetUseSnow(int index) { return snows_[index]->GetIsSnow(); };
 private:
 	Snow* snows_[SNOW_MAX];
 

@@ -1,5 +1,6 @@
 #include "CharaA.h"
 
+
 //プレイヤーのテクスチャを変える処理
 void CharaA::Player_texchange(int texnum) 
 {
@@ -7,7 +8,7 @@ void CharaA::Player_texchange(int texnum)
 
 	this->RemoveComponent(asc_);
 	this->GetGame()->RemoveSprite(asc_);
-	asc_ = new AnimSpriteComponent(this, 100);
+	asc_ = new AnimSpriteComponent(this, player_layer_);
 
 	if (texnum == static_cast<int>(PlayerMotion::IDLE))
 	{
@@ -50,5 +51,25 @@ void CharaA::Player_texchange(int texnum)
 		idle_timeto_ = static_cast<int>(charaA_frame_num::COLLECT_OUT); //一定時間後に待機状態に
 
 	}
+	if (texnum == static_cast<int>(PlayerMotion::USE_SKILL))
+	{
+		asc_->SetAnimTextures(k_charaA_[texnum], k_player_size_, static_cast<int>(charaA_frame_num::USE_SKILL), 5.f);
+		idle_timeto_ = static_cast<int>(charaA_frame_num::USE_SKILL); //一定時間後に待機状態に
 
+	}
+
+	//上下移動はIDLEの画像を使います
+	if (texnum == static_cast<int>(PlayerMotion::MOVE_UPANDDOWN))
+	{
+		asc_->SetAnimTextures(k_charaA_[static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)], k_player_size_, static_cast<int>(charaA_frame_num::MOVE_UPANDDOWN), 5.f);
+	}
+}
+
+//固有スキルの関数
+void CharaA::Player_UniqueSkill(void)
+{
+	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+	//弾を生成
+	scoops_.emplace_back(new Scoop(GetGame(),player_layer_,player_pos_));
+	scoops_.back()->SetPosition(this->GetPosition());
 }

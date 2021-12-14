@@ -1,4 +1,5 @@
 #include "CharaB.h"
+#include "Armor.h"
 
 //プレイヤーのテクスチャを変える処理
 void CharaB::Player_texchange(int texnum)
@@ -7,7 +8,7 @@ void CharaB::Player_texchange(int texnum)
 
 	this->RemoveComponent(asc_);
 	this->GetGame()->RemoveSprite(asc_);
-	asc_ = new AnimSpriteComponent(this, 100);
+	asc_ = new AnimSpriteComponent(this, player_layer_);
 
 	if (texnum == static_cast<int>(PlayerMotion::IDLE))
 	{
@@ -50,5 +51,23 @@ void CharaB::Player_texchange(int texnum)
 		idle_timeto_ = static_cast<int>(charaB_frame_num::COLLECT_OUT); //一定時間後に待機状態に
 
 	}
+	if (texnum == static_cast<int>(PlayerMotion::USE_SKILL))
+	{
+		asc_->SetAnimTextures(k_charaB_[texnum], k_player_size_, static_cast<int>(charaB_frame_num::USE_SKILL), 5.f);
+		idle_timeto_ = static_cast<int>(charaB_frame_num::USE_SKILL); //一定時間後に待機状態に
 
+	}
+	
+	if (texnum == static_cast<int>(PlayerMotion::MOVE_UPANDDOWN))
+	{
+		asc_->SetAnimTextures(k_charaB_[static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)], k_player_size_, static_cast<int>(charaB_frame_num::MOVE_UPANDDOWN), 5.f);
+	}
+}
+
+//固有スキルの関数
+void CharaB::Player_UniqueSkill(void)
+{
+	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+
+	auto a = new Armor(GetGame(), player_pos_, this);
 }

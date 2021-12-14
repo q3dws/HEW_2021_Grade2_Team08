@@ -5,17 +5,20 @@
 #include "TestBullet.h"
 #include "Bullet.h"
 
+#include "Golem.h"
+#include "BigBullet.h"
+#include "IceWall.h"
 #include <memory>
 
 Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center)
-    :Actor(game)
-	,stg_(stg)
+	:Actor(game)
+	, stg_(stg)
 	//constメンバ変数の初期化
-	, k_player_snow_max_(16), k_player_snow_min_(0)
-	,k_player_pos_var_(Vec2(104, 86.5)), k_player_pos_center_(center)
-	, k_player_vel_(Vec2(180,180))
-	,k_player_size_(size)
-	
+	, k_player_snow_max_(18), k_player_snow_min_(0)
+	, k_player_pos_var_(Vec2(104, 86.5)), k_player_pos_center_(center)
+	, k_player_vel_(Vec2(180, 180))
+	, k_player_size_(size)
+	, k_player_layer_var(5)
 {
     
 	//メンバ変数の初期化
@@ -24,7 +27,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center)
     this->player_pos_num_ = 4;										//プレイヤーのいるマスの番号
     this->player_snow_ = 0;											//プレイヤーの現在持っている雪
 	this->idlecount_ = 0;
-
+	this->player_layer_ = 100;
 	this->player_mode_ = static_cast<int>(PlayerMotion::IDLE);
 	this->idle_timeto_ = 0;
 
@@ -35,8 +38,9 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center)
 
 	this->SetPosition(player_pos_);
 
-	this->asc_ = new AnimSpriteComponent(this, 100);
+	this->asc_ = new AnimSpriteComponent(this, player_layer_);
 	
+	snowcost_ = new SnowCost(game);
 }
 
 Player:: ~Player()
@@ -52,6 +56,9 @@ void Player::UpdateActor(float deltatime)
 	Player::Player_snow_collect();
 	Player::Player_snow_throw(deltatime);
 	Player::Player_idlecheck(deltatime);
+	Player::Player_useskill();
+
+	snowcost_->SetSnownum(player_snow_);
 }
 
 //プレイヤーの移動をする処理
@@ -61,6 +68,7 @@ void Player::Player_move(float deltatime)
 	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE)
 		|| player_mode_ == static_cast<int>(PlayerMotion::MOVE_FRONT)
 		|| player_mode_ == static_cast<int>(PlayerMotion::MOVE_BACK)
+		|| player_mode_ == static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)
 		)
 	{
 		if (GetKeyboardTrigger(DIK_A))
@@ -83,8 +91,9 @@ void Player::Player_move(float deltatime)
 		{
 			if (player_pos_num_ < 6)
 				this->player_pos_num_ += 3;
-
 		}
+		//描画の優先度変更
+		player_layer_ = 100 +  k_player_layer_var * (player_pos_num_ / 3);
 	}
 	
 
@@ -128,17 +137,25 @@ void Player::Player_move(float deltatime)
 	if (this->player_pos_.y_ < y_distination)
 	{
 		this->player_pos_.y_ += k_player_vel_.y_ * deltatime;
+		Player_texchange(static_cast<int>(PlayerMotion::MOVE_UPANDDOWN));
 
-		if (this->player_pos_.y_ > y_distination)
+		if (this->player_pos_.y_ >= y_distination)
+		{
 			this->player_pos_.y_ = y_distination;
+			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
+		}
 	}
 		
 	if (this->player_pos_.y_ > y_distination)
 	{
 		this->player_pos_.y_ -= k_player_vel_.y_ * deltatime;
+		Player_texchange(static_cast<int>(PlayerMotion::MOVE_UPANDDOWN));
 
-		if (this->player_pos_.y_ < y_distination)
+		if (this->player_pos_.y_ <= y_distination)
+		{
 			this->player_pos_.y_ = y_distination;
+			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
+		}
 	}
 
 	//位置を設定する
@@ -167,14 +184,25 @@ void Player::Player_snow_collect()
 				player_stage_num += 6;
 
 			//ここに床のステートをしらべる処理が入る
-			stg_->SetSnow(player_stage_num);
+			
+			if (stg_->GetUseSnow(player_stage_num))
+			{
+				stg_->SetSnow(player_stage_num);
 
-			//手持ちの雪を増やす処理
-			if (player_snow_ < k_player_snow_max_)
-				player_snow_++;
+				//手持ちの雪を増やす処理
+				if (player_snow_ < k_player_snow_max_)
+				{
+					player_snow_ += 2;
+					if (player_snow_ > k_player_snow_max_)
+						player_snow_ = k_player_snow_max_;
 
-			Player_texchange(static_cast<int>(PlayerMotion::COLLECT_IN));
+					
+				}
+				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_IN));
+			}
+
 		}
+
 	}
 	
 }
@@ -204,21 +232,12 @@ void Player::Player_snow_throw(float deltatime)
 				//			//bullets_.shrink_to_fit();
 				//		}
 				//}
-				/*auto itr = bullets_.begin(); //イテレータを使う場合
-				if (bullets_.empty() == false)
-				{
-					for (; itr != bullets_.end(); ++itr)
-						if ((*itr)->GetPosition().x__ > WINDOW_WIDTH)
-						{
-							bullets_.erase(itr);
-						}
-				}*/
-
 				Player_texchange(static_cast<int>(PlayerMotion::ATTACK));
 
 
 				//手持ちの雪を減らす処理
 				player_snow_--;
+				
 			}
 		}
 	}
@@ -254,5 +273,47 @@ void Player::Player_idlecheck(float deltatime)
 	
 	}
 	
+}
+
+//スキルを使う処理
+void Player::Player_useskill(void)
+{
+	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE))
+	{
+		if (GetKeyboardTrigger(DIK_1))
+		{
+			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+			//ゴーレムを生成
+			golems_.emplace_back(new Golem(GetGame(), player_pos_, bullettex_, player_layer_));
+			golems_.back()->SetPosition(this->GetPosition());
+		}
+
+		if (GetKeyboardTrigger(DIK_2))
+		{
+			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+			//壁を生成
+			auto a = new IceWall(GetGame(), player_pos_, player_layer_);
+		}
+
+		if (GetKeyboardTrigger(DIK_3))
+		{
+			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+			//大玉を生成
+			auto a = new BigBullet(GetGame());
+			a->SetPosition(this->GetPosition());
+		}
+
+		if (GetKeyboardTrigger(DIK_4))
+		{
+			//固有スキル発動
+			Player_UniqueSkill();
+		}
+	}
+}
+
+//持っている雪の数を返すゲッター　mediator作成とともにリファクタリング予定
+int Player::Player_getsnow(void)
+{
+	return player_snow_;
 }
 

@@ -113,7 +113,7 @@ BattleScene::BattleScene(Game* game)
 	
 	player = new CharaA(game, stg);
 	//player = new CharaB(game, stg);
-	player = new EnemytestB(game, stg);
+	//player = new EnemytestB(game, stg);
 }
 
 BattleScene::~BattleScene()

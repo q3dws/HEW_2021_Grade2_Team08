@@ -147,8 +147,10 @@
     <ClCompile Include="AnimSpriteComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Armor.cpp" />
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="BGSpriteComponent.cpp" />
+    <ClCompile Include="BigBullet.cpp" />
     <ClCompile Include="Bullet.cpp" />
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CharaA.cpp" />
@@ -160,6 +162,8 @@
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Golem.cpp" />
+    <ClCompile Include="IceWall.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="InputComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -174,9 +178,12 @@
     <ClCompile Include="renderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Scoop.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="SkillMediator.cpp" />
     <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="SnowCost.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="sound.cpp">
@@ -202,8 +209,10 @@
     <ClInclude Include="AnimSpriteComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Armor.h" />
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="BGSpriteComponent.h" />
+    <ClInclude Include="BigBullet.h" />
     <ClInclude Include="Bullet.h" />
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CharaA.h" />
@@ -216,6 +225,8 @@
     <ClInclude Include="enemytestB.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Golem.h" />
+    <ClInclude Include="IceWall.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="InputComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -230,9 +241,12 @@
     <ClInclude Include="renderer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Scoop.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="SkillMediator.h" />
     <ClInclude Include="Snow.h" />
+    <ClInclude Include="SnowCost.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="sound.h">

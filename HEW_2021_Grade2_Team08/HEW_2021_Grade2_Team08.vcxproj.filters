@@ -77,6 +77,9 @@
     <Filter Include="Player">
       <UniqueIdentifier>{4f859a08-09d9-49e3-8d41-948b089fef9b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{7921671d-4c28-4a23-b77f-40a8c6bc782d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -141,7 +144,6 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="TestBullet.cpp" />
-    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="WallState.cpp" />
     <ClCompile Include="Bullet.cpp" />
@@ -165,6 +167,30 @@
     </ClCompile>
     <ClCompile Include="enemytestB.cpp">
       <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillMediator.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCost.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="IceWall.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="BigBullet.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Scoop.cpp">
+      <Filter>Skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -230,7 +256,6 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="TestBullet.h" />
-    <ClInclude Include="Skill.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="WallState.h" />
     <ClInclude Include="Bullet.h" />
@@ -254,6 +279,30 @@
     </ClInclude>
     <ClInclude Include="enemytestB.h">
       <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillMediator.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCost.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="IceWall.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBullet.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Scoop.h">
+      <Filter>Skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
