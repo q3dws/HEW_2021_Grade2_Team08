@@ -44,7 +44,7 @@ void Snow::UpdateActor(float deltatime)
 		{
 			sprite_actor_->SetScale(0.6f);
 
-		}
+	}
 
 		if (timer_ == TIMER_MAX - 1 )
 		{
