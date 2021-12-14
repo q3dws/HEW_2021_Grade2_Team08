@@ -4,7 +4,8 @@
 #include "Actor.h"
 #include "Game.h"
 #include "Snow.h"
-//#include "Icicle.h"
+#include "Icicle.h"
+#include "FallPoint.h"
 
 #define STAGE_X  6
 #define STAGE_Y  3
@@ -21,8 +22,10 @@ public:
 	
 private:
 	int timer_ = 0;
+	int icicle_index = -1;
 	Snow* snows_[SNOW_MAX];
-	//Icicle* pIcicles_;
+	Icicle* pIcicles_[ICICLE_MAX];
+	FallPoint* pFallPoint_[FALLPOINT_MAX];
 
 };
 
