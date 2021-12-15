@@ -5,23 +5,15 @@
 #include "input.h"
 
 
-//*****************************************************************************
-// マクロ定義
-//*****************************************************************************
 #define TEXTURE_WIDTH				(50)
 #define TEXTURE_HEIGHT				(50)	
-
-
-//*****************************************************************************
-// グローバル変数
-//*****************************************************************************
 
 
 
 PlayerScore::PlayerScore(Game* game, Vec2(pos))
 	:Actor(game)
 {
-	g_score = 0;	// スコアの初期化
+	g_score = 0;	
 	g_w = TEXTURE_WIDTH;
 	g_h = TEXTURE_HEIGHT;
 	a = 0;
@@ -29,7 +21,7 @@ PlayerScore::PlayerScore(Game* game, Vec2(pos))
 
 	int number = g_score;
 
-	//スコアボード表示
+	
 	auto temp1 = new Actor(game);
 	temp1->SetPosition(Vec2(400, 50));
 	BGSpriteComponent* scorebg1 = new BGSpriteComponent(temp1, 45);
@@ -39,7 +31,7 @@ PlayerScore::PlayerScore(Game* game, Vec2(pos))
 	};
 	scorebg1->SetBGTextures(bgtexs1);
 
-	//スコアボード表示
+	
 	auto temp2 = new Actor(game);
 	temp2->SetPosition(Vec2(600, 50));
 	BGSpriteComponent* scorebg2 = new BGSpriteComponent(temp2, 45);
