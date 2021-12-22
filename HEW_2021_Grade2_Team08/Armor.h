@@ -13,12 +13,16 @@ class Armor :
     public Skill
 {
     class AnimSpriteComponent* armor_asc_;
+    class Actor* temp_;
+    class AnimSpriteComponent* effect_asc_;
+
     int     armor_state_;            //アーマーの状態
     float     motioncount_;             //アーマーの登場/退場アニメの終わる時間を数える
     int     deathcount;            //投げた玉の数を数える
 
     int     armor_life_;        //アーマーのライフポイント
 
+    const int k_effect_tex;
     const int k_armor_efect_time;                   //アーマーが一段階減少するまでの時間
     const int k_armor_tex_[5];                       //アーマーのテクスチャ
     const Vec2 k_armor_pos_;                         //アーマーのプレイヤーからの相対的な位置

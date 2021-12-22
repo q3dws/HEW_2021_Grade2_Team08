@@ -20,9 +20,10 @@ private:
 
     int golem_tex_[3];                       //ゴーレムのテクスチャ
     const Vec2 k_golem_pos_;                         //ゴーレムの位置
-    const Vec2 k_golem_size_;                      //ゴーレムの大きさ
+    Vec2 k_golem_size_;                      //ゴーレムの大きさ
     const int k_golem_layer;                    //ゴーレムの描画の優先度
     const int k_bullettex_;                         //弾のテクスチャ
+    const bool  k_Is_player_;                   //プレイヤー側かどうかの変数
     std::vector<class Bullet*> bullets_; //弾のオブジェクトを作る動的配列
 
     enum class golem_frame_num : int
@@ -41,7 +42,7 @@ private:
 
 
 public:
-    Golem(Game* game, Vec2(pos), int bullettex, int layer);
+    Golem(Game* game, Vec2(pos), int bullettex, int layer, bool Is_player_);
     void UpdateActor(float deltatime) override;
     void Golem_snow_throw(float deltatime);
     void Golem_death_check(float deltatime);

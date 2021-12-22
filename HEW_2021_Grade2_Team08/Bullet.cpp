@@ -1,9 +1,9 @@
 #include "Bullet.h"
 #include "SpriteComponent.h"
 #include "Window.h"
-Bullet::Bullet(Game* game, int tex)
+Bullet::Bullet(Game* game, int tex, bool Is_player)
     :Actor(game)
-    , death_timer(0.2f)
+    , Is_player_(Is_player)
     , snow_vel_(10)
 {
     auto sc = new SpriteComponent(this, 150);
@@ -20,7 +20,18 @@ void Bullet::UpdateActor(float deltatime)
 {
     Actor::UpdateActor(deltatime);
 
-    SetPosition(Vec2(GetPosition().x_ + snow_vel_, GetPosition().y_));
+    if (Is_player_)
+    {
+        SetPosition(Vec2(GetPosition().x_ + snow_vel_, GetPosition().y_));
+    }
+    else
+    {
+        SetPosition(Vec2(GetPosition().x_ - snow_vel_, GetPosition().y_));
+    }
+
    if (GetPosition().x_ > WINDOW_WIDTH)
         SetState(Dead);
+
+   if (GetPosition().x_ < 0)
+       SetState(Dead);
 }

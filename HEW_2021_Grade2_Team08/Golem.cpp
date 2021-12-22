@@ -1,16 +1,25 @@
 #include "Golem.h"
 #include "Bullet.h"
 
-Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer) : Skill(game)
+Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) : Skill(game)
 ,k_golem_pos_(Vec2(pos))
 ,k_golem_size_(Vec2(-64 * 2, -64 * 2))
 ,k_bullettex_(bullettex)
 ,k_golem_layer(layer - 1)
+, k_Is_player_(Is_player_)
 {
 	golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet_Right.png");
 	golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet_Right.png");
 	golem_tex_[2] = LoadTexture(L"Data/Image/skill/golem_down_Sheet_Right.png");
 	
+	if (k_Is_player_ == false)
+	{
+		golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet.png");
+		golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet.png");
+		golem_tex_[2] = LoadTexture(L"Data/Image/skill/golem_down_Sheet.png");
+
+		k_golem_size_ = (Vec2(64 * 2, 64 * 2));
+	}
 
 	this->attackcount_ = static_cast<int>(golem_frame_num::ATTACK) - 10;	//“Š‚°‚éƒRƒ}‚Ü‚Å‚Ì’²®
 	this->motioncount_ = 0;
@@ -19,6 +28,7 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer) : Skill(game)
 	this->SetPosition(k_golem_pos_);
 	this->golem_asc_ = new AnimSpriteComponent(this, k_golem_layer);
 	Golem::Golem_texchange(static_cast<int>(golem_Motion::ADVENT));
+
 }
 
 void Golem::UpdateActor(float deltatime)
@@ -40,7 +50,7 @@ void Golem::Golem_snow_throw(float deltatime)
 		if (attackcount_ >= static_cast<int>(golem_frame_num::ATTACK))
 		{
 			//’e‚ð¶¬
-			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_));
+			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_,k_Is_player_));
 			bullets_.back()->SetPosition(this->GetPosition());
 		
 			attackcount_ = 0;

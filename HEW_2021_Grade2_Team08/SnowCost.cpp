@@ -1,6 +1,6 @@
 #include "SnowCost.h"
 
-SnowCost::SnowCost(Game* game) : Actor(game)
+SnowCost::SnowCost(Game* game, bool Is_player) : Actor(game)
 , k_snowframe_tex_ (LoadTexture(L"Data/Image/UI/yukicosttest/snowcostwaku1.png") )
 , k_snowpoint_tex_ (LoadTexture(L"Data/Image/UI/yukicosttest/snowmemori1.png"))
 ,k_frame_size_(Vec2(400,400))
@@ -9,9 +9,16 @@ SnowCost::SnowCost(Game* game) : Actor(game)
 ,k_point_size_(Vec2(k_frame_size_.x_ / 7, k_frame_size_.y_ / 7))
 ,k_point_var_(22)
 ,k_point_num_(18)
+,k_Is_player_(Is_player)
 {
     frame_asc_ = new SpriteComponent(this, 151);
     frame_asc_->SetTexture(k_snowframe_tex_, k_frame_size_, Vec2(0, 0), Vec2(1, 1));
+
+    if (k_Is_player_ == false)
+    {
+        k_frame_pos_ = (Vec2(WINDOW_WIDTH - k_frame_pos_.x_, k_frame_pos_.y_ ));
+        k_point_pos_ = (Vec2(k_frame_pos_.x_ - 190, k_frame_pos_.y_ + 8));
+    }
 
     SetPosition(k_frame_pos_);
     //k_point_num_の分だけメモリスプライトを生成する
@@ -51,20 +58,24 @@ void SnowCost::SetSnownum(int num)
     }
 
     //敵用
-    //if (snowpoints_.empty() == false)
-    //{
-    //    for (int i = 1; i <= k_point_num_; i++)
-    //    {
-    //        if (i <= num)
-    //        {
-    //            snowpoints_[k_point_num_ - i]->pointUVWHset(Vec2(1, 1));
-    //        }
-    //        else
-    //        {
-    //            snowpoints_[k_point_num_ - i]->pointUVWHset(Vec2(0, 0));
-    //        }
-    //    }
-    //}
+    if (k_Is_player_ == false)
+    {
+        if (snowpoints_.empty() == false)
+        {
+            for (int i = 1; i <= k_point_num_; i++)
+            {
+                if (i <= num)
+                {
+                    snowpoints_[k_point_num_ - i]->pointUVWHset(Vec2(1, 1));
+                }
+                else
+                {
+                    snowpoints_[k_point_num_ - i]->pointUVWHset(Vec2(0, 0));
+                }
+            }
+        }
+    }
+   
 }
 
 //-------------------------------------------------------

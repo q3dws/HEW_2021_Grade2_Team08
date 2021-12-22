@@ -17,6 +17,8 @@
 
 #include "SnowCost.h"
 
+//#define  ECSC static_cast<int> //enum class static castの略
+
 class Bullet;
 class Golem;
 
@@ -50,11 +52,14 @@ protected:
     const int k_player_snow_max_;     //プレイヤーの持てる雪の上限
     const int k_player_snow_min_ ;     //プレイヤーの持てる雪の下限
 
-    const Vec2 k_player_pos_center_;      //9マスの真ん中の座標
+    Vec2 k_player_pos_center_;      //9マスの真ん中の座標
     const Vec2 k_player_pos_var_;          //ボタンを押したときのプレイヤーの移動量　
     const Vec2 k_player_vel_;          //プレイヤーの移動速度
-    const Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
+    Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
 
+    const int k_player_skillcost_[3]{2,3,4};   //共通スキルのコスト
+
+    const bool k_Is_player_;                //trueならプレイヤー側 false なら敵側
     //キャラの画像の番号をステートを同時に表す列挙型
     enum class PlayerMotion :int
     {
@@ -76,7 +81,7 @@ protected:
     
 public:
 
-    Player(class Game* game, Stage* stg ,Vec2 size, Vec2 center);
+    Player(class Game* game, Stage* stg ,Vec2 size, Vec2 center, bool Is_player);
     virtual ~Player();
     void UpdateActor(float deltatime) override;
 
@@ -85,6 +90,7 @@ public:
     void Player_snow_throw(float deltatime);
     void Player_idlecheck(float deltatime);
     void Player_useskill(void);
+    int Player_getstagenum(void);
     int Player_getsnow(void);
     virtual void Player_UniqueSkill(void) = 0;
     virtual void Player_texchange(int texnum) = 0;

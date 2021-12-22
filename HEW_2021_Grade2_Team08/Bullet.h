@@ -13,11 +13,11 @@ class Bullet :
     public Actor
 {
 public:
-    Bullet(class Game* game, int tex);
+    Bullet(class Game* game, int tex, bool Is_player);
     ~Bullet();
     void UpdateActor(float delta_time) override;
 private:
-    float death_timer;
+    bool Is_player_;
 
     const float snow_vel_; //ê·ÇÃë¨Ç≥
 };

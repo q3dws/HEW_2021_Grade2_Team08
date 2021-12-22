@@ -10,18 +10,27 @@
 #include "IceWall.h"
 #include <memory>
 
-Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center)
+Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, bool Is_player)
 	:Actor(game)
 	, stg_(stg)
 	//constメンバ変数の初期化
 	, k_player_snow_max_(18), k_player_snow_min_(0)
-	, k_player_pos_var_(Vec2(104, 86.5)), k_player_pos_center_(center)
+	, k_player_pos_var_(Vec2(104, 86.5))
 	, k_player_vel_(Vec2(180, 180))
-	, k_player_size_(size)
 	, k_player_layer_var(5)
+	, k_Is_player_(Is_player)
+	
 {
     
 	//メンバ変数の初期化
+	k_player_pos_center_ = (Vec2(center));
+	k_player_size_ = (Vec2(size));
+	if (k_Is_player_ == false)
+	{
+		k_player_size_ = (Vec2(size * -1));
+		k_player_pos_center_ = (Vec2(center.x_ + 310, center.y_));
+	}
+
 	this->player_pos_.x_ = k_player_pos_center_.x_;						//プレイヤーの画面上の座標
 	this->player_pos_.y_ = k_player_pos_center_.y_;					//プレイヤーの画面上の座標
     this->player_pos_num_ = 4;										//プレイヤーのいるマスの番号
@@ -40,7 +49,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center)
 
 	this->asc_ = new AnimSpriteComponent(this, player_layer_);
 	
-	snowcost_ = new SnowCost(game);
+	snowcost_ = new SnowCost(game, k_Is_player_);
 }
 
 Player:: ~Player()
@@ -71,31 +80,38 @@ void Player::Player_move(float deltatime)
 		|| player_mode_ == static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)
 		)
 	{
-		if (GetKeyboardTrigger(DIK_A))
+
+		if ((GetKeyboardTrigger(DIK_A) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_LEFT) && !k_Is_player_))
 		{
 			if (player_pos_num_ % 3 > 0)
 				this->player_pos_num_--;
 		}
-		if (GetKeyboardTrigger(DIK_D))
+		if ((GetKeyboardTrigger(DIK_D) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_RIGHT) && !k_Is_player_))
 		{
 			if (player_pos_num_ % 3 < 2)
 				this->player_pos_num_++;
 		}
-		if (GetKeyboardTrigger(DIK_W))
+		if ((GetKeyboardTrigger(DIK_W) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_UP) && !k_Is_player_))
 		{
 			if (player_pos_num_ > 2)
 				this->player_pos_num_ -= 3;
 
 		}
-		if (GetKeyboardTrigger(DIK_S))
+		if ((GetKeyboardTrigger(DIK_S) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_DOWN) && !k_Is_player_))
 		{
 			if (player_pos_num_ < 6)
 				this->player_pos_num_ += 3;
 		}
+
+
 		//描画の優先度変更
-		player_layer_ = 100 +  k_player_layer_var * (player_pos_num_ / 3);
+		player_layer_ = 100 + k_player_layer_var * (player_pos_num_ / 3);
 	}
-	
+
 
 	//自分のマスに位置を設定して移動
 	/*
@@ -118,7 +134,7 @@ void Player::Player_move(float deltatime)
 			this->player_pos_.x_ = x_distination;
 			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
 		}
-			
+
 	}
 	if (this->player_pos_.x_ > x_distination)
 	{
@@ -131,9 +147,9 @@ void Player::Player_move(float deltatime)
 			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
 
 		}
-			
+
 	}
-		
+
 	if (this->player_pos_.y_ < y_distination)
 	{
 		this->player_pos_.y_ += k_player_vel_.y_ * deltatime;
@@ -145,7 +161,7 @@ void Player::Player_move(float deltatime)
 			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
 		}
 	}
-		
+
 	if (this->player_pos_.y_ > y_distination)
 	{
 		this->player_pos_.y_ -= k_player_vel_.y_ * deltatime;
@@ -166,25 +182,15 @@ void Player::Player_move(float deltatime)
 //床の雪を拾う処理
 void Player::Player_snow_collect()
 {
-	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE))
+	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE)
+		&& player_snow_ < k_player_snow_max_)
 	{
-		if (GetKeyboardTrigger(DIK_E))
+		if ((GetKeyboardTrigger(DIK_E) && k_Is_player_) ||
+			(GetKeyboardTrigger(DIK_RSHIFT) && k_Is_player_ == false))
 		{
-			int player_stage_num = player_pos_num_;	//ステージに渡すプレイヤーのマスの番号
+			int player_stage_num = Player_getstagenum();
 
-			// 0  1  2  3  4  5
-			// 6  7  8  9 10 11
-			//12 13 14 15 16 17
-			//boolのfalsetrueで返される
-
-			if (player_pos_num_ > 2 && player_pos_num_ < 6) {
-				player_stage_num += 3;
-			}
-			if (player_pos_num_ >= 6)
-				player_stage_num += 6;
-
-			//ここに床のステートをしらべる処理が入る
-			
+			//床のステートをしらべる
 			if (stg_->GetUseSnow(player_stage_num))
 			{
 				stg_->SetSnow(player_stage_num);
@@ -196,15 +202,13 @@ void Player::Player_snow_collect()
 					if (player_snow_ > k_player_snow_max_)
 						player_snow_ = k_player_snow_max_;
 
-					
 				}
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_IN));
 			}
-
 		}
-
-	}
-	
+		
+		
+	}	
 }
 
 //雪を投げる処理
@@ -213,35 +217,25 @@ void Player::Player_snow_throw(float deltatime)
 	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE)
 		|| player_mode_ == static_cast<int>(PlayerMotion::ATTACK))
 	{
-		if (GetKeyboardTrigger(DIK_SPACE))
+		if ((GetKeyboardTrigger(DIK_SPACE) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_RCONTROL) && !k_Is_player_))
 		{
 			if (player_snow_ > k_player_snow_min_)
 			{
 				//弾を生成
-				bullets_.emplace_back(new Bullet(GetGame(), bullettex_));
+				bullets_.emplace_back(new Bullet(GetGame(), bullettex_, k_Is_player_));
 				bullets_.back()->SetPosition(this->GetPosition());
 
-				//弾が消えるときの判定処理
-				//if (bullets_.empty() == false)
-				//{
-				//	for (int i = 0; i < bullets_.size(); i++)
-				//		if (bullets_[i]->GetPosition().x__ > WINDOW_WIDTH)
-				//		{
-				//			delete bullets_[i];
-				//			bullets_.erase(bullets_.begin() + i);
-				//			//bullets_.shrink_to_fit();
-				//		}
-				//}
 				Player_texchange(static_cast<int>(PlayerMotion::ATTACK));
-
 
 				//手持ちの雪を減らす処理
 				player_snow_--;
-				
 			}
 		}
+
+
+
 	}
-	
 }
 
 //一定時間後に待機状態に戻す処理
@@ -280,38 +274,82 @@ void Player::Player_useskill(void)
 {
 	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE))
 	{
-		if (GetKeyboardTrigger(DIK_1))
+
+		if ((GetKeyboardTrigger(DIK_1) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_RBRACKET) && !k_Is_player_))
 		{
-			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
-			//ゴーレムを生成
-			golems_.emplace_back(new Golem(GetGame(), player_pos_, bullettex_, player_layer_));
-			golems_.back()->SetPosition(this->GetPosition());
+			if (player_snow_ >= k_player_skillcost_[0])
+			{
+				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+				//ゴーレムを生成
+				golems_.emplace_back(new Golem(GetGame(), player_pos_, bullettex_, player_layer_, k_Is_player_));
+				golems_.back()->SetPosition(this->GetPosition());
+
+				player_snow_ -= k_player_skillcost_[0];
+			}
 		}
 
-		if (GetKeyboardTrigger(DIK_2))
+		if ((GetKeyboardTrigger(DIK_2) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_COLON) && !k_Is_player_))
 		{
-			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
-			//壁を生成
-			auto a = new IceWall(GetGame(), player_pos_, player_layer_);
+			if (player_snow_ >= k_player_skillcost_[1])
+			{
+				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+				//壁を生成
+				auto a = new IceWall(GetGame(), player_pos_, player_layer_, k_Is_player_);
+				player_snow_ -= k_player_skillcost_[1];
+			}
+			
 		}
 
-		if (GetKeyboardTrigger(DIK_3))
+		if ((GetKeyboardTrigger(DIK_3) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_SEMICOLON) && !k_Is_player_))
 		{
-			Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
-			//大玉を生成
-			auto a = new BigBullet(GetGame());
-			a->SetPosition(this->GetPosition());
+			if (player_snow_ >= k_player_skillcost_[2])
+			{
+				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+				//大玉を生成
+				auto a = new BigBullet(GetGame(), k_Is_player_, player_layer_);
+				a->SetPosition(this->GetPosition());
+
+				player_snow_ -= k_player_skillcost_[2];
+			}
 		}
 
-		if (GetKeyboardTrigger(DIK_4))
+		if ((GetKeyboardTrigger(DIK_4) && k_Is_player_)
+			|| (GetKeyboardTrigger(DIK_L) && !k_Is_player_))
 		{
 			//固有スキル発動
 			Player_UniqueSkill();
 		}
+
+
 	}
 }
 
-//持っている雪の数を返すゲッター　mediator作成とともにリファクタリング予定
+//プレイヤーの現在のマス目番号からステージに渡せるマス目番号に変換する関数
+int Player::Player_getstagenum(void)
+{
+	int player_stage_num = player_pos_num_;
+			// 0  1  2  3  4  5
+			// 6  7  8  9 10 11
+			//12 13 14 15 16 17
+			//boolのfalsetrueで返される
+
+	if (player_pos_num_ > 2 && player_pos_num_ < 6) {
+		player_stage_num += 3;
+	}
+	if (player_pos_num_ >= 6)
+		player_stage_num += 6;
+
+	if (k_Is_player_)
+	{
+		return player_stage_num;
+	}
+	return player_stage_num + 3;
+}
+
+//持っている雪の数を返すゲッター
 int Player::Player_getsnow(void)
 {
 	return player_snow_;

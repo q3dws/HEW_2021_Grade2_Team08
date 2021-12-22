@@ -15,6 +15,7 @@ public:
     void SetSize(const Vec2& texture_size) { texture_size_ = texture_size; }
     void SetUV(const Vec2& uv, const Vec2& uv_wh) { uv_ = uv; uv_wh_ = uv_wh; }
 
+    void SetRot(const float rot) { rot_ = rot; }
     int GetDrawOrder() const { return draw_order_; }
     
 private:
@@ -27,5 +28,7 @@ private:
 
     float current_frame_;
     float animation_fps_;
+
+    float rot_;
 };
 #endif // !SPRITECOMPONENT_H

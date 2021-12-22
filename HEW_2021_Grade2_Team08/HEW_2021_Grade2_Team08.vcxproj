@@ -155,11 +155,14 @@
     <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="CharaA.cpp" />
     <ClCompile Include="CharaB.cpp" />
+    <ClCompile Include="CharaC.cpp" />
+    <ClCompile Include="CharaD.cpp" />
     <ClCompile Include="Component.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Golem.cpp" />
@@ -168,6 +171,7 @@
     <ClCompile Include="InputComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Machinegun.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="MoveComponent.cpp">
@@ -217,12 +221,15 @@
     <ClInclude Include="BulletManager.h" />
     <ClInclude Include="CharaA.h" />
     <ClInclude Include="CharaB.h" />
+    <ClInclude Include="CharaC.h" />
+    <ClInclude Include="CharaD.h" />
     <ClInclude Include="Component.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="enemytestB.h" />
+    <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Golem.h" />
@@ -231,6 +238,7 @@
     <ClInclude Include="InputComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Machinegun.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="MoveComponent.h">

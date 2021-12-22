@@ -192,6 +192,18 @@
     <ClCompile Include="Scoop.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
+    <ClCompile Include="CharaC.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaD.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Machinegun.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -302,6 +314,18 @@
       <Filter>Skill</Filter>
     </ClInclude>
     <ClInclude Include="Scoop.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaC.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaD.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Machinegun.h">
       <Filter>Skill</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,7 +24,8 @@ public:
     //Player.cppのk_player_sizeに代入しているVec2を両方ともマイナスにして上下反転させて正しく表示しています
     //k_player_centerの位置をズラすことで全体の位置が移動しています
     //backとflontの画像をCharaBから入れ替えています
-    EnemytestB(class Game* game, Stage* stg) : Player(game, stg ,Vec2(-64 * 2.5, -64 * 2.5), Vec2(325 + 310, 246 + 33))
+    EnemytestB(class Game* game, Stage* stg, bool Is_player)
+        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), Is_player)
         , k_enemyB_
     {
 

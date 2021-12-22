@@ -13,8 +13,8 @@ Armor::Armor(Game* game, Vec2 pos, Player* player) : Skill(game)
 		,LoadTexture(L"Data/Image/skill/armor_life2.png")
 		,LoadTexture(L"Data/Image/skill/armor_life1.png")
 		,LoadTexture(L"Data/Image/skill/armor_brake-Sheet.png")
-
 	}
+,k_effect_tex(LoadTexture(L"Data/Image/skill/armor_effect_Sheet.png"))
 {
 	
 	this->motioncount_ = 0;
@@ -28,6 +28,13 @@ Armor::Armor(Game* game, Vec2 pos, Player* player) : Skill(game)
 	player_->GetPosition();
 
 	this->SetPosition(player_->GetPosition() - k_armor_pos_);
+
+	//エフェクト側の設定
+	temp_ = new Actor(game);
+	effect_asc_ = new AnimSpriteComponent(temp_, 150);
+	effect_asc_->SetAnimTextures(k_effect_tex, Vec2(64 * 1.5, 64 * 1.5), 7, 5.f);
+	temp_->SetPosition(player_->GetPosition());
+
 }
 
 void Armor::UpdateActor(float deltatime)
@@ -35,6 +42,8 @@ void Armor::UpdateActor(float deltatime)
 	Actor::UpdateActor(deltatime);
 
 	Armor::Armor_death_check(deltatime);
+
+	temp_->SetPosition(player_->GetPosition());
 
 	SetPosition(player_->GetPosition() - k_armor_pos_);
 
@@ -129,6 +138,7 @@ void Armor::Armor_death_check(float deltatime)
 		if (motioncount_ >= static_cast<int>(armor_frame_num::LEAVE))
 		{
 			SetState(Dead);
+			temp_->SetState(Dead);
 		}
 	}
 }

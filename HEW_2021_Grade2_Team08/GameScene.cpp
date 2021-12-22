@@ -15,6 +15,8 @@
 #include "Score.h"
 #include "CharaA.h"
 #include "CharaB.h"
+#include "CharaC.h"
+#include "CharaD.h"
 #include "enemytestB.h"
 
 /////////////////////////////////////////////////////////
@@ -111,8 +113,14 @@ BattleScene::BattleScene(Game* game)
 	p_score2 = new Score2(game);
 	stg = new Stage(game);
 	
-	player = new CharaA(game, stg);
-	//player = new CharaB(game, stg);
+	player = new CharaA(game, stg, true);
+	//player = new CharaA(game, stg, false);
+	//player = new CharaB(game, stg, true);
+	player = new CharaB(game, stg,false);
+	//player = new CharaC(game, stg,true);
+	//player = new CharaC(game, stg, false);
+	//player = new CharaD(game, stg, true);
+	//player = new CharaD(game, stg, false);
 	//player = new EnemytestB(game, stg);
 }
 

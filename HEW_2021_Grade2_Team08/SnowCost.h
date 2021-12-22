@@ -24,16 +24,16 @@ private:
     const int k_snowpoint_tex_;                         //ポイントのテクスチャ
 
     const Vec2 k_frame_size_;                           //フレームの大きさ
-    const Vec2 k_frame_pos_;                            //フレームの位置
+    Vec2 k_frame_pos_;                            //フレームの位置
    
     const int k_point_num_;                              //ポイントメモリの数
-    const Vec2 k_point_pos_;                            //一番左のメモリの位置
+    Vec2 k_point_pos_;                            //一番左のメモリの位置
     const Vec2 k_point_size_;                           //メモリの大きさ
     const float k_point_var_;                            //メモリ間の幅
 
-   
+    const bool k_Is_player_;
 public:
-    SnowCost(Game* game);
+    SnowCost(Game* game, bool Is_player);
     ~SnowCost();
     void UpdateActor(float deltatime) override;
     void SetSnownum(int snownum);

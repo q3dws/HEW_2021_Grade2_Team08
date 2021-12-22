@@ -1,15 +1,16 @@
 #pragma once
-
-#pragma once
 #include "Player.h"
-class CharaB :
+#include "Fireball.h"
+class CharaC :
     public Player
 {
 private:
-    std::vector<int> k_charaB_;
-    const int k_charaB_skillcost_;                      //キャラBのスキルのコスト
+    std::vector<int>  k_charaC_;                          //キャラクターCのテクスチャ
 
-    enum class charaB_frame_num : int
+    std::vector<class Fireball*> fireballs_; //弾のオブジェクトを作る動的配列
+    const int k_charaC_skillcost_;                      //キャラBのスキルのコスト
+
+    enum class charaC_frame_num : int
     {
         IDLE = 8,
         ATTACK = 8,
@@ -24,10 +25,10 @@ private:
     };
 
 public:
-    CharaB(class Game* game, Stage* stg, bool Is_player)
+    CharaC(class Game* game, Stage* stg, bool Is_player)
         : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), Is_player)
-        ,k_charaB_skillcost_(2)
-        ,k_charaB_
+        ,k_charaC_skillcost_(2)
+        ,k_charaC_
     { LoadTexture(L"Data/Image/player/chara_B_taiki_Sheet.png")
          , LoadTexture(L"Data/Image/player/chara_B_attack_Sheet.png")
           ,LoadTexture(L"Data/Image/player/charaB_move_front.png")
@@ -43,7 +44,7 @@ public:
 
         if (Is_player)
         {
-            k_charaB_ =
+            k_charaC_ =
             { LoadTexture(L"Data/Image/player/chara_B_taiki_Sheet.png")
              , LoadTexture(L"Data/Image/player/chara_B_attack_Sheet.png")
               ,LoadTexture(L"Data/Image/player/charaB_move_front.png")
@@ -57,7 +58,7 @@ public:
         }
         else
         {
-            k_charaB_ =
+            k_charaC_ =
             { LoadTexture(L"Data/Image/enemy/chara_B_taiki_Sheet.png")
                  , LoadTexture(L"Data/Image/enemy/chara_B_attack_Sheet.png")
                   , LoadTexture(L"Data/Image/enemy/charaB_move_back.png")
@@ -69,12 +70,10 @@ public:
                 ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
             };
         }
-
-        asc_->SetAnimTextures(k_charaB_[static_cast<int>(PlayerMotion::IDLE)], k_player_size_, 8, 5.f);
+        asc_->SetAnimTextures(k_charaC_[static_cast<int>(PlayerMotion::IDLE)], k_player_size_, 8, 5.f);
     };
 
     void Player_texchange(int texnum) override;
     void Player_UniqueSkill(void) override;
 };
-
 

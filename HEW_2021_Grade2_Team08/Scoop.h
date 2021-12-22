@@ -17,7 +17,7 @@ class Scoop :
     public Skill
 {
 public:
-    Scoop(class Game* game, int layer, Vec2 pos);
+    Scoop(class Game* game, int layer, Vec2 pos, bool Is_player);
     ~Scoop();
     void UpdateActor(float delta_time) override;
     void Scoop_parabola(float delta_time);
@@ -27,13 +27,14 @@ private:
 
     Vec2 scoop_pos_;                                //すくい投げの画面上の座標
     const Vec2 k_scoop_pos_init_;           //すくい投げ開始位置
-    Vec2 scoop_distination_;                    //着弾点
+    Vec2 k_scoop_distination_;                    //着弾点
     const int k_scoop_tex_;                       //すくい投げのテクスチャ
-    const Vec2 k_scoop_vel_;                     //すくい投げの速さ
     const float k_scoop_g_;                     //重力加速度
     const int k_scoop_layer_;                   //すくいなげの描画優先度
-    //const Vec2 k_bigsnow_Grow;                 //大玉の大きくなる速度
     const Vec2 k_scoop_size_; //すくい投げの大きさ
+   
+    const float k_scoop_deg_;               //すくい投げの角度
+    const bool k_Is_player_;
 };
 
 class MiniBullet :
