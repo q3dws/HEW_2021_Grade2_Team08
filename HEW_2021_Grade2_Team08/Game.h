@@ -26,8 +26,12 @@ public:
     void AddSprite(class SpriteComponent* sprite);
     void RemoveSprite(class SpriteComponent* sprite);
 
-    int GetTexture(wchar_t const * file_name);
+    int GetTexture(wchar_t const* file_name);
     StateContext<Game>* GetGSM() const { return pgame_state_context_; }
+
+    // ★ゲーム特有
+    void SetPlayer(class Player* player) { player_ = player; } // ★ゲームにプレイヤーのアドレスを知らせる（コンストラクタでやった方がミスが少ないが・・・）
+    class Player* GetPlayer() const { return player_; }
 private:
     void RunLoop();
     bool FpsTimer();
@@ -59,7 +63,10 @@ private:
     std::vector<class Actor*> actors_;
     std::vector<class Actor*> pending_actors_;
     std::list<class SpriteComponent*> sprites_;
-    StateContext<Game> * pgame_state_context_;
+    StateContext<Game>* pgame_state_context_;
+
+    // ★ゲーム固有
+    class Player* player_; //★どのアクターからでもプレイヤーと通信するためのもの
 };
 
 #endif // !GAME_H

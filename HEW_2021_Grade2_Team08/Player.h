@@ -15,7 +15,10 @@
 #include "AnimSpriteComponent.h"
 #include "SpriteComponent.h"
 
+#include "Skillicon.h"
 #include "SnowCost.h"
+#include "SnowCost_tate.h"
+#include "DEBUG_Comand.h"
 
 //#define  ECSC static_cast<int> //enum class static castの略
 
@@ -40,11 +43,14 @@ protected:
     
     std::vector<class Golem*> golems_; //ゴーレムのオブジェクトを作る動的配列
     class SnowCost* snowcost_;                        //持っている雪の数を表示するオブジェクトを作る
+    class SnowCost_tate* snowcost_tate_;
+    class Skillicon* skillicon_;                        //スキルのUIを表示するオブジェクトを作る
+    class DEBUG_Comand* debugcomand_;
 
     class AnimSpriteComponent* asc_;    
     int     player_mode_;                          //プレイヤーのステート(Playerだけで完結する版)
     float idlecount_;                                //待機状態に入るまでのタイマー
-    int     idle_timeto_;                           //timetoまで数えると待機状態になる
+    float     idle_timeto_;                           //timetoまで数えると待機状態になる
 
     int     player_layer_;                           //プレイヤーの描画の優先度
     const int k_player_layer_var;           //プレイヤーの描画の優先度の変化量
@@ -57,9 +63,17 @@ protected:
     const Vec2 k_player_vel_;          //プレイヤーの移動速度
     Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
 
-    const int k_player_skillcost_[3]{2,3,4};   //共通スキルのコスト
-
+    const int k_player_skillcost_[4];   //共通スキルのコスト
+    const int k_who_player_;            //プレイヤーの種類を示す
     const bool k_Is_player_;                //trueならプレイヤー側 false なら敵側
+
+    enum class WHO_Player : int
+    {
+        CHARAA,
+        CHARAB,
+        CHARAC,
+        CHARAD,
+    };
     //キャラの画像の番号をステートを同時に表す列挙型
     enum class PlayerMotion :int
     {
@@ -73,6 +87,10 @@ protected:
         COLLECT_LOOP,   //雪集め中
         COLLECT_OUT,       //雪集め終了
         USE_SKILL,          //スキル使用中
+
+        USE_SKILL_IN,       //スキル開始
+        USE_SKILL_LOOP, //スキル中
+        USE_SKILL_OUT,  //スキル終了
     };
 
     StateContext<Player>* pplayer_state_context_;
@@ -81,7 +99,7 @@ protected:
     
 public:
 
-    Player(class Game* game, Stage* stg ,Vec2 size, Vec2 center, bool Is_player);
+    Player(class Game* game, Stage* stg ,Vec2 size, Vec2 center,int uniquecost, bool Is_player, int who);
     virtual ~Player();
     void UpdateActor(float deltatime) override;
 

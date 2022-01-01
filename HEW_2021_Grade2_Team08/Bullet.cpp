@@ -6,7 +6,7 @@ Bullet::Bullet(Game* game, int tex, bool Is_player)
     , Is_player_(Is_player)
     , snow_vel_(10)
 {
-    auto sc = new SpriteComponent(this, 150);
+    auto sc = new SpriteComponent(this, 100);
     sc->SetTexture(tex, Vec2(30, 30), Vec2(0, 0), Vec2(1, 1));
 
 }

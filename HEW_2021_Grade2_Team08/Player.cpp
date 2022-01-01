@@ -5,12 +5,14 @@
 #include "TestBullet.h"
 #include "Bullet.h"
 
+
 #include "Golem.h"
 #include "BigBullet.h"
 #include "IceWall.h"
+
 #include <memory>
 
-Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, bool Is_player)
+Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, bool Is_player,int who)
 	:Actor(game)
 	, stg_(stg)
 	//constメンバ変数の初期化
@@ -19,9 +21,13 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, bool Is_player)
 	, k_player_vel_(Vec2(180, 180))
 	, k_player_layer_var(5)
 	, k_Is_player_(Is_player)
-	
+	,k_player_skillcost_{ 2,1,4,uniquecost}
+	, k_who_player_(who)
 {
-    
+	SetPosIndex(7); // ★初期位置の配列の要素番号を設定（適当にいれてます）
+	GetGame()->SetPlayer(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
+	SetCollision(Rect(Vec2(325, 246 + 33), Vec2(64 * 2.5, 64 * 2.5))); // 当たり判定用の矩形の設定
+
 	//メンバ変数の初期化
 	k_player_pos_center_ = (Vec2(center));
 	k_player_size_ = (Vec2(size));
@@ -49,7 +55,11 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, bool Is_player)
 
 	this->asc_ = new AnimSpriteComponent(this, player_layer_);
 	
+	debugcomand_ = new DEBUG_Comand(game, k_Is_player_);
 	snowcost_ = new SnowCost(game, k_Is_player_);
+	snowcost_tate_ = new SnowCost_tate(game, k_Is_player_);
+	skillicon_ = new Skillicon(game, k_Is_player_, k_who_player_
+		, k_player_skillcost_[0], k_player_skillcost_[1], k_player_skillcost_[2], k_player_skillcost_[3]);
 }
 
 Player:: ~Player()
@@ -68,6 +78,10 @@ void Player::UpdateActor(float deltatime)
 	Player::Player_useskill();
 
 	snowcost_->SetSnownum(player_snow_);
+	snowcost_tate_->SetSnownum(player_snow_);
+	skillicon_->SetSnownum(player_snow_);
+	if (debugcomand_->CheckDEBUGmode())
+		player_snow_ = k_player_snow_max_;
 }
 
 //プレイヤーの移動をする処理
@@ -106,6 +120,7 @@ void Player::Player_move(float deltatime)
 			if (player_pos_num_ < 6)
 				this->player_pos_num_ += 3;
 		}
+
 
 
 		//描画の優先度変更
@@ -177,6 +192,9 @@ void Player::Player_move(float deltatime)
 	//位置を設定する
 	this->SetPosition(player_pos_);
 
+	// ★当たり判定用の矩形の位置変更
+	SetCollision(Rect(player_pos_, k_player_size_));
+	//TestFunc2(GetPosition(), GetPosIndex()); //DEBUG用
 }
 
 //床の雪を拾う処理
@@ -244,25 +262,35 @@ void Player::Player_idlecheck(float deltatime)
 	if (idle_timeto_ > 0)
 	{
 		idlecount_ += 5 * deltatime;
+
 		if (idlecount_ >= idle_timeto_)
 		{
-			if (player_mode_ == static_cast<int>(PlayerMotion::COLLECT_IN))
+			switch (player_mode_)
 			{
+			case static_cast<int>(PlayerMotion::COLLECT_IN):
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_LOOP));
-				idlecount_ = 0;
-			}
-			else if (player_mode_ == static_cast<int>(PlayerMotion::COLLECT_LOOP))
-			{
+				
+				break;
+			case static_cast<int>(PlayerMotion::COLLECT_LOOP):
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_OUT));
-				idlecount_ = 0;
-			}
-			else
-			{
+
+				break;
+			case static_cast<int>(PlayerMotion::USE_SKILL_IN):
+				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL_LOOP));
+
+				break;
+			case static_cast<int>(PlayerMotion::USE_SKILL_LOOP):
+				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL_OUT));
+
+				break;
+			default:
 				Player_texchange(static_cast<int>(PlayerMotion::IDLE));
-				idlecount_ = 0;
 				idle_timeto_ = 0;
+				break;
 			}
-			
+
+			idlecount_ = 0;
+
 		}
 	
 	}
@@ -319,8 +347,11 @@ void Player::Player_useskill(void)
 		if ((GetKeyboardTrigger(DIK_4) && k_Is_player_)
 			|| (GetKeyboardTrigger(DIK_L) && !k_Is_player_))
 		{
-			//固有スキル発動
-			Player_UniqueSkill();
+			if (player_snow_ >= k_player_skillcost_[3])
+			{
+				//固有スキル発動
+				Player_UniqueSkill();
+			}
 		}
 
 

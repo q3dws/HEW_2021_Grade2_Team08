@@ -22,12 +22,12 @@ Game::Game()
 {
 	ZeroMemory(this, sizeof(Window));
 	ZeroMemory(&msg_, sizeof(msg_));
-	
+
 }
 
 Game::~Game()
-{	
-	
+{
+
 	//delete pgame_state_context_;
 	timeEndPeriod(1);	// 分解能を戻す
 }
@@ -52,7 +52,7 @@ bool Game::Initialize(HINSTANCE hinstance)
 
 		///////////////////////////////////////
 		LoadData();
-	
+
 		ticks_count_ = timeGetTime();
 		return true;
 	}
@@ -73,14 +73,14 @@ void Game::Application()
 		}
 		else //アプリケーションの処理はここから飛ぶ。
 		{
-			if(FpsTimer()) // 60FPSで起動
+			if (FpsTimer()) // 60FPSで起動
 				RunLoop(); // ゲームループ
 		}
 	}
 }
 
 void Game::RunLoop()
-{	
+{
 	Input();
 	Update();
 	Draw();
@@ -125,7 +125,7 @@ void Game::Update()
 	deltatime_ = 0.05f;//(timeGetTime() - ticks_count_) / 1000.f;
 	if (deltatime_ > 0.05f) deltatime_ = 0.05f;
 	ticks_count_ = (float)timeGetTime();
-	
+
 	UpdateInput();
 
 	updating_actors_ = true;
@@ -138,7 +138,7 @@ void Game::Update()
 		actors_.emplace_back(pending);
 	}
 	pending_actors_.clear();
-	
+
 	std::vector<Actor*> dead_actors;
 	for (auto actor : actors_)
 		if (actor->GetState() == Actor::Dead)
@@ -165,7 +165,7 @@ void Game::Draw()
 	}
 	// シーンの描画処理
 	//DrawSpriteLeftTop(g_TextureNo, 0.0f, 0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 1.0f, 1.0f);
-	
+
 
 	// バックバッファ、フロントバッファ入れ替え
 	Present();
@@ -179,7 +179,7 @@ void Game::LoadData()
 
 void Game::UnloadData()
 {
-	
+
 	while (!actors_.empty())
 		delete actors_.back();
 }
@@ -234,7 +234,7 @@ void Game::RemoveSprite(SpriteComponent* sprite)
 	sprites_.erase(iter);
 }
 
-int Game::GetTexture(wchar_t const * file_name)
+int Game::GetTexture(wchar_t const* file_name)
 {
- 	return LoadTexture(file_name);
+	return LoadTexture(file_name);
 }

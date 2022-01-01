@@ -67,12 +67,11 @@ void CharaC::Player_texchange(int texnum)
 //ŒÅ—LƒXƒLƒ‹‚ÌŠÖ”
 void CharaC::Player_UniqueSkill(void)
 {
-	if (player_snow_ >= k_charaC_skillcost_)
-	{
-		Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 
-		auto a = new Fireball(GetGame(), player_layer_, player_pos_, this, stg_, k_Is_player_);
-		player_snow_ -= k_charaC_skillcost_;
-	}
-	
+	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+
+	auto a = new Fireball(GetGame(), player_layer_, player_pos_, this, stg_, k_Is_player_);
+	player_snow_ -= k_player_skillcost_[3];
+
+
 }

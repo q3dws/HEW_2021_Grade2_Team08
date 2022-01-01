@@ -11,17 +11,20 @@ class Machinegun :
     public Skill
 {
 public:
-    Machinegun(Game* game, bool Is_player,Vec2 pos, int bullettex, int bulletnum);
+    Machinegun(Game* game, bool Is_player,Vec2 pos, int bullettex, int bulletnum, int bulletdelay);
     ~Machinegun() {}
     void UpdateActor(float delta_time) override;
-
+    float GetMachinegunTime(float delta_time);
 private:
     const bool k_Is_player_;
     const Vec2 k_machinegun_pos_;       //’e‚ªo‚éˆÊ’u
     const int k_bullettex_;                     //’e‚ÌƒeƒNƒXƒ`ƒƒ
     const int k_bulletnum_;                 //’e‚Ì”
     const float k_machinegun_ver_;        //’e‚Ìo‚éŠÔŠu
-
+    const float k_machinegun_power_;    //’e‚Ìo‚é—Ê‚Ì”{—¦
+    const float k_bulletdelay_;                 //’e‚ªo‚é‘O‚É‘Ò‚ÂƒAƒjƒ–‡”
+    const int k_machingun_Lowestline_;  //‹Ê‚ª‘‚¦‚éÅ’á’l
+    bool    delaycheck_;
     float   machinegun_counttime_;          //’e‚Ìo‚éŠÔ‚ğ”‚¦‚é
     float   machinegun_countbullet_;        //o‚µ‚½’e‚ğ”‚¦‚é
 };

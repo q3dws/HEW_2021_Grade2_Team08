@@ -65,15 +65,12 @@ void CharaA::Player_texchange(int texnum)
 //ŒÅ—LƒXƒLƒ‹‚ÌŠÖ”
 void CharaA::Player_UniqueSkill(void)
 {
-	if (player_snow_ >= k_charaA_skillcost_)
-	{
-		Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
-		//’e‚ð¶¬
-		scoops_.emplace_back(new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_));
-		//scoops_.back()->SetPosition(this->GetPosition());
 
-		//scoops;
-		player_snow_ -= k_charaA_skillcost_;
-	}
-	
+	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+	//’e‚ð¶¬
+	scoops_.emplace_back(new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_));
+	//scoops_.back()->SetPosition(this->GetPosition());
+
+	//scoops;
+	player_snow_ -= k_player_skillcost_[3];
 }

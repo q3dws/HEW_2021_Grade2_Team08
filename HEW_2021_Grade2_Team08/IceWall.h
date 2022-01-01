@@ -25,7 +25,7 @@ private:
     {
         ADVENT = 5,
         IDLE = 1,
-        LEAVE = 9,
+        LEAVE = 8,
     };
 
     enum class wall_Motion :int

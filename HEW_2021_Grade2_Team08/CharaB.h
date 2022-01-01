@@ -7,8 +7,7 @@ class CharaB :
 {
 private:
     std::vector<int> k_charaB_;
-    const int k_charaB_skillcost_;                      //キャラBのスキルのコスト
-
+    
     enum class charaB_frame_num : int
     {
         IDLE = 8,
@@ -25,8 +24,9 @@ private:
 
 public:
     CharaB(class Game* game, Stage* stg, bool Is_player)
-        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), Is_player)
-        ,k_charaB_skillcost_(2)
+        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), 2, Is_player
+        , static_cast<int>(WHO_Player::CHARAB))
+        //固有スキルのコストはplayerの引数に直接渡して設定しています
         ,k_charaB_
     { LoadTexture(L"Data/Image/player/chara_B_taiki_Sheet.png")
          , LoadTexture(L"Data/Image/player/chara_B_attack_Sheet.png")

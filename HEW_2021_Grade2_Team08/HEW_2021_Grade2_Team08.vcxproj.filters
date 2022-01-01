@@ -204,6 +204,15 @@
     <ClCompile Include="Machinegun.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
+    <ClCompile Include="Skillicon.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="DEBUG_Comand.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCost_tate.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -326,6 +335,15 @@
       <Filter>Player</Filter>
     </ClInclude>
     <ClInclude Include="Machinegun.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skillicon.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="DEBUG_Comand.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCost_tate.h">
       <Filter>Skill</Filter>
     </ClInclude>
   </ItemGroup>

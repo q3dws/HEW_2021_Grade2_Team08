@@ -34,24 +34,24 @@
 #if 0
 struct Vec2
 {
-    float x_;
-    float y_;
+	float x_;
+	float y_;
 
-    Vec2()
-        :x_(0)
-        ,y_(0)
-    {}
+	Vec2()
+		:x_(0)
+		, y_(0)
+	{}
 
-    explicit Vec2(float x, float y)
-        :x_(x)
-        ,y_(y)
-    {}
+	explicit Vec2(float x, float y)
+		:x_(x)
+		, y_(y)
+	{}
 
-    void Set(class Vec2 vec2)
-    {
-        x_ = vec2.x_;
-        y_ = vec2.y_;
-    }
+	void Set(class Vec2 vec2)
+	{
+		x_ = vec2.x_;
+		y_ = vec2.y_;
+	}
 
 	friend Vec2 operator+(const Vec2& a, const Vec2& b)
 	{
@@ -108,6 +108,7 @@ struct Vec2
 	}
 };
 #else
+
 
 inline bool NearZero(float val, float epsilon = 0.001f)
 {
@@ -227,5 +228,84 @@ public:
 	static const Vec2 Zero;
 };
 
+struct Rect
+{
+	Rect() = default;
+	Rect(Vec2 pos_center, Vec2 size)
+		:center_(pos_center)
+		, size_(size)
+		, topleft_(pos_center.x_ - size.x_ * 0.5f, pos_center.y_ - size.y_ * 0.5f)
+		, bottomright_(pos_center.x_ + size.x_ * 0.5f, pos_center.y_ + size.y_ * 0.5f) {}
+
+	Vec2 center_;
+	Vec2 size_;
+	Vec2 topleft_;
+	Vec2 bottomright_;
+
+	friend Rect operator+(const Rect& a, const Rect& b)
+	{
+		return {
+			a.center_ + b.center_,
+			a.size_ + b.size_  ,
+		};
+	}
+	friend Rect operator-(const Rect& a, const Rect& b)
+	{
+		return {
+			a.center_ - b.center_,
+			a.size_ - b.size_  ,
+		};
+	}
+	friend Rect operator*(const Rect& a, const Rect& b)
+	{
+		return {
+			a.center_ * b.center_,
+			a.size_ * b.size_  ,
+		};
+	}
+	friend Rect operator*(const Rect& a, const float scalar)
+	{
+		return {
+			a.center_ * scalar,
+			a.size_ * scalar,
+		};
+	}
+	friend Rect operator*(const float scalar, const Rect& a)
+	{
+		return {
+			a.center_ * scalar,
+			a.size_ * scalar,
+		};
+	}
+	Rect& operator*=(const float scalar)
+	{
+		size_ *= scalar;
+		center_ *= scalar;
+		topleft_ *= scalar;
+		bottomright_ *= scalar;
+		return *this;
+	}
+	Rect& operator+=(const Rect& r)
+	{
+		//size_ += r.size_;
+		center_ += r.center_;
+		topleft_ += r.topleft_;
+		bottomright_ += r.bottomright_;
+		return *this;
+	}
+	Rect& operator-=(const Rect& r)
+	{
+		//size_ -= r.size_;
+		center_ -= r.center_;
+		topleft_ -= r.topleft_;
+		bottomright_ -= r.bottomright_;
+		return *this;
+	}
+};
+//bool CollisionRC(Rect const& const rect, Rect const& const center, int rindex, int lindex);
+// ★矩形の範囲(Rect)と矩形の中心(Center)で当たり判定
+bool CollisionRC(class Actor const* const rect, class Actor const* const center);
+// ★矩形の範囲(Rect)と矩形の範囲(Rect)で当たり判定
+bool CollisionRR(class Actor const* const rect, class Actor const* const center);
 #endif
 #endif // !MATH_H

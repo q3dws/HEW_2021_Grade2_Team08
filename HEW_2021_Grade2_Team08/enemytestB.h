@@ -25,7 +25,8 @@ public:
     //k_player_centerの位置をズラすことで全体の位置が移動しています
     //backとflontの画像をCharaBから入れ替えています
     EnemytestB(class Game* game, Stage* stg, bool Is_player)
-        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), Is_player)
+        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33),1, Is_player
+        , static_cast<int>(WHO_Player::CHARAB))
         , k_enemyB_
     {
 

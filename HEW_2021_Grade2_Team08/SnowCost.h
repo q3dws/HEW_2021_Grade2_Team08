@@ -21,7 +21,6 @@ private:
     std::vector<class SnowPoint*> snowpoints_; //メモリオブジェクトを作る動的配列
 
     const int k_snowframe_tex_;                       //枠のテクスチャ
-    const int k_snowpoint_tex_;                         //ポイントのテクスチャ
 
     const Vec2 k_frame_size_;                           //フレームの大きさ
     Vec2 k_frame_pos_;                            //フレームの位置
@@ -45,13 +44,37 @@ class SnowPoint :
     public Actor
 {
 public:
-    SnowPoint(class Game* game, int tex, Vec2 pos, Vec2 size);
+    SnowPoint(class Game* game, Vec2 pos, Vec2 size, int layer);
     ~SnowPoint();
     void UpdateActor(float delta_time) override;
     void pointUVWHset(Vec2 uvwh);
+    void point_texchange(int texnum);
+    void point_inset();
+    void point_outset();
 private:
-    class SpriteComponent* point_asc_;
+    class AnimSpriteComponent* point_asc_;
     Vec2  UVWH;                 //UVWHを操作してメモリを透明・可視化する
 
-    const Vec2 k_point_size;
+    const Vec2 k_point_size_;
+    const Vec2 k_point_pos_;
+    const int k_point_layer_;
+
+    int point_state_;
+    float motioncount_;
+    int point_tex_[3];                       //ポイントのテクスチャ
+
+    enum class point_frame_num : int
+    {
+        ADVENT = 7,
+        IDLE = 1,
+        LEAVE = 4,
+    };
+
+    enum class point_Motion :int
+    {
+        ADVENT,     //登場
+        IDLE,     //通常
+        LEAVE,      //退場
+    };
+
 };

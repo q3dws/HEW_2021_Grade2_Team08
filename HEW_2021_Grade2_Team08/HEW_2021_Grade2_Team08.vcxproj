@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -160,6 +160,7 @@
     <ClCompile Include="Component.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="DEBUG_Comand.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="Fireball.cpp" />
@@ -185,9 +186,11 @@
     <ClCompile Include="Scoop.cpp" />
     <ClCompile Include="Score.cpp" />
     <ClCompile Include="Skill.cpp" />
+    <ClCompile Include="Skillicon.cpp" />
     <ClCompile Include="SkillMediator.cpp" />
     <ClCompile Include="Snow.cpp" />
     <ClCompile Include="SnowCost.cpp" />
+    <ClCompile Include="SnowCost_tate.cpp" />
     <ClCompile Include="Stage.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="sound.cpp">
@@ -226,6 +229,7 @@
     <ClInclude Include="Component.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="DEBUG_Comand.h" />
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="enemytestB.h" />
@@ -252,9 +256,11 @@
     <ClInclude Include="Scoop.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="Skill.h" />
+    <ClInclude Include="Skillicon.h" />
     <ClInclude Include="SkillMediator.h" />
     <ClInclude Include="Snow.h" />
     <ClInclude Include="SnowCost.h" />
+    <ClInclude Include="SnowCost_tate.h" />
     <ClInclude Include="Stage.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="sound.h">

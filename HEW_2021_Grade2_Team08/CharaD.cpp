@@ -63,17 +63,41 @@ void CharaD::Player_texchange(int texnum)
 	{
 		asc_->SetAnimTextures(k_charaD_[static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)], k_player_size_, static_cast<int>(charaD_frame_num::MOVE_UPANDDOWN), 5.f);
 	}
+
+	if (texnum == static_cast<int>(PlayerMotion::USE_SKILL_IN))
+	{
+		asc_->SetAnimTextures(k_charaD_[static_cast<int>(PlayerMotion::USE_SKILL_IN)], k_player_size_, static_cast<int>(charaD_frame_num::USE_SKILL_IN), 5.f);	
+		idle_timeto_ = static_cast<int>(charaD_frame_num::USE_SKILL_IN); //一定時間後に待機状態に
+
+	}
+
+	if (texnum == static_cast<int>(PlayerMotion::USE_SKILL_LOOP))
+	{
+		asc_->SetAnimTextures(k_charaD_[static_cast<int>(PlayerMotion::USE_SKILL_LOOP)], k_player_size_, static_cast<int>(charaD_frame_num::USE_SKILL_LOOP), 5.f);
+	
+		idle_timeto_ = machineguns_.back()->GetMachinegunTime(0.05f); //一定時間後に待機状態に
+	}
+
+	if (texnum == static_cast<int>(PlayerMotion::USE_SKILL_OUT))
+	{
+		asc_->SetAnimTextures(k_charaD_[static_cast<int>(PlayerMotion::USE_SKILL_OUT)], k_player_size_, static_cast<int>(charaD_frame_num::USE_SKILL_OUT), 5.f);
+	
+		idle_timeto_ = static_cast<int>(charaD_frame_num::USE_SKILL_OUT); //一定時間後に待機状態に
+	}
 }
 
 //固有スキルの関数
 void CharaD::Player_UniqueSkill(void)
 {
-	if (player_snow_ > k_player_snow_min_)
-	{
 
-		Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
+	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL_IN));
 
-		auto a = new Machinegun(GetGame(), k_Is_player_, player_pos_, bullettex_, player_snow_);
-	}
-	
+	//auto a = new Machinegun(GetGame(), k_Is_player_, player_pos_, bullettex_, player_snow_);
+
+	//弾を生成
+	machineguns_.emplace_back(new Machinegun(GetGame(), k_Is_player_, player_pos_, bullettex_, player_snow_
+		, static_cast<int>(charaD_frame_num::USE_SKILL_IN))
+		);
+
+	player_snow_ = 0;
 }
