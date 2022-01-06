@@ -19,7 +19,7 @@ private:
         COLLECT_LOOP = 3,
         COLLECT_OUT = 5,
         USE_SKILL = 13,
-
+        HIT = 1,
     };
 
 public:
@@ -53,6 +53,7 @@ public:
                ,LoadTexture(L"Data/Image/player/charaB_snow_loop-Sheet.png")
                ,LoadTexture(L"Data/Image/player/charaB_snow_out-Sheet.png")
             ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/player/charaB_damage.png")
             };
         }
         else
@@ -67,6 +68,7 @@ public:
                    ,LoadTexture(L"Data/Image/enemy/charaB_snow_loop-Sheet.png")
                    ,LoadTexture(L"Data/Image/enemy/charaB_snow_out-Sheet.png")
                 ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/enemy/charaB_damage.png")
             };
         }
 

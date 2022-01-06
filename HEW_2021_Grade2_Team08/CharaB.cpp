@@ -62,6 +62,13 @@ void CharaB::Player_texchange(int texnum)
 	{
 		asc_->SetAnimTextures(k_charaB_[static_cast<int>(PlayerMotion::MOVE_UPANDDOWN)], k_player_size_, static_cast<int>(charaB_frame_num::MOVE_UPANDDOWN), 5.f);
 	}
+
+	if (texnum == static_cast<int>(PlayerMotion::HIT))
+	{
+		asc_->SetAnimTextures(k_charaB_[texnum], k_player_size_, static_cast<int>(charaB_frame_num::HIT), 5.f);
+		idle_timeto_ = k_player_damagetime_; //一定時間後に待機状態に
+
+	}
 }
 
 //固有スキルの関数

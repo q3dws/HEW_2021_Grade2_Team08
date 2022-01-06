@@ -29,8 +29,8 @@ void Machinegun::UpdateActor(float delta_time)
 
 	if (machinegun_counttime_ >= k_machinegun_ver_ && delaycheck_)
 	{
-		auto a = new Bullet(GetGame(),k_bullettex_,k_Is_player_);
-		a->SetPosition(k_machinegun_pos_);
+		auto a = new Bullet(GetGame(),k_bullettex_,k_Is_player_, k_machinegun_pos_);
+		
 		machinegun_counttime_ = 0;
 		machinegun_countbullet_++;
 	}

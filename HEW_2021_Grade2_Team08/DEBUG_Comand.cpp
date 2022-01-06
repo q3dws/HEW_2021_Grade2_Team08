@@ -23,7 +23,7 @@ void DEBUG_Comand::UpdateActor(float deltatime)
 		countDEBUG_++;
 
 	if (GetKeyboardTrigger(DIK_A) && k_Is_player_ && countDEBUG_ == 8)
-		countDEBUG_ = 11;
+		countDEBUG_ = 0;
 
 	if (GetKeyboardTrigger(DIK_B) && k_Is_player_ && countDEBUG_ == 8)
 		countDEBUG_++;

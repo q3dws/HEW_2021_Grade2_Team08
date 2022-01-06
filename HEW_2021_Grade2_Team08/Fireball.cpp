@@ -4,7 +4,7 @@
 #include <math.h>
 
 Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, bool Is_player) : Skill(game)
-, k_fireball_tex_(LoadTexture(L"Data/Image/skill/IceWall.png"))
+, k_fireball_tex_(LoadTexture(L"Data/Image/skill/fireball.jpg"))
 , k_fireball_size_(Vec2(80, 80))
 , k_fireball_layer_(layer)
 , k_fireball_g_(9.8)

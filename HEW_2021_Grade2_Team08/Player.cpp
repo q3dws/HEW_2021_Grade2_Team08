@@ -23,10 +23,20 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	, k_Is_player_(Is_player)
 	,k_player_skillcost_{ 2,1,4,uniquecost}
 	, k_who_player_(who)
+	, k_player_hit_size_(size - Vec2(64, 72))
+	, k_player_damagetime_(2)
 {
 	SetPosIndex(7); // ★初期位置の配列の要素番号を設定（適当にいれてます）
-	GetGame()->SetPlayer(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
-	SetCollision(Rect(Vec2(325, 246 + 33), Vec2(64 * 2.5, 64 * 2.5))); // 当たり判定用の矩形の設定
+	if (k_Is_player_)
+	{
+		GetGame()->SetPlayer(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
+	}
+	else
+	{
+		GetGame()->SetPlayer2p(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
+	}
+
+	SetCollision(Rect(Vec2(325, 246 + 33), k_player_hit_size_)); // 当たり判定用の矩形の設定
 
 	//メンバ変数の初期化
 	k_player_pos_center_ = (Vec2(center));
@@ -57,7 +67,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	
 	debugcomand_ = new DEBUG_Comand(game, k_Is_player_);
 	snowcost_ = new SnowCost(game, k_Is_player_);
-	snowcost_tate_ = new SnowCost_tate(game, k_Is_player_);
+	//snowcost_tate_ = new SnowCost_tate(game, k_Is_player_);
 	skillicon_ = new Skillicon(game, k_Is_player_, k_who_player_
 		, k_player_skillcost_[0], k_player_skillcost_[1], k_player_skillcost_[2], k_player_skillcost_[3]);
 }
@@ -78,7 +88,7 @@ void Player::UpdateActor(float deltatime)
 	Player::Player_useskill();
 
 	snowcost_->SetSnownum(player_snow_);
-	snowcost_tate_->SetSnownum(player_snow_);
+	//snowcost_tate_->SetSnownum(player_snow_);
 	skillicon_->SetSnownum(player_snow_);
 	if (debugcomand_->CheckDEBUGmode())
 		player_snow_ = k_player_snow_max_;
@@ -193,7 +203,7 @@ void Player::Player_move(float deltatime)
 	this->SetPosition(player_pos_);
 
 	// ★当たり判定用の矩形の位置変更
-	SetCollision(Rect(player_pos_, k_player_size_));
+	SetCollision(Rect(player_pos_, k_player_hit_size_));
 	//TestFunc2(GetPosition(), GetPosIndex()); //DEBUG用
 }
 
@@ -211,6 +221,7 @@ void Player::Player_snow_collect()
 			//床のステートをしらべる
 			if (stg_->GetUseSnow(player_stage_num))
 			{
+				
 				stg_->SetSnow(player_stage_num);
 
 				//手持ちの雪を増やす処理
@@ -241,7 +252,7 @@ void Player::Player_snow_throw(float deltatime)
 			if (player_snow_ > k_player_snow_min_)
 			{
 				//弾を生成
-				bullets_.emplace_back(new Bullet(GetGame(), bullettex_, k_Is_player_));
+				bullets_.emplace_back(new Bullet(GetGame(), bullettex_, k_Is_player_, player_pos_));
 				bullets_.back()->SetPosition(this->GetPosition());
 
 				Player_texchange(static_cast<int>(PlayerMotion::ATTACK));
@@ -259,6 +270,7 @@ void Player::Player_snow_throw(float deltatime)
 //一定時間後に待機状態に戻す処理
 void Player::Player_idlecheck(float deltatime)
 {
+	
 	if (idle_timeto_ > 0)
 	{
 		idlecount_ += 5 * deltatime;
@@ -273,7 +285,7 @@ void Player::Player_idlecheck(float deltatime)
 				break;
 			case static_cast<int>(PlayerMotion::COLLECT_LOOP):
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_OUT));
-
+				
 				break;
 			case static_cast<int>(PlayerMotion::USE_SKILL_IN):
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL_LOOP));
@@ -384,5 +396,11 @@ int Player::Player_getstagenum(void)
 int Player::Player_getsnow(void)
 {
 	return player_snow_;
+}
+
+void Player::Player_SetHit(void)
+{
+	Player_texchange(static_cast<int>(PlayerMotion::HIT));
+	idlecount_ = 0;
 }
 

@@ -50,9 +50,8 @@ void Golem::Golem_snow_throw(float deltatime)
 		if (attackcount_ >= static_cast<int>(golem_frame_num::ATTACK))
 		{
 			//’e‚ð¶¬
-			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_,k_Is_player_));
-			bullets_.back()->SetPosition(this->GetPosition());
-		
+			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_,k_Is_player_, k_golem_pos_));
+			
 			attackcount_ = 0;
 			
 			//’e‚ðŽl‰ñ“Š‚°‚Ä‚¢‚é‚ÆŽ€–S‚·‚é

@@ -32,6 +32,14 @@ public:
     // ★ゲーム特有
     void SetPlayer(class Player* player) { player_ = player; } // ★ゲームにプレイヤーのアドレスを知らせる（コンストラクタでやった方がミスが少ないが・・・）
     class Player* GetPlayer() const { return player_; }
+
+    void SetPlayer2p(class Player* player) { player_2p_ = player; } // ★ゲームにプレイヤーのアドレスを知らせる（コンストラクタでやった方がミスが少ないが・・・）
+    class Player* GetPlayer2p() const { return player_2p_; }
+
+    void SetIceWall(class IceWall* icewall) { icewall_.emplace_back(icewall); }
+    int  GetIceWallSize() const { return icewall_.size(); }
+    class IceWall* GetIceWall(int num) const { return icewall_[num]; }
+
 private:
     void RunLoop();
     bool FpsTimer();
@@ -67,6 +75,9 @@ private:
 
     // ★ゲーム固有
     class Player* player_; //★どのアクターからでもプレイヤーと通信するためのもの
+    class Player* player_2p_; //★どのアクターからでもプレイヤーと通信するためのもの
+
+    std::vector<class IceWall*> icewall_; 
 };
 
 #endif // !GAME_H

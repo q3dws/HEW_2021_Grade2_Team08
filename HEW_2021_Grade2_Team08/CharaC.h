@@ -20,7 +20,7 @@ private:
         COLLECT_LOOP = 3,
         COLLECT_OUT = 5,
         USE_SKILL = 13,
-
+        HIT = 1,
     };
 
 public:
@@ -38,7 +38,7 @@ public:
            ,LoadTexture(L"Data/Image/player/charaC_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_out_Sheet.png")
            ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
-
+         ,LoadTexture(L"Data/Image/player/charaC_damage.png")
     }
     {
 
@@ -54,6 +54,7 @@ public:
            ,LoadTexture(L"Data/Image/player/charaC_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_out_Sheet.png")
            ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/player/charaC_damage.png")
             };
         }
         else
@@ -68,6 +69,7 @@ public:
                    ,LoadTexture(L"Data/Image/enemy/charaB_snow_loop-Sheet.png")
                    ,LoadTexture(L"Data/Image/enemy/charaB_snow_out-Sheet.png")
                 ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/enemy/charaC_damage.png")
             };
         }
         asc_->SetAnimTextures(k_charaC_[static_cast<int>(PlayerMotion::IDLE)], k_player_size_, static_cast<int>(charaC_frame_num::IDLE), 5.f);

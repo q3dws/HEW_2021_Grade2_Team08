@@ -22,6 +22,7 @@ private:
         COLLECT_LOOP = 3,
         COLLECT_OUT = 5,
         USE_SKILL = 13,
+        HIT = 1,
 
         USE_SKILL_IN = 6,
         USE_SKILL_LOOP = 2,
@@ -59,6 +60,7 @@ public:
            ,LoadTexture(L"Data/Image/player/charaD_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaD_snow_out_Sheet.png")
            ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/player/charaD_damage.png")
 
                 ,LoadTexture(L"Data/Image/player/charaD_skill_in_Sheet.png")
                 ,LoadTexture(L"Data/Image/player/charaD_skill_loop_Sheet.png")
@@ -68,15 +70,22 @@ public:
         else
         {
             k_charaD_ =
-            { LoadTexture(L"Data/Image/enemy/chara_B_taiki_Sheet.png")
-                 , LoadTexture(L"Data/Image/enemy/chara_B_attack_Sheet.png")
-                  , LoadTexture(L"Data/Image/enemy/charaB_move_back.png")
-                ,LoadTexture(L"Data/Image/enemy/charaB_move_front.png")
-                    ,LoadTexture(L"Data/Image/enemy/chara_B_taiki_Sheet.png")
-                    ,LoadTexture(L"Data/Image/enemy/charaB_snow_in-Sheet.png")
-                   ,LoadTexture(L"Data/Image/enemy/charaB_snow_loop-Sheet.png")
-                   ,LoadTexture(L"Data/Image/enemy/charaB_snow_out-Sheet.png")
-                ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+            { 
+               
+                LoadTexture(L"Data/Image/enemy/charaD_taiki_Sheet.png")
+         , LoadTexture(L"Data/Image/enemy/charaD_attack_Sheet.png")
+          ,LoadTexture(L"Data/Image/enemy/charaD_move_front.png")
+          , LoadTexture(L"Data/Image/enemy/charaD_move_back.png")
+        ,LoadTexture(L"Data/Image/enemy/charaD_taiki_Sheet.png")
+            ,LoadTexture(L"Data/Image/enemy/charaD_snow_in_Sheet.png")
+           ,LoadTexture(L"Data/Image/enemy/charaD_snow_loop_Sheet.png")
+           ,LoadTexture(L"Data/Image/enemy/charaD_snow_out_Sheet.png")
+           ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+                 ,LoadTexture(L"Data/Image/enemy/charaD_damage.png")
+
+                ,LoadTexture(L"Data/Image/enemy/charaD_skill_in_Sheet.png")
+                ,LoadTexture(L"Data/Image/enemy/charaD_skill_loop_Sheet.png")
+                ,LoadTexture(L"Data/Image/enemy/charaD_skill_out_Sheet.png")
             };
         }
         asc_->SetAnimTextures(k_charaD_[static_cast<int>(PlayerMotion::IDLE)], k_player_size_, static_cast<int>(charaD_frame_num::IDLE), 5.f);

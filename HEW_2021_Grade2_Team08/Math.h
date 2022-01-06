@@ -307,5 +307,8 @@ struct Rect
 bool CollisionRC(class Actor const* const rect, class Actor const* const center);
 // ★矩形の範囲(Rect)と矩形の範囲(Rect)で当たり判定
 bool CollisionRR(class Actor const* const rect, class Actor const* const center);
+
+// ★矩形の範囲(Rect)と矩形の範囲(Rect)で当たり判定(インデックスを判定に入れない)
+bool CollisionRC_NoInd(class Actor const* const rect, class Actor const* const center);
 #endif
 #endif // !MATH_H

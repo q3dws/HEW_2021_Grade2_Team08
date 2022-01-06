@@ -62,10 +62,11 @@ protected:
     const Vec2 k_player_pos_var_;          //ボタンを押したときのプレイヤーの移動量　
     const Vec2 k_player_vel_;          //プレイヤーの移動速度
     Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
-
+    const Vec2 k_player_hit_size_;
     const int k_player_skillcost_[4];   //共通スキルのコスト
     const int k_who_player_;            //プレイヤーの種類を示す
     const bool k_Is_player_;                //trueならプレイヤー側 false なら敵側
+    const int k_player_damagetime_;        //ダメージモーションの持続時間
 
     enum class WHO_Player : int
     {
@@ -87,6 +88,8 @@ protected:
         COLLECT_LOOP,   //雪集め中
         COLLECT_OUT,       //雪集め終了
         USE_SKILL,          //スキル使用中
+
+        HIT,                    //被ヒット時
 
         USE_SKILL_IN,       //スキル開始
         USE_SKILL_LOOP, //スキル中
@@ -112,6 +115,7 @@ public:
     int Player_getsnow(void);
     virtual void Player_UniqueSkill(void) = 0;
     virtual void Player_texchange(int texnum) = 0;
+    void Player_SetHit(void);
     //void Player_Draw(int mode);
 };
 #endif // PLAYER_H

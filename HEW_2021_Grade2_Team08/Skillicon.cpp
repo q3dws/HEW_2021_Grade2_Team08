@@ -18,8 +18,8 @@ Skillicon::Skillicon(Game* game, bool Is_player,int who, int skillcost0, int ski
 	,LoadTexture(L"Data/Image/UI/skill/UI_snowbig.png")
 	,LoadTexture(L"Data/Image/UI/skill/UI_snowbig_dark.png")
 	//charaA
-	,LoadTexture(L"Data/Image/UI/skill/UI_snow.png")
-	,LoadTexture(L"Data/Image/UI/skill/UI_snow_dark.png")
+	,LoadTexture(L"Data/Image/UI/skill/sukuinage.png")
+	,LoadTexture(L"Data/Image/UI/skill/sukuinage_dark.png")
 	//charaB
 	,LoadTexture(L"Data/Image/UI/skill/amor.png")
 	,LoadTexture(L"Data/Image/UI/skill/amor_dark.png")
@@ -27,8 +27,8 @@ Skillicon::Skillicon(Game* game, bool Is_player,int who, int skillcost0, int ski
 	,LoadTexture(L"Data/Image/UI/skill/UI_fire.png")
 	,LoadTexture(L"Data/Image/UI/skill/UI_fire_dark.png")
 	//charaD
-	,LoadTexture(L"Data/Image/UI/skill/UI_snowbig.png")
-	,LoadTexture(L"Data/Image/UI/skill/UI_snowbig_dark.png")
+	,LoadTexture(L"Data/Image/UI/skill/gun.png")
+	,LoadTexture(L"Data/Image/UI/skill/gun_dark.png")
 }
 {
 
