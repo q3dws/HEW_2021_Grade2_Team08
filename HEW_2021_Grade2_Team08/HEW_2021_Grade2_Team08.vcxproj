@@ -163,11 +163,13 @@
     <ClCompile Include="DEBUG_Comand.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="FallPoint.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
     <ClCompile Include="Golem.cpp" />
     <ClCompile Include="IceWall.cpp" />
+    <ClCompile Include="Icicle.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="InputComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -233,11 +235,13 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="enemytestB.h" />
+    <ClInclude Include="FallPoint.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
     <ClInclude Include="Golem.h" />
     <ClInclude Include="IceWall.h" />
+    <ClInclude Include="Icicle.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="InputComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>

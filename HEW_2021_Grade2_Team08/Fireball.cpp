@@ -10,7 +10,7 @@ Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, 
 , k_fireball_g_(9.8)
 , k_fireball_pos_init_(Vec2(pos.x_, pos.y_ + 50))
 , k_fireball_deg_(60)
-, k_fireball_distination_(Vec2(312 + (k_fireball_size_.x_ / 2), pos.y_))
+, k_fireball_distination_(Vec2(113 * 3 + (k_fireball_size_.x_ / 2), pos.y_))
 , k_Is_player_(Is_player)
 
 {
@@ -24,7 +24,7 @@ Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, 
 
 	if (k_Is_player_ == false)
 	{
-		k_fireball_distination_ = (Vec2(312, pos.y_));
+		k_fireball_distination_ = (Vec2(113 * 3, pos.y_));
 		fireball_stage_num_ = player->Player_getstagenum() - 3;
 	}
 

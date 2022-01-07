@@ -9,8 +9,9 @@ Stage::Stage(Game* game)
 		{
 			int tmp = (i * STAGE_X) + j;
 
+			//Snow
 			snows_[tmp] = new Snow(game);
-			snows_[tmp]->SetPosition(Vec2(SNOW_POS_X + j * 104, SNOW_POS_Y + i * 86.5));
+			snows_[tmp]->SetPosition(Vec2(SNOW_POS_X + j * 113, SNOW_POS_Y + i * 75));
 			snows_[tmp]->index_ = (i * STAGE_X) + j;
 
 		}
@@ -18,6 +19,15 @@ Stage::Stage(Game* game)
 
 void Stage::UpdateActor(float deltatime)
 {
+	timer_++;
 
+	if (timer_ > ICICLE_TIME)
+	{
+		auto index_x = 1;//rand() % 6;
+		auto index_y = 1;//rand() % 3;
+		icicle_index = index_y * STAGE_X + index_x;
 
+		//auto icicle = new Icicle(GetGame(), snows_[icicle_index]->GetPosition(), index_x, index_y, icicle_index);
+		timer_ = 0;
+	}
 }

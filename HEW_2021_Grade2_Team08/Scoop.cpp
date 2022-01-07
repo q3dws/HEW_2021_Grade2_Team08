@@ -9,7 +9,7 @@ Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player) : Skill(game)
 , k_scoop_g_(9.8)
 ,k_scoop_pos_init_(Vec2(pos.x_, pos.y_ + 50))
 , k_scoop_deg_(60)
-, k_scoop_distination_(Vec2(312 + (k_scoop_size_.x_ / 2), pos.y_))
+, k_scoop_distination_(Vec2(113 * 3 + (k_scoop_size_.x_ / 2), pos.y_))
 ,k_Is_player_(Is_player)
 {
 	scoop_pos_ = pos;
@@ -18,7 +18,7 @@ Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player) : Skill(game)
 	
 	if (k_Is_player_ == false)
 	{
-		k_scoop_distination_ = (Vec2(312 , pos.y_));
+		k_scoop_distination_ = (Vec2(113 * 3 , pos.y_));
 	}
 
 	SetPosition(k_scoop_pos_init_);

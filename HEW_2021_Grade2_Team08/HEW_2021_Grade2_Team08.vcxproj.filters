@@ -213,6 +213,8 @@
     <ClCompile Include="SnowCost_tate.cpp">
       <Filter>Skill</Filter>
     </ClCompile>
+    <ClCompile Include="Icicle.cpp" />
+    <ClCompile Include="FallPoint.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -346,6 +348,8 @@
     <ClInclude Include="SnowCost_tate.h">
       <Filter>Skill</Filter>
     </ClInclude>
+    <ClInclude Include="Icicle.h" />
+    <ClInclude Include="FallPoint.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">

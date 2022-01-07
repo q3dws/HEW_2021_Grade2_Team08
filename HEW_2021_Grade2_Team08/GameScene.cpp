@@ -13,6 +13,7 @@
 #include "Snow.h"
 #include "Stage.h"
 #include "Score.h"
+#include "Icicle.h"
 #include "CharaA.h"
 #include "CharaB.h"
 #include "CharaC.h"
@@ -102,9 +103,9 @@ BattleScene::BattleScene(Game* game)
 	bgsta->SetPosition(Vec2(WINDOW_WIDTH * 0.5, STAGE_HEIGHT));
 	BGSpriteComponent* sbg = new BGSpriteComponent(temp, 11);
 	sbg = new BGSpriteComponent(bgsta, 15);
-	sbg->SetScreenSize(Vec2(STAGESCREEN_X, STAGESCREEN_Y));
+	sbg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
 	std::vector<int> sbgtexs = {
-		game->GetTexture(L"Data/Image/Stage_normal_edited.png")
+		game->GetTexture(L"Data/Image/stage1.png")
 	};
 
 	sbg->SetBGTextures(sbgtexs);
@@ -113,11 +114,11 @@ BattleScene::BattleScene(Game* game)
 	p_score2 = new Score2(game);
 	stg = new Stage(game);
 	
-	//player = new CharaA(game, stg, true);
-	//player = new CharaA(game, stg, false);
+	player = new CharaA(game, stg, true);
+	player = new CharaA(game, stg, false);
 	//player = new CharaB(game, stg, true);
-	player = new CharaB(game, stg,false);
-	player = new CharaC(game, stg,true);
+	//player = new CharaB(game, stg,false);
+	//player = new CharaC(game, stg,true);
 	//player = new CharaC(game, stg, false);
 	//player = new CharaD(game, stg, true);
 	//player = new CharaD(game, stg, false);

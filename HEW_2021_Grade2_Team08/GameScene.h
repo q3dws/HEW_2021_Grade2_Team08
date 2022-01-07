@@ -6,7 +6,7 @@
 #include "BGSpriteComponent.h"
 #include "main.h"
 
-#define STAGE_HEIGHT 320
+#define STAGE_HEIGHT 300
 #define STAGESCREEN_X 622
 #define STAGESCREEN_Y 262
 

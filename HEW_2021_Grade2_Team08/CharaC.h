@@ -25,7 +25,7 @@ private:
 
 public:
     CharaC(class Game* game, Stage* stg, bool Is_player)
-        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(325, 246 + 33), 2, Is_player
+        : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(315, 300), 2, Is_player
         , static_cast<int>(WHO_Player::CHARAC))
         //固有スキルのコストはplayerの引数に直接渡して設定しています
         ,k_charaC_

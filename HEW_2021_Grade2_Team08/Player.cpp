@@ -17,13 +17,13 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	, stg_(stg)
 	//constメンバ変数の初期化
 	, k_player_snow_max_(18), k_player_snow_min_(0)
-	, k_player_pos_var_(Vec2(104, 86.5))
+	, k_player_pos_var_(Vec2(113, 75))
 	, k_player_vel_(Vec2(180, 180))
 	, k_player_layer_var(5)
 	, k_Is_player_(Is_player)
 	,k_player_skillcost_{ 2,1,4,uniquecost}
 	, k_who_player_(who)
-	, k_player_hit_size_(size - Vec2(64, 72))
+	, k_player_hit_size_(size - Vec2(64, 82))
 	, k_player_damagetime_(2)
 {
 	SetPosIndex(7); // ★初期位置の配列の要素番号を設定（適当にいれてます）
@@ -36,15 +36,15 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 		GetGame()->SetPlayer2p(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
 	}
 
-	SetCollision(Rect(Vec2(325, 246 + 33), k_player_hit_size_)); // 当たり判定用の矩形の設定
+	SetCollision(Rect(Vec2(315, 300), k_player_hit_size_)); // 当たり判定用の矩形の設定
 
 	//メンバ変数の初期化
-	k_player_pos_center_ = (Vec2(center));
+	k_player_pos_center_ = (Vec2(315, 300));
 	k_player_size_ = (Vec2(size));
 	if (k_Is_player_ == false)
 	{
 		k_player_size_ = (Vec2(size * -1));
-		k_player_pos_center_ = (Vec2(center.x_ + 310, center.y_));
+		k_player_pos_center_ = (Vec2(WINDOW_WIDTH - 315, 300));
 	}
 
 	this->player_pos_.x_ = k_player_pos_center_.x_;						//プレイヤーの画面上の座標
@@ -203,7 +203,7 @@ void Player::Player_move(float deltatime)
 	this->SetPosition(player_pos_);
 
 	// ★当たり判定用の矩形の位置変更
-	SetCollision(Rect(player_pos_, k_player_hit_size_));
+	SetCollision(Rect(Vec2(player_pos_.x_,player_pos_.y_ + 20), k_player_hit_size_));
 	//TestFunc2(GetPosition(), GetPosIndex()); //DEBUG用
 }
 

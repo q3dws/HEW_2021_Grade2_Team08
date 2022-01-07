@@ -7,7 +7,7 @@ Machinegun::Machinegun(Game* game, bool Is_player, Vec2 pos, int bullettex, int 
 ,k_bullettex_(bullettex)
 , k_bulletdelay_(bulletdelay)
 ,k_machinegun_ver_(0.9)
-, k_machinegun_power_(1.5)
+, k_machinegun_power_(1.0)
 , k_machingun_Lowestline_(4)
 {
 	machinegun_counttime_ = 0;

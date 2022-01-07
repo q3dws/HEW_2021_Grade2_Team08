@@ -28,7 +28,7 @@ private:
     };  //それぞれのモーションのコマ数
 public:
     CharaA(class Game* game, Stage* stg,bool Is_player) 
-        : Player(game, stg , Vec2(64 * 2.5, 64 * 2.5) , Vec2(325, 246 + 33), 2, Is_player, 
+        : Player(game, stg , Vec2(64 * 2.5, 64 * 2.5) , Vec2(315, 300), 2, Is_player, 
             static_cast<int>(WHO_Player::CHARAA))
         //固有スキルのコストはplayerの引数に直接渡して設定しています
         ,k_charaA_player_tex
