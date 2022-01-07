@@ -24,7 +24,6 @@ Actor::~Actor()
 void Actor::Update(float deltatime)
 {
     UpdateComponents(deltatime);
-
     UpdateActor(deltatime);
 }
 

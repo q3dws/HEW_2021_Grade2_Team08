@@ -9,7 +9,11 @@
 #include "input.h"
 #include "AnimationTestObj.h"
 #include "TestBullet.h"
+#include "Player.h"
+#include "Snow.h"
+#include "Stage.h"
 #include "Score.h"
+#include "ScoreManager.h"
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
 /////////////////////////////////////////////////////////
@@ -62,30 +66,51 @@ void StartScene::Update(Game* game)
 /////////////////////////////////////////////////////////
 BattleScene::BattleScene(Game* game)
 {
-	
-	auto temp = new Actor(game);
+	Initialize(game);
+	/*auto temp = new Actor(game);
 	temp->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
 	BGSpriteComponent* bg = new BGSpriteComponent(temp, 10);
 	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
 	std::vector<int > bgtexs = {
 		game->GetTexture(L"Data/Image/BattleBG_Test.png")
 	};
-	bg->SetBGTextures(bgtexs);
-
-	bg = new BGSpriteComponent(temp, 15);
+	bg->SetBGTextures(bgtexs);*/
+	/*bg = new BGSpriteComponent(temp, 15);
 	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
 	bgtexs = {
 		game->GetTexture(L"Data/Image/BattleStage_test.png")
 	};
+	bg->SetBGTextures(bgtexs);*/
+
+	//obj = new AnimationTestObj(game);
+	//obj->SetPosition(Vec2(300, WINDOW_HEIGHT - 240));
+	auto temp = new Actor(game);
+	temp->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
+	BGSpriteComponent* bg = new BGSpriteComponent(temp, 10);
+	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
+	std::vector<int > bgtexs = {
+		game->GetTexture(L"Data/Image/BackGround_2.png")
+	};
 	bg->SetBGTextures(bgtexs);
 
-	obj = new AnimationTestObj(game);
-	obj->SetPosition(Vec2(300, WINDOW_HEIGHT - 240));
-	
-	p_score = new Score(game);
+	auto bgsta = new Actor(game);
+	bgsta->SetPosition(Vec2(WINDOW_WIDTH * 0.5, STAGE_HEIGHT));
+	BGSpriteComponent* sbg = new BGSpriteComponent(temp, 11);
+	sbg = new BGSpriteComponent(bgsta, 15);
+	sbg->SetScreenSize(Vec2(STAGESCREEN_X, STAGESCREEN_Y));
+	std::vector<int> sbgtexs = {
+		game->GetTexture(L"Data/Image/Stage_normal_edited.png")
+	};
 
-	p_score2 = new Score2(game);
+	sbg->SetBGTextures(sbgtexs);
+
+	//auto Scoretest = new ScoreManager(game);
+
+	stg = new Stage(game);
+	player = new Player(game, stg);
+
 	
+
 }
 
 BattleScene::~BattleScene()
@@ -94,35 +119,12 @@ BattleScene::~BattleScene()
 
 void BattleScene::Initialize(Game* game)
 {
+	
 }
 
 void BattleScene::HandleInput(Game* game)
 {
-	if (GetKeyboardRelease(DIK_RETURN))
-	{
-		auto bullet = new TestBullet(game);
-		bullet->SetPosition(obj->GetPosition());
-	}
-	if (GetKeyboardRelease(DIK_W))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_, obj->GetPosition().y_ - 120));
-	}
-	if (GetKeyboardRelease(DIK_S))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_, obj->GetPosition().y_ + 120));
-	}
-	if (GetKeyboardRelease(DIK_A))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_ - 120, obj->GetPosition().y_));
-	}
-	if (GetKeyboardRelease(DIK_D))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_ + 120, obj->GetPosition().y_));
-	}
-	if (GetKeyboardRelease(DIK_Y))
-	{
-		p_score->AddScore(1);
-	}
+
 	
 }
 
