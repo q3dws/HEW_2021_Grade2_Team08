@@ -25,19 +25,27 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	, k_who_player_(who)
 	, k_player_hit_size_(size - Vec2(64, 82))
 	, k_player_damagetime_(2)
+	, k_player_dushspd_(3)
+	, k_player_Inputtime_(0.3)
 {
 	SetPosIndex(7); // ★初期位置の配列の要素番号を設定（適当にいれてます）
 	if (k_Is_player_)
 	{
 		GetGame()->SetPlayer(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
+	
+		
 	}
 	else
 	{
 		GetGame()->SetPlayer2p(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
+	
+		
 	}
 
 	SetCollision(Rect(Vec2(315, 300), k_player_hit_size_)); // 当たり判定用の矩形の設定
 
+
+	
 	//メンバ変数の初期化
 	k_player_pos_center_ = (Vec2(315, 300));
 	k_player_size_ = (Vec2(size));
@@ -81,21 +89,27 @@ void Player::UpdateActor(float deltatime)
 {
     Actor::UpdateActor(deltatime);
     
+	Player::Player_setposnum();
 	Player::Player_move(deltatime);
 	Player::Player_snow_collect();
 	Player::Player_snow_throw(deltatime);
 	Player::Player_idlecheck(deltatime);
 	Player::Player_useskill();
 
+	//雪ゲージの変更
 	snowcost_->SetSnownum(player_snow_);
 	//snowcost_tate_->SetSnownum(player_snow_);
+
+	//スキルアイコンの点灯
 	skillicon_->SetSnownum(player_snow_);
+
+	//コナミコマンドの発動チェック
 	if (debugcomand_->CheckDEBUGmode())
 		player_snow_ = k_player_snow_max_;
 }
 
-//プレイヤーの移動をする処理
-void Player::Player_move(float deltatime)
+//プレイヤーのマス目の位置を設定する関数
+void Player::Player_setposnum()
 {
 	//ボタンを押すとプレイヤーのいるマスの番号を変更させる
 	if (player_mode_ == static_cast<int>(PlayerMotion::IDLE)
@@ -130,51 +144,110 @@ void Player::Player_move(float deltatime)
 			if (player_pos_num_ < 6)
 				this->player_pos_num_ += 3;
 		}
-
-
-
 		//描画の優先度変更
 		player_layer_ = 100 + k_player_layer_var * (player_pos_num_ / 3);
 	}
+}
 
 
+//プレイヤーの移動をする処理
+void Player::Player_move(float deltatime)
+{
 	//自分のマスに位置を設定して移動
-	/*
-	瞬間移動する場合
-	this->player_pos_.x_ = player_pos_center.x_ + (player_pos_num_ % 3 - 1) * player_pos_var.x_;
-	this->player_pos_.y_ = player_pos_center.y_ + (floor(player_pos_num_  / 3) - 1)* player_pos_var.y_;
-	*/
-
 	float x_distination = k_player_pos_center_.x_ + (player_pos_num_ % 3 - 1) * k_player_pos_var_.x_;
 	float y_distination = k_player_pos_center_.y_ + (floor(player_pos_num_ / 3) - 1) * k_player_pos_var_.y_;
 
+	//
+	//右移動
+	//
 	if (this->player_pos_.x_ < x_distination)
 	{
-		this->player_pos_.x_ += k_player_vel_.x_ * deltatime;
-
+		//this->player_pos_.x_ += k_player_vel_.x_ * deltatime;
+		
 		Player_texchange(static_cast<int>(PlayerMotion::MOVE_FRONT));
+
+		if (//ボタンを押してから一定時間以内にもう一度押すとダッシュする
+			((GetKeyboardRelease(DIK_D) && k_Is_player_)
+				|| (GetKeyboardRelease(DIK_RIGHT) && !k_Is_player_))
+			&& player_mode_ == static_cast<int>(PlayerMotion::MOVE_FRONT)
+			)
+		{
+			if (player_rightDashCount_ <= 0)
+				player_rightDashCount_ = k_player_Inputtime_;
+		}
+
+		if (
+			((GetKeyboardPress(DIK_D) && k_Is_player_)
+				|| (GetKeyboardTrigger(DIK_RIGHT) && !k_Is_player_))
+			&& player_rightDashCount_ > 0
+			)
+		{
+			{
+				//this->player_pos_.x_ += k_player_vel_.x_ * deltatime * 5;
+				player_rightDashCount_ = 1000;
+			}
+		}
+
+		if(player_rightDashCount_ > 500)
+			this->player_pos_.x_ += k_player_vel_.x_ * deltatime * k_player_dushspd_;
+		else
+			this->player_pos_.x_ += k_player_vel_.x_ * deltatime;
 
 		if (this->player_pos_.x_ >= x_distination)
 		{
 			this->player_pos_.x_ = x_distination;
 			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
+
+			player_rightDashCount_ = 0;
 		}
 
 	}
+
+	//
+	//左移動
+	//
 	if (this->player_pos_.x_ > x_distination)
 	{
-		this->player_pos_.x_ -= k_player_vel_.x_ * deltatime;
+		//this->player_pos_.x_ -= k_player_vel_.x_ * deltatime;
 		Player_texchange(static_cast<int>(PlayerMotion::MOVE_BACK));
+
+		if (//ボタンを押してから一定時間以内にもう一度押すとダッシュする
+			((GetKeyboardRelease(DIK_A) && k_Is_player_)
+				|| (GetKeyboardRelease(DIK_LEFT) && !k_Is_player_))
+			&& player_mode_ == static_cast<int>(PlayerMotion::MOVE_BACK)
+			)
+		{
+			if (player_leftDashCount_ <= 0)
+				player_leftDashCount_ = k_player_Inputtime_;
+		}
+
+		if (
+			((GetKeyboardPress(DIK_A) && k_Is_player_)
+				|| (GetKeyboardTrigger(DIK_LEFT) && !k_Is_player_))
+			&& player_leftDashCount_ > 0
+			)
+		{
+			{
+				//this->player_pos_.x_ += k_player_vel_.x_ * deltatime * 5;
+				player_leftDashCount_ = 1000;
+			}
+		}
+
+		if (player_leftDashCount_ > 500)
+			this->player_pos_.x_ -= k_player_vel_.x_ * deltatime * k_player_dushspd_;
+		else
+			this->player_pos_.x_ -= k_player_vel_.x_ * deltatime;
 
 		if (this->player_pos_.x_ <= x_distination)
 		{
 			this->player_pos_.x_ = x_distination;
 			Player_texchange(static_cast<int>(PlayerMotion::IDLE));
 
+			player_leftDashCount_ = 0;
 		}
-
 	}
 
+	//上移動
 	if (this->player_pos_.y_ < y_distination)
 	{
 		this->player_pos_.y_ += k_player_vel_.y_ * deltatime;
@@ -187,6 +260,7 @@ void Player::Player_move(float deltatime)
 		}
 	}
 
+	//下移動
 	if (this->player_pos_.y_ > y_distination)
 	{
 		this->player_pos_.y_ -= k_player_vel_.y_ * deltatime;
@@ -199,6 +273,10 @@ void Player::Player_move(float deltatime)
 		}
 	}
 
+	//ダッシュ入力時間をへらす
+	player_rightDashCount_ -= 1 * deltatime;
+	player_leftDashCount_ -= 1 * deltatime;
+
 	//位置を設定する
 	this->SetPosition(player_pos_);
 
@@ -206,6 +284,7 @@ void Player::Player_move(float deltatime)
 	SetCollision(Rect(Vec2(player_pos_.x_,player_pos_.y_ + 20), k_player_hit_size_));
 	//TestFunc2(GetPosition(), GetPosIndex()); //DEBUG用
 }
+
 
 //床の雪を拾う処理
 void Player::Player_snow_collect()
@@ -349,9 +428,8 @@ void Player::Player_useskill(void)
 			{
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 				//大玉を生成
-				auto a = new BigBullet(GetGame(), k_Is_player_, player_layer_);
-				a->SetPosition(this->GetPosition());
-
+				auto a = new BigBullet(GetGame(), k_Is_player_, player_layer_,player_pos_);
+				
 				player_snow_ -= k_player_skillcost_[2];
 			}
 		}

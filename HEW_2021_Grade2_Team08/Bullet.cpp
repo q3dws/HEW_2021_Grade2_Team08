@@ -27,14 +27,18 @@ void Bullet::UpdateActor(float deltatime)
 {
     Actor::UpdateActor(deltatime);
 
-    if (Is_player_)
+    if (Is_player_)//ƒvƒŒƒCƒ„[‘¤‚Ì’e
     {
         SetPosition(Vec2(GetPosition().x_ + snow_vel_, GetPosition().y_));
         MoveCollison(Vec2(snow_vel_, 0));
 
+        //“G‚Éƒqƒbƒg‚µ‚½‚Æ‚«‚Ìˆ—
         if (CollisionRC_NoInd(GetGame()->GetPlayer2p(), this))
         {
             GetGame()->GetPlayer2p()->Player_SetHit();
+
+            GetGame()->GetScoreManager()->AddScore(1);
+
             SetState(Dead);
         }
            
@@ -44,13 +48,18 @@ void Bullet::UpdateActor(float deltatime)
         SetPosition(Vec2(GetPosition().x_ - snow_vel_, GetPosition().y_));
         MoveCollison(Vec2(-snow_vel_, 0));
 
+        //ƒvƒŒƒCƒ„[1‚Éƒqƒbƒg‚µ‚½‚Æ‚«‚Ìˆ—
         if (CollisionRC_NoInd(GetGame()->GetPlayer(), this))
         {
             GetGame()->GetPlayer()->Player_SetHit();
+
+            GetGame()->GetScoreManager()->EnemyAddScore(1);
+
             SetState(Dead);
         }
     }
 
+    //•X‚Ì•Ç‚Æ‚Ì“–‚½‚è”»’è
     if (GetGame()->GetIceWallSize() != 0)
     {
         for (int i = 0; i < GetGame()->GetIceWallSize(); i++)

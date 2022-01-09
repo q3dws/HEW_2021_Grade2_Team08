@@ -36,8 +36,8 @@ private:
     class AnimationTestObj* obj;
     class Player* player;
     class Stage* stg;
-    class Score* p_score;
-    class Score2* p_score2;
+
+    class ScoreManager* p_ScoreManager;
     int testtex;
 };
 #endif // !GAMESCENE_H

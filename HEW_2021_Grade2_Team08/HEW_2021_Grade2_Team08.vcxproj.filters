@@ -215,6 +215,7 @@
     </ClCompile>
     <ClCompile Include="Icicle.cpp" />
     <ClCompile Include="FallPoint.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -350,6 +351,7 @@
     </ClInclude>
     <ClInclude Include="Icicle.h" />
     <ClInclude Include="FallPoint.h" />
+    <ClInclude Include="ScoreManager.h" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">

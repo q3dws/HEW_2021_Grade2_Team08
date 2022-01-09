@@ -133,6 +133,7 @@ bool IceWall::Get_Isplayer()
 	return k_Is_player_;
 }
 
+//•X‚Ì•Ç‚Éƒqƒbƒg‚µ‚½‚Æ‚«‚ÉŒÄ‚ÔŠÖ”
 void IceWall::Set_IceWallHit()
 {
 	if (wall_state_ == static_cast<int>(wall_Motion::IDLE) || wall_state_ == static_cast<int>(wall_Motion::HIT))

@@ -14,6 +14,7 @@
 #include "Stage.h"
 #include "AnimSpriteComponent.h"
 #include "SpriteComponent.h"
+#include "ScoreManager.h"
 
 #include "Skillicon.h"
 #include "SnowCost.h"
@@ -68,6 +69,11 @@ protected:
     const bool k_Is_player_;                //trueならプレイヤー側 false なら敵側
     const int k_player_damagetime_;        //ダメージモーションの持続時間
 
+    const float k_player_dushspd_;        //ダッシュ時のスピード倍率
+    const float k_player_Inputtime_;       //ダッシュの入力可能時間
+    float player_rightDashCount_ = 0;
+    float player_leftDashCount_ = 0;
+
     enum class WHO_Player : int
     {
         CHARAA,
@@ -107,6 +113,7 @@ public:
     void UpdateActor(float deltatime) override;
 
     void Player_move(float deltatime);
+    void Player_setposnum();
     void Player_snow_collect();
     void Player_snow_throw(float deltatime);
     void Player_idlecheck(float deltatime);
@@ -117,6 +124,8 @@ public:
     virtual void Player_texchange(int texnum) = 0;
     void Player_SetHit(void);
     //void Player_Draw(int mode);
+
+    
 };
 #endif // PLAYER_H
 

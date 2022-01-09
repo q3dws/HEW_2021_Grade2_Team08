@@ -70,3 +70,15 @@ bool CollisionRC_NoInd(Actor const* const rect, Actor const* const center)
         return true;
     return false;
 }
+
+bool CollisionRR_NoInd(Actor const* const rect, Actor const* const center)
+{
+    if (
+        
+        rect->GetCollision().bottomright_.x_ > center->GetCollision().topleft_.x_ &&
+        rect->GetCollision().topleft_.x_      < center->GetCollision().bottomright_.x_ &&
+        rect->GetCollision().bottomright_.y_  > center->GetCollision().topleft_.y_ &&
+        rect->GetCollision().topleft_.y_ < center->GetCollision().bottomright_.y_)
+        return true;
+    return false;
+}

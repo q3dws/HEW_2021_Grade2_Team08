@@ -36,6 +36,9 @@ public:
     void SetPlayer2p(class Player* player) { player_2p_ = player; } // ★ゲームにプレイヤーのアドレスを知らせる（コンストラクタでやった方がミスが少ないが・・・）
     class Player* GetPlayer2p() const { return player_2p_; }
 
+    void SetScoreManager(class ScoreManager* scoremanager) { scoremanager_ = scoremanager; } // ★ゲームにスコアのアドレスを知らせる（コンストラクタでやった方がミスが少ないが・・・）
+    class ScoreManager* GetScoreManager() const { return scoremanager_; }
+
     void SetIceWall(class IceWall* icewall) { icewall_.emplace_back(icewall); }
     int  GetIceWallSize() const { return icewall_.size(); }
     class IceWall* GetIceWall(int num) const { return icewall_[num]; }
@@ -77,6 +80,8 @@ private:
     class Player* player_; //★どのアクターからでもプレイヤーと通信するためのもの
     class Player* player_2p_; //★どのアクターからでもプレイヤーと通信するためのもの
 
+    class ScoreManager* scoremanager_;
+   
     std::vector<class IceWall*> icewall_; 
 };
 

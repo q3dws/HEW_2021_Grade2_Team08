@@ -187,6 +187,7 @@
     </ClCompile>
     <ClCompile Include="Scoop.cpp" />
     <ClCompile Include="Score.cpp" />
+    <ClCompile Include="ScoreManager.cpp" />
     <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Skillicon.cpp" />
     <ClCompile Include="SkillMediator.cpp" />
@@ -259,6 +260,7 @@
     </ClInclude>
     <ClInclude Include="Scoop.h" />
     <ClInclude Include="Score.h" />
+    <ClInclude Include="ScoreManager.h" />
     <ClInclude Include="Skill.h" />
     <ClInclude Include="Skillicon.h" />
     <ClInclude Include="SkillMediator.h" />

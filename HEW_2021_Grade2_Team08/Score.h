@@ -5,27 +5,22 @@
 #include "Actor.h"
 #include "Game.h"
 
-//*****************************************************************************
-// マクロ定義
-//*****************************************************************************
-#define SCORE_MAX			(99)		// スコアの最大値
-#define SCORE_DIGIT			(2)			// 桁数
-
-
-class Score : public Actor
+class PlayerScore : public Actor
 {
 public:
-	Score(class Game* game);
+	PlayerScore(class Game* game, Vec2(pos));
 	void UpdateActor(float deltatime) override;
-	void AddScore(int add);
+	void AddScore(int number);
 private:
 	class SpriteComponent* score;
+	class Actor* temp2;
+
+	int						g_score;
+	float					g_w, g_h;
+
+
+	float a;
 };
 
-class Score2 : public Actor
-{
-public:
-	Score2(class Game* game);
-};
 
 #endif // SCORE_H_

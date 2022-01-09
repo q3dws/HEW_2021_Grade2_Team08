@@ -13,12 +13,14 @@
 #include "Snow.h"
 #include "Stage.h"
 #include "Score.h"
+#include "ScoreManager.h"
 #include "Icicle.h"
 #include "CharaA.h"
 #include "CharaB.h"
 #include "CharaC.h"
 #include "CharaD.h"
 #include "enemytestB.h"
+
 
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
@@ -110,14 +112,15 @@ BattleScene::BattleScene(Game* game)
 
 	sbg->SetBGTextures(sbgtexs);
 
-	p_score = new Score(game);
-	p_score2 = new Score2(game);
+	
 	stg = new Stage(game);
 	
-	player = new CharaA(game, stg, true);
-	player = new CharaA(game, stg, false);
-	//player = new CharaB(game, stg, true);
-	//player = new CharaB(game, stg,false);
+	p_ScoreManager = new ScoreManager(game);
+
+	//player = new CharaA(game, stg, true);
+	//player = new CharaA(game, stg, false);
+	player = new CharaB(game, stg, true);
+	player = new CharaB(game, stg,false);
 	//player = new CharaC(game, stg,true);
 	//player = new CharaC(game, stg, false);
 	//player = new CharaD(game, stg, true);

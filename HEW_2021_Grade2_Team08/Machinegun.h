@@ -17,7 +17,7 @@ public:
     float GetMachinegunTime(float delta_time);
 private:
     const bool k_Is_player_;
-    const Vec2 k_machinegun_pos_;       //’e‚ªo‚éˆÊ’u
+    Vec2 machinegun_pos_;       //’e‚ªo‚éˆÊ’u
     const int k_bullettex_;                     //’e‚ÌƒeƒNƒXƒ`ƒƒ
     const int k_bulletnum_;                 //’e‚Ì”
     const float k_machinegun_ver_;        //’e‚Ìo‚éŠÔŠu
