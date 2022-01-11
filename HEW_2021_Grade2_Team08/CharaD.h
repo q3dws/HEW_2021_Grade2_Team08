@@ -34,18 +34,6 @@ public:
         : Player(game, stg, Vec2(64 * 2.5, 64 * 2.5), Vec2(315, 300), 1, Is_player
         , static_cast<int>(WHO_Player::CHARAD))
         //固有スキルのコストはplayerの引数に直接渡して設定しています
-        , k_charaD_
-    { LoadTexture(L"Data/Image/player/chara_B_taiki_Sheet.png")
-         , LoadTexture(L"Data/Image/player/chara_B_attack_Sheet.png")
-          ,LoadTexture(L"Data/Image/player/charaB_move_front.png")
-          , LoadTexture(L"Data/Image/player/charaB_move_back.png")
-        ,LoadTexture(L"Data/Image/player/chara_B_taiki_Sheet.png")
-            ,LoadTexture(L"Data/Image/player/charaB_snow_in-Sheet.png")
-           ,LoadTexture(L"Data/Image/player/charaB_snow_loop-Sheet.png")
-           ,LoadTexture(L"Data/Image/player/charaB_snow_out-Sheet.png")
-           ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
-
-    }
     {
 
         if (Is_player)
@@ -59,7 +47,7 @@ public:
             ,LoadTexture(L"Data/Image/player/charaD_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaD_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaD_snow_out_Sheet.png")
-           ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+           ,LoadTexture(L"Data/Image/player/charaD_skill2_Sheet.png")
                  ,LoadTexture(L"Data/Image/player/charaD_damage.png")
 
                 ,LoadTexture(L"Data/Image/player/charaD_skill_in_Sheet.png")
@@ -74,13 +62,13 @@ public:
                
                 LoadTexture(L"Data/Image/enemy/charaD_taiki_Sheet.png")
          , LoadTexture(L"Data/Image/enemy/charaD_attack_Sheet.png")
-          ,LoadTexture(L"Data/Image/enemy/charaD_move_front.png")
-          , LoadTexture(L"Data/Image/enemy/charaD_move_back.png")
+          ,LoadTexture(L"Data/Image/enemy/charaD_move_back.png")
+          , LoadTexture(L"Data/Image/enemy/charaD_move_front.png")
         ,LoadTexture(L"Data/Image/enemy/charaD_taiki_Sheet.png")
             ,LoadTexture(L"Data/Image/enemy/charaD_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/enemy/charaD_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/enemy/charaD_snow_out_Sheet.png")
-           ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+           ,LoadTexture(L"Data/Image/enemy/charaD_skill2_Sheet.png")
                  ,LoadTexture(L"Data/Image/enemy/charaD_damage.png")
 
                 ,LoadTexture(L"Data/Image/enemy/charaD_skill_in_Sheet.png")

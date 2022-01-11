@@ -20,7 +20,7 @@ private:
     class SpriteComponent* frame_asc_;
     std::vector<class SnowPoint*> snowpoints_; //メモリオブジェクトを作る動的配列
 
-    const int k_snowframe_tex_;                       //枠のテクスチャ
+    int snowframe_tex_;                       //枠のテクスチャ
 
     const Vec2 k_frame_size_;                           //フレームの大きさ
     Vec2 k_frame_pos_;                            //フレームの位置

@@ -27,6 +27,8 @@ class Armor :
     const int k_armor_tex_[5];                       //アーマーのテクスチャ
     const Vec2 k_armor_pos_;                         //アーマーのプレイヤーからの相対的な位置
     const Vec2 k_armor_size_;                      //アーマーの大きさ
+    const Vec2 k_armor_hitsize_;                    //アーマーの当たり判定の大きさ
+    const bool k_Is_player_;
 
     Player* player_;
     enum class armor_frame_num : int
@@ -49,9 +51,11 @@ class Armor :
 
 
 public:
-    Armor(Game* game, Vec2(pos), Player* player);
+    Armor(Game* game, Vec2(pos), Player* player, Vec2 player_hitsize, bool is_player);
     void UpdateActor(float deltatime) override;
     void Armor_death_check(float deltatime);
     void Armor_texchange(int texnum);
+    bool Get_Isplayer();
+    void Set_Armorhit(int power);
 };
 

@@ -134,12 +134,12 @@ bool IceWall::Get_Isplayer()
 }
 
 //ïXÇÃï«Ç…ÉqÉbÉgÇµÇΩÇ∆Ç´Ç…åƒÇ‘ä÷êî
-void IceWall::Set_IceWallHit()
+void IceWall::Set_IceWallHit(int power)
 {
 	if (wall_state_ == static_cast<int>(wall_Motion::IDLE) || wall_state_ == static_cast<int>(wall_Motion::HIT))
 	{
   		hitcount_ = 0;
-  		wall_hp_--;
+  		wall_hp_-= power;
 		IceWall_texchange(static_cast<int>(wall_Motion::HIT));
 	}
 }

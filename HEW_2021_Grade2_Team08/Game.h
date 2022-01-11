@@ -43,6 +43,14 @@ public:
     int  GetIceWallSize() const { return icewall_.size(); }
     class IceWall* GetIceWall(int num) const { return icewall_[num]; }
 
+    void SetArmor(class Armor* armor) { armor_.emplace_back(armor); }
+    int  GetArmorSize() const { return armor_.size(); }
+    class Armor* GetArmor(int num) const { return armor_[num]; }
+
+    void SetGolem(class Golem* golem) { golem_.emplace_back(golem); }
+    int  GetGolemSize() const { return golem_.size(); }
+    class Golem* GetGolem(int num) const { return golem_[num]; }
+
 private:
     void RunLoop();
     bool FpsTimer();
@@ -83,6 +91,8 @@ private:
     class ScoreManager* scoremanager_;
    
     std::vector<class IceWall*> icewall_; 
+    std::vector<class Armor*>armor_;
+    std::vector<class Golem*>golem_;
 };
 
 #endif // !GAME_H

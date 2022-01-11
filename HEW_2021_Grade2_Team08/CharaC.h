@@ -62,8 +62,8 @@ public:
             k_charaC_ =
             { LoadTexture(L"Data/Image/enemy/charaC_taiki_Sheet.png")
          , LoadTexture(L"Data/Image/enemy/charaC_attack_Sheet.png")
-          ,LoadTexture(L"Data/Image/enemy/charaC_move_front.png")
-          , LoadTexture(L"Data/Image/enemy/charaC_move_back.png")
+          ,LoadTexture(L"Data/Image/enemy/charaC_move_back.png")
+          , LoadTexture(L"Data/Image/enemy/charaC_move_front.png")
         ,LoadTexture(L"Data/Image/enemy/charaC_taiki_Sheet.png")
             ,LoadTexture(L"Data/Image/enemy/charaC_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/enemy/charaC_snow_loop_Sheet.png")

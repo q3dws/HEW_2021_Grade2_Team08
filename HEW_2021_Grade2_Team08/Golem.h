@@ -25,6 +25,7 @@ private:
     const int k_bullettex_;                         //弾のテクスチャ
     const bool  k_Is_player_;                   //プレイヤー側かどうかの変数
     std::vector<class Bullet*> bullets_; //弾のオブジェクトを作る動的配列
+    int golem_hp_;                          //ゴーレムの耐久値
 
     enum class golem_frame_num : int
     {
@@ -47,5 +48,7 @@ public:
     void Golem_snow_throw(float deltatime);
     void Golem_death_check(float deltatime);
     void Golem_texchange(int texnum) ;
+    void Set_Golemhit(int power);
+    bool Get_Isplayer();
 };
 

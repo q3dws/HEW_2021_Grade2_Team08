@@ -58,7 +58,7 @@ void CharaA::Player_texchange(int texnum)
 
 	case static_cast<int>(PlayerMotion::HIT):
 		asc_->SetAnimTextures(k_charaA_[texnum], k_player_size_, static_cast<int>(charaA_frame_num::HIT), 5.f);
-		idle_timeto_ = k_player_damagetime_; //ˆê’èŠÔŒã‚É‘Ò‹@ó‘Ô‚É
+		idle_timeto_ = damagetime_; //ˆê’èŠÔŒã‚É‘Ò‹@ó‘Ô‚É
 		break;
 
 	default:

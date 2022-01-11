@@ -64,10 +64,12 @@ protected:
     const Vec2 k_player_vel_;          //プレイヤーの移動速度
     Vec2 k_player_size_;                      //プレイヤーキャラの大きさ
     const Vec2 k_player_hit_size_;
+    const Vec2 k_player_hit_pos_;         //コリジョンのプレイヤーに対する相対的な位置
     const int k_player_skillcost_[4];   //共通スキルのコスト
     const int k_who_player_;            //プレイヤーの種類を示す
     const bool k_Is_player_;                //trueならプレイヤー側 false なら敵側
-    const int k_player_damagetime_;        //ダメージモーションの持続時間
+    const int k_player_damagetime_;        //ダメージモーションの持続時間 (default)
+    float damagetime_;                          //ため-じモーションの持続時間
 
     const float k_player_dushspd_;        //ダッシュ時のスピード倍率
     const float k_player_Inputtime_;       //ダッシュの入力可能時間
@@ -122,7 +124,8 @@ public:
     int Player_getsnow(void);
     virtual void Player_UniqueSkill(void) = 0;
     virtual void Player_texchange(int texnum) = 0;
-    void Player_SetHit(void);
+    void Player_SetHit(float damagetime);
+    Vec2 Player_Get_coligionpos(void);
     //void Player_Draw(int mode);
 
     

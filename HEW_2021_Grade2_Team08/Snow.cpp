@@ -7,7 +7,7 @@
 #include "Texture.h"
 
 Snow::Snow(Game* game)
-	:Actor(game), is_snow_(), timer_(), index_(), sprite_actor_()
+	:Actor(game), is_snow_(), timer_(TIMER_MAX - 1), index_(), sprite_actor_()
 {
 	//tex_no_ = LoadTexture(L"Data/Image/snow00.png");
 

@@ -24,6 +24,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	,k_player_skillcost_{ 2,1,4,uniquecost}
 	, k_who_player_(who)
 	, k_player_hit_size_(size - Vec2(64, 82))
+	, k_player_hit_pos_(Vec2(0, -20))
 	, k_player_damagetime_(2)
 	, k_player_dushspd_(3)
 	, k_player_Inputtime_(0.3)
@@ -42,7 +43,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 		
 	}
 
-	SetCollision(Rect(Vec2(315, 300), k_player_hit_size_)); // 当たり判定用の矩形の設定
+	SetCollision(Rect(player_pos_ - k_player_hit_pos_, k_player_hit_size_)); // 当たり判定用の矩形の設定
 
 
 	
@@ -63,6 +64,7 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	this->player_layer_ = 100;
 	this->player_mode_ = static_cast<int>(PlayerMotion::IDLE);
 	this->idle_timeto_ = 0;
+	damagetime_ = 0;
 
 	this->bullettex_ = LoadTexture(L"Data/Image/snowball.png"); //弾のテクスチャ
 
@@ -281,7 +283,7 @@ void Player::Player_move(float deltatime)
 	this->SetPosition(player_pos_);
 
 	// ★当たり判定用の矩形の位置変更
-	SetCollision(Rect(Vec2(player_pos_.x_,player_pos_.y_ + 20), k_player_hit_size_));
+	SetCollision(Rect(player_pos_ - k_player_hit_pos_, k_player_hit_size_));
 	//TestFunc2(GetPosition(), GetPosIndex()); //DEBUG用
 }
 
@@ -476,9 +478,16 @@ int Player::Player_getsnow(void)
 	return player_snow_;
 }
 
-void Player::Player_SetHit(void)
+void Player::Player_SetHit(float damagetime = 2)
 {
+	damagetime_ = damagetime;
 	Player_texchange(static_cast<int>(PlayerMotion::HIT));
+	
 	idlecount_ = 0;
+}
+
+Vec2 Player::Player_Get_coligionpos(void)
+{
+	return player_pos_ - k_player_hit_pos_;
 }
 

@@ -3,10 +3,12 @@
 #include "Armor.h"
 #include "Bullet.h"
 
-Armor::Armor(Game* game, Vec2 pos, Player* player) : Skill(game)
+Armor::Armor(Game* game, Vec2 pos, Player* player, Vec2 player_hitsize, bool is_player) : Skill(game)
 , k_armor_pos_(Vec2(-30, 20))
 , k_armor_size_(Vec2(64 , 64))
-,k_armor_efect_time(60)
+,k_armor_efect_time(120)
+, k_armor_hitsize_(player_hitsize + Vec2(50,5))
+,k_Is_player_(is_player)
 , k_armor_tex_{
 		LoadTexture(L"Data/Image/skill/armor_in-Sheet.png")
 		,LoadTexture(L"Data/Image/skill/armor_life3.png")
@@ -35,6 +37,9 @@ Armor::Armor(Game* game, Vec2 pos, Player* player) : Skill(game)
 	effect_asc_->SetAnimTextures(k_effect_tex, Vec2(64 * 1.5, 64 * 1.5), 7, 5.f);
 	temp_->SetPosition(player_->GetPosition());
 
+	//“–‚½‚è”»’è‚ÌÝ’è
+	GetGame()->SetArmor(this);
+	SetCollision(Rect(player_->Player_Get_coligionpos(), k_armor_hitsize_));
 }
 
 void Armor::UpdateActor(float deltatime)
@@ -46,6 +51,9 @@ void Armor::UpdateActor(float deltatime)
 	temp_->SetPosition(player_->GetPosition());
 
 	SetPosition(player_->GetPosition() - k_armor_pos_);
+
+	//“–‚½‚è”»’è‚ÌÝ’è
+	SetCollision(Rect(player_->Player_Get_coligionpos(), k_armor_hitsize_));
 
 	if (armor_state_ == static_cast<int>(armor_Motion::ADVENT))
 	{
@@ -74,6 +82,7 @@ void Armor::UpdateActor(float deltatime)
 			Armor_texchange(static_cast<int>(armor_Motion::LEAVE));
 			break;
 		default:
+			Armor_texchange(static_cast<int>(armor_Motion::LEAVE));
 			break;
 		}
 
@@ -141,4 +150,19 @@ void Armor::Armor_death_check(float deltatime)
 			temp_->SetState(Dead);
 		}
 	}
+}
+
+bool Armor::Get_Isplayer()
+{
+	return k_Is_player_;
+}
+
+void Armor::Set_Armorhit(int power)
+{
+	armor_life_ -= power;
+
+	if (armor_state_ != static_cast<int>(armor_Motion::LEAVE)
+		&& armor_state_ != static_cast<int>(armor_Motion::ADVENT)
+		)
+	motioncount_ = 0;
 }

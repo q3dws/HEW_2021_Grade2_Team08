@@ -2,6 +2,9 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 #include "Player.h"
+#include "Armor.h"
+#include "IceWall.h"
+#include "Golem.h"
 
 BigBullet::BigBullet(Game* game, bool Is_player, int layer, Vec2 pos) : Skill(game)
 , k_bigsnow_vel_(10)
@@ -42,12 +45,73 @@ void BigBullet::UpdateActor(float delta_time)
 		bigsnow_distance_count_ = 0;
 	}
 
+
+	if (GetPosition().x_ > WINDOW_WIDTH + bigsnow_size_.x_)
+		SetState(Dead);
+
+	if (GetPosition().x_ < 0 - bigsnow_size_.x_)
+		SetState(Dead);
+
+	//氷の壁との当たり判定
+	if (GetGame()->GetIceWallSize() != 0)
+	{
+		for (int i = 0; i < GetGame()->GetIceWallSize(); i++)
+		{
+			if (CollisionRC_NoInd(GetGame()->GetIceWall(i), this) && this->GetState() == 0)
+			{
+				if (GetGame()->GetIceWall(i)->Get_Isplayer() != k_Is_player_)
+				{
+					//位置の関係で1ダメージ足りなくなるので増やしています
+					if(bigsnow_power_ >= 2)
+						GetGame()->GetIceWall(i)->Set_IceWallHit(bigsnow_power_ + 1);
+					else
+						GetGame()->GetIceWall(i)->Set_IceWallHit(bigsnow_power_ + 1);
+
+					SetState(Dead);
+				}
+			}
+		}
+	}
+
+	//アーマーとの当たり判定
+	if (GetGame()->GetArmorSize() != 0)
+	{
+		for (int i = 0; i < GetGame()->GetArmorSize(); i++)
+		{
+			if (CollisionRC_NoInd(GetGame()->GetArmor(i), this) && this->GetState() == 0)
+			{
+				if (GetGame()->GetArmor(i)->Get_Isplayer() != k_Is_player_)
+				{
+					GetGame()->GetArmor(i)->Set_Armorhit(bigsnow_power_);
+					SetState(Dead);
+				}
+			}
+		}
+	}
+
+	//ゴーレムとの当たり判定
+	if (GetGame()->GetGolemSize() != 0)
+	{
+		for (int i = 0; i < GetGame()->GetGolemSize(); i++)
+		{
+			if (CollisionRC_NoInd(GetGame()->GetGolem(i), this) && this->GetState() == 0)
+			{
+				if (GetGame()->GetGolem(i)->Get_Isplayer() != k_Is_player_)
+				{
+					GetGame()->GetGolem(i)->Set_Golemhit(bigsnow_power_);
+					SetState(Dead);
+				}
+			}
+		}
+	}
+
+
 	if (k_Is_player_)//プレイヤー側の弾
 	{
 		//敵にヒットしたときの処理
-		if (CollisionRC_NoInd(GetGame()->GetPlayer2p(), this))
+		if (CollisionRC_NoInd(GetGame()->GetPlayer2p(), this) && this->GetState() == 0)
 		{
-			GetGame()->GetPlayer2p()->Player_SetHit();
+			GetGame()->GetPlayer2p()->Player_SetHit(bigsnow_power_ * 2);
 
 			GetGame()->GetScoreManager()->AddScore(bigsnow_power_);
 
@@ -57,9 +121,9 @@ void BigBullet::UpdateActor(float delta_time)
 	else
 	{
 		//プレイヤー1にヒットしたときの処理
-		if (CollisionRC_NoInd(GetGame()->GetPlayer() , this))
+		if (CollisionRC_NoInd(GetGame()->GetPlayer(), this) && this->GetState() == 0)
 		{
-			GetGame()->GetPlayer()->Player_SetHit();
+			GetGame()->GetPlayer()->Player_SetHit(bigsnow_power_ * 2);
 
 			GetGame()->GetScoreManager()->EnemyAddScore(bigsnow_power_);
 
@@ -67,13 +131,6 @@ void BigBullet::UpdateActor(float delta_time)
 		}
 
 	}
-
-	if (GetPosition().x_ > WINDOW_WIDTH + bigsnow_size_.x_)
-		SetState(Dead);
-
-	if (GetPosition().x_ < 0 - bigsnow_size_.x_)
-		SetState(Dead);
-
 }
 
 void BigBullet::BigBullet_move(float delta_time)

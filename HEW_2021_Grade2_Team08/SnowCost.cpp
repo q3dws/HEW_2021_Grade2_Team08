@@ -1,7 +1,7 @@
 #include "SnowCost.h"
 
 SnowCost::SnowCost(Game* game, bool Is_player) : Actor(game)
-, k_snowframe_tex_ (LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/snowcostwaku_yoko.png") )
+,snowframe_tex_ (LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/snowcostwaku_yoko.png") )
 ,k_frame_size_(Vec2(400,400))
 , k_frame_pos_(Vec2(250, 490))
 ,k_point_pos_(Vec2(k_frame_pos_.x_ - 122, k_frame_pos_.y_ +21))
@@ -11,13 +11,21 @@ SnowCost::SnowCost(Game* game, bool Is_player) : Actor(game)
 ,k_Is_player_(Is_player)
 {
     frame_asc_ = new SpriteComponent(this, 150);
-    frame_asc_->SetTexture(k_snowframe_tex_, k_frame_size_, Vec2(0, 0), Vec2(1, 1));
+    frame_asc_->SetTexture(snowframe_tex_, k_frame_size_, Vec2(0, 0), Vec2(1, 1));
 
     if (k_Is_player_ == false)
     {
+        snowframe_tex_ = LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/snowcostwaku_yoko_Right.png");
         k_frame_pos_ = (Vec2(WINDOW_WIDTH - k_frame_pos_.x_, k_frame_pos_.y_ ));
         k_point_pos_ = (Vec2(k_frame_pos_.x_ - 122, k_frame_pos_.y_ + 21));
+
+        k_point_pos_ = (Vec2(k_point_pos_.x_ - 47, k_point_pos_.y_));
+
+        frame_asc_->SetTexture(snowframe_tex_, -1 * Vec2(k_frame_size_), Vec2(0, 0), Vec2(1, 1));
     }
+
+    
+    
 
     SetPosition(k_frame_pos_);
     //k_point_num_の分だけメモリスプライトを生成する

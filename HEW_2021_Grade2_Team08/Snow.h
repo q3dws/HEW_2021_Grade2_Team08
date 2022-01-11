@@ -9,7 +9,7 @@
 #define SNOW_POS_X		197
 #define SNOW_POS_Y		262
 #define SNOW_MAX		18
-#define TIMER_MAX		240
+#define TIMER_MAX		240 * 4
 
 class Snow : public Actor
 {

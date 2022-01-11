@@ -66,7 +66,7 @@ void CharaC::Player_texchange(int texnum)
 	if (texnum == static_cast<int>(PlayerMotion::HIT))
 	{
 		asc_->SetAnimTextures(k_charaC_[texnum], k_player_size_, static_cast<int>(charaC_frame_num::HIT), 5.f);
-		idle_timeto_ = k_player_damagetime_; //ˆê’èŠÔŒã‚É‘Ò‹@ó‘Ô‚É
+		idle_timeto_ = damagetime_; //ˆê’èŠÔŒã‚É‘Ò‹@ó‘Ô‚É
 
 	}
 }

@@ -1,5 +1,6 @@
 #include "Golem.h"
 #include "Bullet.h"
+#include "Player.h"
 
 Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) : Skill(game)
 ,k_golem_pos_(Vec2(pos))
@@ -7,6 +8,7 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 ,k_bullettex_(bullettex)
 ,k_golem_layer(layer - 1)
 , k_Is_player_(Is_player_)
+, golem_hp_(2)
 {
 	golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet_Right.png");
 	golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet_Right.png");
@@ -29,6 +31,8 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 	this->golem_asc_ = new AnimSpriteComponent(this, k_golem_layer);
 	Golem::Golem_texchange(static_cast<int>(golem_Motion::ADVENT));
 
+	GetGame()->SetGolem(this);
+	//SetCollision(Rect(k_golem_pos_ - Vec2(0,20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
 }
 
 void Golem::UpdateActor(float deltatime)
@@ -66,6 +70,7 @@ void Golem::Golem_snow_throw(float deltatime)
 		motioncount_ += 5 * deltatime;
 		if (motioncount_ >= static_cast<int>(golem_frame_num::ADVENT))
 		{
+			
 			Golem_texchange(static_cast<int>(golem_Motion::ATTACK));
 			motioncount_ = 0;
 		}
@@ -89,16 +94,23 @@ void Golem::Golem_texchange(int texnum)
 
 	if (texnum == static_cast<int>(golem_Motion::ATTACK))
 	{
+		//当たり判定登場
+		SetCollision(Rect(k_golem_pos_ + Vec2(0, 20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
+
 		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::ATTACK), 5.f);
 		//idle_timeto_ = static_cast<int>(charaA_frame_num::ATTACK); //一定時間後に待機状態に
 	}
 
 	if (texnum == static_cast<int>(golem_Motion::LEAVE))
 	{
+		//当たり判定tai場
+		SetCollision(Rect(Vec2(0,0) + Vec2(0, 20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
+
 		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::LEAVE), 5.f);
 	}
 
 }
+
 
 //ゴーレムの退場アニメが終わったら消え失せる処理
 void Golem::Golem_death_check(float deltatime)
@@ -111,4 +123,20 @@ void Golem::Golem_death_check(float deltatime)
 			SetState(Dead);
 		}
 	}
+}
+
+//ゴーレムにヒットしたときに出す関数
+void Golem::Set_Golemhit(int power)
+{
+	golem_hp_ -= power;
+
+	if (golem_hp_ <= 0 && golem_state_ != static_cast<int>(golem_Motion::LEAVE))
+	{
+		Golem_texchange(static_cast<int>(golem_Motion::LEAVE));
+	}
+}
+
+bool Golem::Get_Isplayer()
+{
+	return k_Is_player_;
 }

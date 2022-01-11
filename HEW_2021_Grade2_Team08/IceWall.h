@@ -46,6 +46,6 @@ public:
     void UpdateActor(float deltatime) override;
     void IceWall_texchange(int texnum);
     bool Get_Isplayer();
-    void Set_IceWallHit();
+    void Set_IceWallHit(int power);
 };
 
