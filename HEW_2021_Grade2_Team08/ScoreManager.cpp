@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
+#include "Timer.h"
 
 ScoreManager::ScoreManager(Game* game)
 	:Actor(game)
@@ -41,10 +42,12 @@ ScoreManager::ScoreManager(Game* game)
 	//タイマーが入る所表示
 	auto temp3 = new Actor(game);
 	temp3->SetPosition(Vec2(WINDOW_WIDTH / 2, 50));
-	auto temp3_asc = new SpriteComponent(temp3, 150);
+	auto temp3_asc = new SpriteComponent(temp3, 49);
 	temp3_asc->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/time.png")
 		, Vec2(64 * 2, 64 * 2), Vec2(0, 0), Vec2(1, 1));
 
+	//タイマー表示
+	auto timer = new Timer(game, 90);
 }
 
 void ScoreManager::UpdateActor(float delttime)

@@ -35,6 +35,11 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 	//SetCollision(Rect(k_golem_pos_ - Vec2(0,20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
 }
 
+Golem::~Golem()
+{
+	GetGame()->RemoveGolem(this);
+}
+
 void Golem::UpdateActor(float deltatime)
 {
 	Actor::UpdateActor(deltatime);
@@ -104,7 +109,7 @@ void Golem::Golem_texchange(int texnum)
 	if (texnum == static_cast<int>(golem_Motion::LEAVE))
 	{
 		//“–‚½‚è”»’ètaiê
-		SetCollision(Rect(Vec2(0,0) + Vec2(0, 20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
+		SetCollision(Rect(Vec2(0,0), Vec2(0, 0)));
 
 		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::LEAVE), 5.f);
 	}

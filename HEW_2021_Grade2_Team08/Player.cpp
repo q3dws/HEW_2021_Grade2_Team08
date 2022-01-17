@@ -148,6 +148,13 @@ void Player::Player_setposnum()
 		}
 		//描画の優先度変更
 		player_layer_ = 100 + k_player_layer_var * (player_pos_num_ / 3);
+		// ★プレイヤーの配列番号を更新
+		auto testpos = player_pos_num_ > 2 ? player_pos_num_ > 5 ? player_pos_num_ + 6 : player_pos_num_ + 3 : player_pos_num_;
+		SetPosIndex(testpos);
+		if (!k_Is_player_)
+		{
+			SetPosIndex(testpos + 3);
+		}
 	}
 }
 
@@ -403,9 +410,7 @@ void Player::Player_useskill(void)
 			{
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 				//ゴーレムを生成
-				golems_.emplace_back(new Golem(GetGame(), player_pos_, bullettex_, player_layer_, k_Is_player_));
-				golems_.back()->SetPosition(this->GetPosition());
-
+				auto a = new Golem(GetGame(), player_pos_, bullettex_, player_layer_, k_Is_player_);
 				player_snow_ -= k_player_skillcost_[0];
 			}
 		}

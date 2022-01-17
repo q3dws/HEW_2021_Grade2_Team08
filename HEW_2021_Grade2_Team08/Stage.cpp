@@ -23,8 +23,8 @@ void Stage::UpdateActor(float deltatime)
 
 	if (timer_ > ICICLE_TIME)
 	{
-		auto index_x = 1;//rand() % 6;
-		auto index_y = 1;//rand() % 3;
+		auto index_x = rand() % 6;
+		auto index_y = rand() % 3;
 		icicle_index = index_y * STAGE_X + index_x;
 
 		//auto icicle = new Icicle(GetGame(), snows_[icicle_index]->GetPosition(), index_x, index_y, icicle_index);

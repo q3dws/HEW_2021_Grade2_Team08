@@ -42,14 +42,17 @@ public:
     void SetIceWall(class IceWall* icewall) { icewall_.emplace_back(icewall); }
     int  GetIceWallSize() const { return icewall_.size(); }
     class IceWall* GetIceWall(int num) const { return icewall_[num]; }
+    void RemoveIceWall(class IceWall* iceWall);
 
     void SetArmor(class Armor* armor) { armor_.emplace_back(armor); }
     int  GetArmorSize() const { return armor_.size(); }
     class Armor* GetArmor(int num) const { return armor_[num]; }
+    void RemoveArmor(class Armor* armor);
 
     void SetGolem(class Golem* golem) { golem_.emplace_back(golem); }
     int  GetGolemSize() const { return golem_.size(); }
     class Golem* GetGolem(int num) const { return golem_[num]; }
+    void RemoveGolem(class Golem* golem);
 
 private:
     void RunLoop();

@@ -42,6 +42,11 @@ Armor::Armor(Game* game, Vec2 pos, Player* player, Vec2 player_hitsize, bool is_
 	SetCollision(Rect(player_->Player_Get_coligionpos(), k_armor_hitsize_));
 }
 
+Armor::~Armor()
+{
+	GetGame()->RemoveArmor(this);
+}
+
 void Armor::UpdateActor(float deltatime)
 {
 	Actor::UpdateActor(deltatime);
@@ -86,6 +91,7 @@ void Armor::UpdateActor(float deltatime)
 			break;
 		}
 
+		//一定時間立つとアーマーの耐久度が減る
 		motioncount_ += 5 * deltatime;
 		if (motioncount_ >= k_armor_efect_time)
 		{
@@ -94,7 +100,12 @@ void Armor::UpdateActor(float deltatime)
 		}
 
 		if (armor_state_ == static_cast<int>(armor_Motion::LEAVE))
+		{
+			//当たり判定の消滅
+			SetCollision(Rect(Vec2(0,0), Vec2(0, 0)));
 			motioncount_ = 0;
+		}
+			
 	}
 	
 }

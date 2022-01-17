@@ -238,3 +238,41 @@ int Game::GetTexture(wchar_t const* file_name)
 {
 	return LoadTexture(file_name);
 }
+
+
+
+
+void Game::RemoveIceWall(IceWall* iceWall)
+{
+	auto iter = std::find(icewall_.begin(), icewall_.end(), iceWall);
+	if (iter != icewall_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, icewall_.end() - 1);
+		icewall_.pop_back();
+	}
+
+}
+
+void Game::RemoveArmor(Armor* armor)
+{
+	auto iter = std::find(armor_.begin(), armor_.end(), armor);
+	if (iter != armor_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, armor_.end() - 1);
+		armor_.pop_back();
+	}
+
+}
+
+void Game::RemoveGolem(Golem* golem)
+{
+	auto iter = std::find(golem_.begin(), golem_.end(), golem);
+	if (iter != golem_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, golem_.end() - 1);
+		golem_.pop_back();
+	}
+}

@@ -52,6 +52,7 @@ class Armor :
 
 public:
     Armor(Game* game, Vec2(pos), Player* player, Vec2 player_hitsize, bool is_player);
+    ~Armor();
     void UpdateActor(float deltatime) override;
     void Armor_death_check(float deltatime);
     void Armor_texchange(int texnum);

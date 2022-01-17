@@ -1,6 +1,10 @@
 #include "Scoop.h"
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "Player.h"
+#include "Golem.h"
+#include "Armor.h"
+#include "Game.h"
 
 Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player) : Skill(game)
 , k_scoop_tex_(LoadTexture(L"Data/Image/skill/snowball_big.png"))
@@ -72,8 +76,8 @@ void Scoop::Scoop_exprosion()
 	{
 		if (GetPosition().x_ > k_scoop_pos_init_.x_ + k_scoop_distination_.x_)
 		{
-			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true);
-			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false);
+			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true,k_Is_player_);
+			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);
 
 			SetState(Dead);
 		}
@@ -82,8 +86,8 @@ void Scoop::Scoop_exprosion()
 	{
 		if (GetPosition().x_ < k_scoop_pos_init_.x_ - k_scoop_distination_.x_)
 		{
-			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true);
-			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false);
+			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true, k_Is_player_);
+			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);
 
 			SetState(Dead);
 		}
@@ -93,15 +97,18 @@ void Scoop::Scoop_exprosion()
 }
 
 
-MiniBullet::MiniBullet(Game* game, int tex, Vec2 pos,bool up)
+MiniBullet::MiniBullet(Game* game, int tex, Vec2 pos,bool up, bool is_player)
 	:Actor(game)
 	, snow_vel_(10)
+	,k_Is_player_(is_player)
+	, k_damagetime_(2)
 {
 	auto sc = new SpriteComponent(this, 150);
 	sc->SetTexture(tex, Vec2(30, 30), Vec2(0, 0), Vec2(1, 1));
 	up_ = up;
 
 	SetPosition(pos);
+	SetCollision(Rect(pos, Vec2(30, 30)));
 }
 
 MiniBullet::~MiniBullet()
@@ -116,11 +123,76 @@ void MiniBullet::UpdateActor(float deltatime)
 	if (up_)
 	{
 		SetPosition(Vec2(GetPosition().x_, GetPosition().y_ + snow_vel_));
+		MoveCollison(Vec2(0, snow_vel_));
 	}
 	else
 	{
 		SetPosition(Vec2(GetPosition().x_, GetPosition().y_ - snow_vel_));
+		MoveCollison(Vec2(0, -snow_vel_));
 	}
+
+    //アーマーとの当たり判定
+    if (GetGame()->GetArmorSize() != 0)
+    {
+        for (int i = 0; i < GetGame()->GetArmorSize(); i++)
+        {
+            if (CollisionRC_NoInd(GetGame()->GetArmor(i), this) && this->GetState() == 0)
+            {
+                if (GetGame()->GetArmor(i)->Get_Isplayer() != k_Is_player_)
+                {
+                    GetGame()->GetArmor(i)->Set_Armorhit(1);
+                    SetState(Dead);
+                }
+            }
+        }
+    }
+
+
+    //ゴーレムとの当たり判定
+    if (GetGame()->GetGolemSize() != 0)
+    {
+        for (int i = 0; i < GetGame()->GetGolemSize(); i++)
+        {
+            if (CollisionRC_NoInd(GetGame()->GetGolem(i), this) && this->GetState() == 0)
+            {
+                if (GetGame()->GetGolem(i)->Get_Isplayer() != k_Is_player_)
+                {
+                    GetGame()->GetGolem(i)->Set_Golemhit(1);
+                    SetState(Dead);
+                }
+            }
+        }
+    }
+
+    if (k_Is_player_)//プレイヤー側の弾
+    {
+       
+        //敵にヒットしたときの処理
+        if (CollisionRC_NoInd(GetGame()->GetPlayer2p(), this) && this->GetState() == 0)
+        {
+            GetGame()->GetPlayer2p()->Player_SetHit(k_damagetime_);
+
+            GetGame()->GetScoreManager()->AddScore(1);
+
+            SetState(Dead);
+        }
+
+    }
+    else
+    {
+       
+        //プレイヤー1にヒットしたときの処理
+        if (CollisionRC_NoInd(GetGame()->GetPlayer(), this) && this->GetState() == 0)
+        {
+            GetGame()->GetPlayer()->Player_SetHit(k_damagetime_);
+
+            GetGame()->GetScoreManager()->EnemyAddScore(1);
+
+            SetState(Dead);
+
+        }
+    }
+
 
 	if (GetPosition().y_ > WINDOW_HEIGHT || GetPosition().y_ < 0)
 		SetState(Dead);

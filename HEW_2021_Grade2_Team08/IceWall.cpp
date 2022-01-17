@@ -42,6 +42,12 @@ IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(ga
 	GetGame()->SetIceWall(this);
 }
 
+IceWall::~IceWall()
+{
+	GetGame()->RemoveIceWall(this);
+}
+
+
 void IceWall::UpdateActor(float deltatime)
 {
 	Actor::UpdateActor(deltatime);
@@ -73,6 +79,7 @@ void IceWall::UpdateActor(float deltatime)
 		motioncount_ += 5 * deltatime;
 		if (motioncount_ >= static_cast<int>(wall_frame_num::LEAVE))
 		{
+			//RemoveActor
 			SetState(Dead);
 		}
 		break;

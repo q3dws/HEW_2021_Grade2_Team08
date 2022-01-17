@@ -43,6 +43,7 @@ private:
 
 public:
     IceWall(Game* game, Vec2 playerpos, int layer, bool Is_player);
+    ~IceWall();
     void UpdateActor(float deltatime) override;
     void IceWall_texchange(int texnum);
     bool Get_Isplayer();

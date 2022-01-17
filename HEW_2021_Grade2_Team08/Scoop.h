@@ -41,10 +41,12 @@ class MiniBullet :
     public Actor
 {
 public:
-    MiniBullet(class Game* game, int tex, Vec2 pos, bool up);
+    MiniBullet(class Game* game, int tex, Vec2 pos, bool up, bool is_player);
     ~MiniBullet();
     void UpdateActor(float delta_time) override;
 private:
     bool up_; //è„Ç…îÚÇ‘Ç©Ç«Ç§Ç©
     const float snow_vel_; //ê·ÇÃë¨Ç≥
+    bool k_Is_player_;
+    int k_damagetime_;
 };

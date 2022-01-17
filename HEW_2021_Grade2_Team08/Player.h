@@ -42,7 +42,7 @@ protected:
     int bullettex_;                              //弾のテクスチャ
     std::vector<class Bullet*> bullets_; //弾のオブジェクトを作る動的配列
     
-    std::vector<class Golem*> golems_; //ゴーレムのオブジェクトを作る動的配列
+    
     class SnowCost* snowcost_;                        //持っている雪の数を表示するオブジェクトを作る
     //class SnowCost_tate* snowcost_tate_;
     class Skillicon* skillicon_;                        //スキルのUIを表示するオブジェクトを作る

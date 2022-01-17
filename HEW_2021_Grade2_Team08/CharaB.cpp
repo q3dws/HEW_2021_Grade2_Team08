@@ -74,10 +74,8 @@ void CharaB::Player_texchange(int texnum)
 //å≈óLÉXÉLÉãÇÃä÷êî
 void CharaB::Player_UniqueSkill(void)
 {
-
 	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 
-	auto a = new Armor(GetGame(), player_pos_, this,k_player_hit_size_, k_Is_player_);
+	auto a = new Armor(GetGame(), player_pos_, this, k_player_hit_size_, k_Is_player_);
 	player_snow_ -= k_player_skillcost_[3];
-
 }

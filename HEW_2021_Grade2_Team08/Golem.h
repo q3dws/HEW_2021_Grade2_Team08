@@ -44,6 +44,7 @@ private:
 
 public:
     Golem(Game* game, Vec2(pos), int bullettex, int layer, bool Is_player_);
+    ~Golem();
     void UpdateActor(float deltatime) override;
     void Golem_snow_throw(float deltatime);
     void Golem_death_check(float deltatime);

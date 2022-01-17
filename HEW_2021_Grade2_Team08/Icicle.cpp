@@ -34,8 +34,12 @@ void Icicle::UpdateActor(float deltatime)
 	SetPosition(Vec2(GetPosition().x_, GetPosition().y_ + move_));
 	MoveCollison(Vec2(0, move_)); //コリジョン矩形をmove_分移動
 	// ★個人的にはキャラ以外の弾などは中心で当たり判定を取った方が見栄え良いような気がしてる。
-	if(CollisionRC(GetGame()->GetPlayer(), this)) // ★プレイヤーとこのつららが当たっていたら消える
+	if (CollisionRC(GetGame()->GetPlayer(), this)) // ★プレイヤーとこのつららが当たっていたら消える
+	{
+		GetGame()->GetScoreManager()->AddScore(1);
 		SetState(Dead);
+	}
+		
 	if (GetPosition().y_ > destination_.y_)
 		SetState(Dead);
 }
