@@ -164,6 +164,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyState.cpp" />
     <ClCompile Include="FallPoint.cpp" />
+    <ClCompile Include="Fight_Effects.cpp" />
     <ClCompile Include="Fireball.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
@@ -238,6 +239,7 @@
     <ClInclude Include="EnemyState.h" />
     <ClInclude Include="enemytestB.h" />
     <ClInclude Include="FallPoint.h" />
+    <ClInclude Include="Fight_Effects.h" />
     <ClInclude Include="Fireball.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />

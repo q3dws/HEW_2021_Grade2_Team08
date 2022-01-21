@@ -226,6 +226,9 @@
     <ClCompile Include="Timer.cpp">
       <Filter>Score</Filter>
     </ClCompile>
+    <ClCompile Include="Fight_Effects.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -367,6 +370,9 @@
       <Filter>Score</Filter>
     </ClInclude>
     <ClInclude Include="Timer.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_Effects.h">
       <Filter>Score</Filter>
     </ClInclude>
   </ItemGroup>

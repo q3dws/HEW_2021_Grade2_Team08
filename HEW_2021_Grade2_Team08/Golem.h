@@ -18,7 +18,7 @@ private:
     float     motioncount_;             //ゴーレムの登場/退場アニメの終わる時間を数える
     int     deathcount;            //投げた玉の数を数える
 
-    int golem_tex_[3];                       //ゴーレムのテクスチャ
+    int golem_tex_[4];                       //ゴーレムのテクスチャ
     const Vec2 k_golem_pos_;                         //ゴーレムの位置
     Vec2 k_golem_size_;                      //ゴーレムの大きさ
     const int k_golem_layer;                    //ゴーレムの描画の優先度
@@ -32,6 +32,7 @@ private:
         ADVENT = 17,
         ATTACK = 14,
         LEAVE = 8,
+        HIT = 1,
     };
 
     enum class golem_Motion :int
@@ -39,6 +40,7 @@ private:
         ADVENT,     //登場
         ATTACK,     //攻撃中
         LEAVE,      //退場
+        HIT,            //ダメージ中
     };
 
 
@@ -47,7 +49,7 @@ public:
     ~Golem();
     void UpdateActor(float deltatime) override;
     void Golem_snow_throw(float deltatime);
-    void Golem_death_check(float deltatime);
+    
     void Golem_texchange(int texnum) ;
     void Set_Golemhit(int power);
     bool Get_Isplayer();

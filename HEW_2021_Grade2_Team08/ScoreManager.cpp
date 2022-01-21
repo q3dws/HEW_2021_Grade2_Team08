@@ -37,8 +37,7 @@ ScoreManager::ScoreManager(Game* game)
 		game->GetTexture(L"Data/Image/UI/scorbord/scorbord_red1.png")
 	};
 	scorebg2->SetBGTextures(bgtexs2);
-
-
+	
 	//タイマーが入る所表示
 	auto temp3 = new Actor(game);
 	temp3->SetPosition(Vec2(WINDOW_WIDTH / 2, 50));
@@ -46,6 +45,7 @@ ScoreManager::ScoreManager(Game* game)
 	temp3_asc->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/time.png")
 		, Vec2(64 * 2, 64 * 2), Vec2(0, 0), Vec2(1, 1));
 
+	
 	//タイマー表示
 	auto timer = new Timer(game, 90);
 }
@@ -57,7 +57,6 @@ void ScoreManager::UpdateActor(float delttime)
 
 void ScoreManager::AddScore(int add)
 {
-
 	number += add;
 
 	if (number > SCORE_MAX)

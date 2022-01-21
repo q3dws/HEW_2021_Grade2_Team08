@@ -13,12 +13,14 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 	golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet_Right.png");
 	golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet_Right.png");
 	golem_tex_[2] = LoadTexture(L"Data/Image/skill/golem_down_Sheet_Right.png");
-	
+	golem_tex_[3] = LoadTexture(L"Data/Image/skill/golem_damage_A_Right.png");
+
 	if (k_Is_player_ == false)
 	{
 		golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet.png");
 		golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet.png");
 		golem_tex_[2] = LoadTexture(L"Data/Image/skill/golem_down_Sheet.png");
+		golem_tex_[3] = LoadTexture(L"Data/Image/skill/golem_damage_A.png");
 
 		k_golem_size_ = (Vec2(64 * 2, 64 * 2));
 	}
@@ -45,41 +47,78 @@ void Golem::UpdateActor(float deltatime)
 	Actor::UpdateActor(deltatime);
 
 	Golem::Golem_snow_throw(deltatime);
-	Golem::Golem_death_check(deltatime);
+	
 
 }
 
 //ゴーレムが雪玉を投げる処理
 void Golem::Golem_snow_throw(float deltatime)
 {
-	if (golem_state_ == static_cast<int>(golem_Motion::ATTACK))
+
+	switch (golem_state_)
 	{
+	case static_cast<int>(golem_Motion::ATTACK):
 		attackcount_ += 5 * deltatime;
 		//攻撃するコマになったら射撃する
 		if (attackcount_ >= static_cast<int>(golem_frame_num::ATTACK))
 		{
 			//弾を生成
-			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_,k_Is_player_, k_golem_pos_));
-			
+			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_, k_Is_player_, k_golem_pos_));
+
 			attackcount_ = 0;
-			
+
 			//弾を四回投げていると死亡する
 			deathcount++;
-			if(deathcount > 4)
+			if (deathcount > 4)
 				Golem_texchange(static_cast<int>(golem_Motion::LEAVE));
 		}
-	}
-	else if(golem_state_ == static_cast<int>(golem_Motion::ADVENT))
-	{
+		break;
+	case static_cast<int>(golem_Motion::ADVENT):
 		//登場中の場合はアニメが終わるのを待ってから攻撃状態に移る処理
 		motioncount_ += 5 * deltatime;
 		if (motioncount_ >= static_cast<int>(golem_frame_num::ADVENT))
 		{
-			
+
 			Golem_texchange(static_cast<int>(golem_Motion::ATTACK));
 			motioncount_ = 0;
 		}
+		break;
+	case static_cast<int>(golem_Motion::LEAVE):
+		//ゴーレムの退場アニメが終わったら消え失せる処理
+		motioncount_ += 5 * deltatime;
+		if (motioncount_ >= static_cast<int>(golem_frame_num::LEAVE))
+		{
+			SetState(Dead);
+		}
+
+		break;
+	case static_cast<int>(golem_Motion::HIT):
+		//ヒットした場合はアニメが終わるのを待ってから攻撃状態に移る処理
+		motioncount_ += 5 * deltatime;
+		if (motioncount_ >= static_cast<int>(golem_frame_num::HIT))
+		{
+			if (golem_hp_ <= 0)
+			{
+				//hpが0なら死ぬ
+				Golem_texchange(static_cast<int>(golem_Motion::LEAVE));
+				motioncount_ = 0;
+
+			}
+			else
+			{
+				Golem_texchange(static_cast<int>(golem_Motion::ATTACK));
+				motioncount_ = 0;
+				this->attackcount_ = static_cast<int>(golem_frame_num::ATTACK) - 10;	//投げるコマまでの調整
+			}
+			
+		}
+
+		
+		break;
+	default:
+		break;
 	}
+
 
 }
 
@@ -114,31 +153,20 @@ void Golem::Golem_texchange(int texnum)
 		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::LEAVE), 5.f);
 	}
 
-}
-
-
-//ゴーレムの退場アニメが終わったら消え失せる処理
-void Golem::Golem_death_check(float deltatime)
-{
-	if (golem_state_ == static_cast<int>(golem_Motion::LEAVE))
+	if (texnum == static_cast<int>(golem_Motion::HIT))
 	{
-		motioncount_ += 5 * deltatime;
-		if (motioncount_ >= static_cast<int>(golem_frame_num::LEAVE))
-		{
-			SetState(Dead);
-		}
+		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::HIT), 5.f);
 	}
 }
+
 
 //ゴーレムにヒットしたときに出す関数
 void Golem::Set_Golemhit(int power)
 {
 	golem_hp_ -= power;
+	Golem_texchange(static_cast<int>(golem_Motion::HIT));
+	motioncount_ = 0;
 
-	if (golem_hp_ <= 0 && golem_state_ != static_cast<int>(golem_Motion::LEAVE))
-	{
-		Golem_texchange(static_cast<int>(golem_Motion::LEAVE));
-	}
 }
 
 bool Golem::Get_Isplayer()

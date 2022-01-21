@@ -10,6 +10,7 @@ SpriteComponent::SpriteComponent(Actor* owner, int draw_order)
     , current_frame_(0.f)
     , animation_fps_(60.f)
     , rot_ (0)
+    , alfa_(1.0f)
 {
     owner_->GetGame()->AddSprite(this);
 }
@@ -35,7 +36,8 @@ void SpriteComponent::Draw()
         texture_size_ * owner_->GetScale(),
         uv_,
         uv_wh_,
-        rot_
+        rot_,
+        alfa_
     );
 
 }

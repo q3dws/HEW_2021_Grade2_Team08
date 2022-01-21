@@ -117,12 +117,12 @@ BattleScene::BattleScene(Game* game)
 	
 	p_ScoreManager = new ScoreManager(game);
 
-	//player = new CharaA(game, stg, true);
+	player = new CharaA(game, stg, true);
 	//player = new CharaA(game, stg, false);
-	player = new CharaB(game, stg, true);
-	player = new CharaB(game, stg,false);
+	//player = new CharaB(game, stg, true);
+	//player = new CharaB(game, stg,false);
 	//player = new CharaC(game, stg,true);
-	//player = new CharaC(game, stg, false);
+	player = new CharaC(game, stg, false);
 	//player = new CharaD(game, stg, true);
 	//player = new CharaD(game, stg, false);
 	//player = new EnemytestB(game, stg);

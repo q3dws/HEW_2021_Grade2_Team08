@@ -34,6 +34,7 @@ void Timer::UpdateActor(float delttime)
 		remaining_time_ = 0;
 }
 
+//ŽžŠÔ‚Ì•`‰æ
 void Timer::SetTime(float deltatime)
 {
 	int a = remaining_time_ / 60;

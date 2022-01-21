@@ -89,12 +89,15 @@ void IceWall::UpdateActor(float deltatime)
 		if (hitcount_ >= static_cast<int>(wall_frame_num::HIT))
 		{
 			IceWall_texchange(static_cast<int>(wall_Motion::IDLE));
+
 		}
+
 		if (wall_hp_ <= 0)
 		{
 			IceWall_texchange(static_cast<int>(wall_Motion::LEAVE));
 			motioncount_ = 0;
 		}
+
 		break;
 	default:
 		break;

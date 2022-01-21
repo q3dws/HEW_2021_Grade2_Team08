@@ -37,7 +37,7 @@ public:
             ,LoadTexture(L"Data/Image/player/charaC_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_out_Sheet.png")
-           ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+           ,LoadTexture(L"Data/Image/player/charaC_Skill_Sheet.png")
          ,LoadTexture(L"Data/Image/player/charaC_damage.png")
     }
     {
@@ -53,7 +53,7 @@ public:
             ,LoadTexture(L"Data/Image/player/charaC_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/player/charaC_snow_out_Sheet.png")
-           ,LoadTexture(L"Data/Image/player/chara_B_skill_Sheet.png")
+           ,LoadTexture(L"Data/Image/player/charaC_Skill_Sheet.png")
                  ,LoadTexture(L"Data/Image/player/charaC_damage.png")
             };
         }
@@ -68,7 +68,7 @@ public:
             ,LoadTexture(L"Data/Image/enemy/charaC_snow_in_Sheet.png")
            ,LoadTexture(L"Data/Image/enemy/charaC_snow_loop_Sheet.png")
            ,LoadTexture(L"Data/Image/enemy/charaC_snow_out_Sheet.png")
-           ,LoadTexture(L"Data/Image/enemy/chara_B_skill_Sheet.png")
+           ,LoadTexture(L"Data/Image/enemy/charaC_Skill_Sheet.png")
                  ,LoadTexture(L"Data/Image/enemy/charaC_damage.png")
             };
         }

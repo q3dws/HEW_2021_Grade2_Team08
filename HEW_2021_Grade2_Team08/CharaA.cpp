@@ -73,7 +73,7 @@ void CharaA::Player_UniqueSkill(void)
 
 	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 	//’e‚ð¶¬
-	scoops_.emplace_back(new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_));
+	scoops_.emplace_back(new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_, stg_,this));
 	//scoops_.back()->SetPosition(this->GetPosition());
 
 	//scoops;

@@ -16,6 +16,7 @@ public:
     void SetUV(const Vec2& uv, const Vec2& uv_wh) { uv_ = uv; uv_wh_ = uv_wh; }
 
     void SetRot(const float rot) { rot_ = rot; }
+    void SetAlfa(const float alfa) { alfa_ = alfa; }
     int GetDrawOrder() const { return draw_order_; }
     
 private:
@@ -30,5 +31,6 @@ private:
     float animation_fps_;
 
     float rot_;
+    float alfa_;
 };
 #endif // !SPRITECOMPONENT_H

@@ -6,7 +6,7 @@
 #include "Armor.h"
 #include "Game.h"
 
-Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player) : Skill(game)
+Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player, Stage* stg, Player* player) : Skill(game)
 , k_scoop_tex_(LoadTexture(L"Data/Image/skill/snowball_big.png"))
 , k_scoop_size_(Vec2(30, 30))
 ,k_scoop_layer_(layer)
@@ -15,19 +15,22 @@ Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player) : Skill(game)
 , k_scoop_deg_(60)
 , k_scoop_distination_(Vec2(113 * 3 + (k_scoop_size_.x_ / 2), pos.y_))
 ,k_Is_player_(Is_player)
+, stg_(stg)
 {
 	scoop_pos_ = pos;
 	scoop_asc_ = new SpriteComponent(this, 250);
 	scoop_asc_->SetTexture(k_scoop_tex_, k_scoop_size_, Vec2(0, 0), Vec2(1, 1));
 	
+	scoop_stage_num_ = player->Player_getstagenum() + 3;
+
 	if (k_Is_player_ == false)
 	{
 		k_scoop_distination_ = (Vec2(113 * 3 , pos.y_));
+		scoop_stage_num_ = player->Player_getstagenum() - 3;
 	}
 
 	SetPosition(k_scoop_pos_init_);
 	
-	//SetPosition(scoop_pos_);
 }
 
 Scoop::~Scoop()
@@ -76,8 +79,10 @@ void Scoop::Scoop_exprosion()
 	{
 		if (GetPosition().x_ > k_scoop_pos_init_.x_ + k_scoop_distination_.x_)
 		{
-			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true,k_Is_player_);
-			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);
+			/*auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true,k_Is_player_);
+			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);*/
+
+			Scoop_summon_icepiller();
 
 			SetState(Dead);
 		}
@@ -86,8 +91,10 @@ void Scoop::Scoop_exprosion()
 	{
 		if (GetPosition().x_ < k_scoop_pos_init_.x_ - k_scoop_distination_.x_)
 		{
-			auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true, k_Is_player_);
-			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);
+			/*auto a = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), true, k_Is_player_);
+			auto b = new MiniBullet(GetGame(), k_scoop_tex_, GetPosition(), false, k_Is_player_);*/
+
+			Scoop_summon_icepiller();
 
 			SetState(Dead);
 		}
@@ -96,6 +103,43 @@ void Scoop::Scoop_exprosion()
 		
 }
 
+//マス目に合わせて氷柱召喚
+void Scoop::Scoop_summon_icepiller()
+{
+	int i = 6;
+	int j = 12;
+
+	if (scoop_stage_num_ >= 0)
+	{
+		i = 6;
+		j = 12;
+	}
+		
+	if (scoop_stage_num_ >= 6)
+	{
+		i = -6;
+		j = 6;
+	}
+		
+	if (scoop_stage_num_ >= 12)
+	{
+		i = -12;
+		j = -6;
+	}
+
+	auto a = new Icepillar(GetGame(), scoop_stage_num_,  k_Is_player_, stg_, k_scoop_layer_);
+	auto b = new Icepillar(GetGame(), scoop_stage_num_ + i
+		, k_Is_player_, stg_, k_scoop_layer_ + i);
+
+	auto c = new Icepillar(GetGame(), scoop_stage_num_ + j
+		, k_Is_player_, stg_, k_scoop_layer_ + j);
+}
+
+
+
+//
+//出てくる小さな玉側
+//
 
 MiniBullet::MiniBullet(Game* game, int tex, Vec2 pos,bool up, bool is_player)
 	:Actor(game)
@@ -196,4 +240,131 @@ void MiniBullet::UpdateActor(float deltatime)
 
 	if (GetPosition().y_ > WINDOW_HEIGHT || GetPosition().y_ < 0)
 		SetState(Dead);
+}
+
+
+//---------------------------------------------------------------
+//氷柱側
+//---------------------------------------------------------------
+
+Icepillar::Icepillar(Game* game, int stage_num, bool is_player, Stage* stg, int layer) : Actor(game)
+, k_Is_player_(is_player)
+, k_icepillar_stage_num_(stage_num)
+, k_icepillar_time_(20)
+, k_icepillar_tex_(LoadTexture(L"Data/Image/skill/Eff_IceArea_Sheet.png"))
+, k_icepillar_size_(Vec2(140, 140))
+, deadcount_(0)
+, k_icepillar_pos_(Vec2(0, -20))
+, hitstate_(false)
+, k_icepillar_power_(1)
+{
+	icepillar_asc_ = new AnimSpriteComponent(this, layer + 4);
+	//iceball_asc_->SetTexture(k_iceball_tex_, k_iceball_size_, Vec2(0, 0), Vec2(1, 1));
+
+	icepillar_asc_->SetAnimTextures(k_icepillar_tex_, k_icepillar_size_, static_cast<int>(icepillar_frame_num::IDLE), 5.f);
+
+	//SetPosition(pos);
+
+	int i = 0;
+
+	if (k_icepillar_stage_num_ >= 0)
+		i = 0;
+	if (k_icepillar_stage_num_ >= 6)
+		i = 1;
+	if (k_icepillar_stage_num_ >= 12)
+		i = 2;
+
+	Vec2 position = k_icepillar_pos_ + Vec2(SNOW_POS_X + (k_icepillar_stage_num_ % 6) * 113, SNOW_POS_Y + i * 75);
+
+	SetPosition(position);
+	SetCollision(Rect(position, k_icepillar_size_));
+
+	stg_ = stg;
+}
+
+Icepillar::~Icepillar()
+{
+
+}
+
+void Icepillar::UpdateActor(float delta_time)
+{
+	Actor::UpdateActor(delta_time);
+	Icepillar_ColligionCheck(delta_time);
+	//stg_->SetSnow(k_icepillar_stage_num_);
+
+	deadcount_ += 5 * delta_time;
+	if (deadcount_ >= static_cast<int>(icepillar_frame_num::IDLE) * 2 / 3)
+	{
+		//消え始めたら当たり判定消す
+		hitstate_ = true;
+	}
+
+	if (deadcount_ >= static_cast<int>(icepillar_frame_num::IDLE))
+	{
+		SetState(Dead);
+	}
+}
+
+void Icepillar::Icepillar_ColligionCheck(float delta_taime)
+{
+	
+	//アーマーとの当たり判定
+	if (GetGame()->GetArmorSize() != 0)
+	{
+		for (int i = 0; i < GetGame()->GetArmorSize(); i++)
+		{
+			if (CollisionRC_NoInd(GetGame()->GetArmor(i), this) && ! hitstate_)
+			{
+				if (GetGame()->GetArmor(i)->Get_Isplayer() != k_Is_player_)
+				{
+					GetGame()->GetArmor(i)->Set_Armorhit(k_icepillar_power_);
+					hitstate_ = true;
+				}
+			}
+		}
+	}
+
+	//ゴーレムとの当たり判定
+	if (GetGame()->GetGolemSize() != 0)
+	{
+		for (int i = 0; i < GetGame()->GetGolemSize(); i++)
+		{
+			if (CollisionRC_NoInd(GetGame()->GetGolem(i), this) && !hitstate_)
+			{
+				if (GetGame()->GetGolem(i)->Get_Isplayer() != k_Is_player_)
+				{
+					GetGame()->GetGolem(i)->Set_Golemhit(k_icepillar_power_);
+					hitstate_ = true;
+				}
+			}
+		}
+	}
+
+
+	if (k_Is_player_)//プレイヤー側の弾
+	{
+		//敵にヒットしたときの処理
+		if (CollisionRC_NoInd(GetGame()->GetPlayer2p(), this) && !hitstate_)
+		{
+			GetGame()->GetPlayer2p()->Player_SetHit(2);
+
+			GetGame()->GetScoreManager()->AddScore(k_icepillar_power_);
+
+			hitstate_ = true;
+		}
+	}
+	else
+	{
+		//プレイヤー1にヒットしたときの処理
+		if (CollisionRC_NoInd(GetGame()->GetPlayer(), this) && !hitstate_)
+		{
+			GetGame()->GetPlayer()->Player_SetHit(2);
+
+			GetGame()->GetScoreManager()->EnemyAddScore(k_icepillar_power_);
+
+			hitstate_ = true;
+		}
+
+	}
 }
