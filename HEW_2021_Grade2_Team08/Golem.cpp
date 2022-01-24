@@ -1,6 +1,7 @@
 #include "Golem.h"
 #include "Bullet.h"
 #include "Player.h"
+#include "sound.h"
 
 Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) : Skill(game)
 ,k_golem_pos_(Vec2(pos))
@@ -9,6 +10,12 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 ,k_golem_layer(layer - 1)
 , k_Is_player_(Is_player_)
 , golem_hp_(2)
+, k_golem_SE{
+	LoadSound(L"Data/SE/Skill/golem_init.wav"),
+	LoadSound(L"Data/SE/Skill/golem_throw.wav"),
+	LoadSound(L"Data/SE/Skill/golem_death.wav"),
+	LoadSound(L"Data/SE/Skill/golem_hit.wav"),
+}
 {
 	golem_tex_[0] = LoadTexture(L"Data/Image/skill/golem_up_Sheet_Right.png");
 	golem_tex_[1] = LoadTexture(L"Data/Image/skill/golem_throw_Sheet_Right.png");
@@ -35,6 +42,8 @@ Golem::Golem(Game* game, Vec2 pos,  int bullettex, int layer, bool Is_player_) :
 
 	GetGame()->SetGolem(this);
 	//SetCollision(Rect(k_golem_pos_ - Vec2(0,20), Vec2(64 * 2, 64 * 2) - Vec2(64, 82)));
+
+	PlaySound(k_golem_SE[static_cast<int>(golem_Motion::ADVENT)], 0);
 }
 
 Golem::~Golem()
@@ -66,6 +75,8 @@ void Golem::Golem_snow_throw(float deltatime)
 			bullets_.emplace_back(new Bullet(GetGame(), k_bullettex_, k_Is_player_, k_golem_pos_));
 
 			attackcount_ = 0;
+
+			PlaySound(k_golem_SE[static_cast<int>(golem_Motion::ATTACK)], 0);
 
 			//’e‚ğl‰ñ“Š‚°‚Ä‚¢‚é‚Æ€–S‚·‚é
 			deathcount++;
@@ -149,7 +160,7 @@ void Golem::Golem_texchange(int texnum)
 	{
 		//“–‚½‚è”»’ètaiê
 		SetCollision(Rect(Vec2(0,0), Vec2(0, 0)));
-
+		PlaySound(k_golem_SE[static_cast<int>(golem_Motion::LEAVE)], 0);
 		golem_asc_->SetAnimTextures(golem_tex_[texnum], k_golem_size_, static_cast<int>(golem_frame_num::LEAVE), 5.f);
 	}
 
@@ -163,10 +174,16 @@ void Golem::Golem_texchange(int texnum)
 //ƒS[ƒŒƒ€‚Éƒqƒbƒg‚µ‚½‚Æ‚«‚Éo‚·ŠÖ”
 void Golem::Set_Golemhit(int power)
 {
+	if (golem_state_ == static_cast<int>(golem_Motion::HIT))
+	{
+		return;
+	}
+
 	golem_hp_ -= power;
 	Golem_texchange(static_cast<int>(golem_Motion::HIT));
 	motioncount_ = 0;
 
+	PlaySound(k_golem_SE[static_cast<int>(golem_Motion::HIT)], 0);
 }
 
 bool Golem::Get_Isplayer()

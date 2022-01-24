@@ -45,6 +45,15 @@ private:
         IDLE = 4,
         
     };
+
+    const int k_fireball_SE_[3];
+    bool fireball_atk_affirmation;          //‰Î‚Ì‹Ê‚ª‰æ–Ê“à‚ÉoŒ»‚µ‚Ä‚¢‚é‚©‚Ç‚¤‚©
+    enum class fireball_SE_num :int
+    {
+        ADVENT,     //“oê
+        ATTACK,     //ËŒ‚‰¹
+        LEAVE,      //‘Şê
+    };
 };
 
 

@@ -11,6 +11,7 @@
 #include "AnimationTestObj.h"	
 #include "BGSpriteComponent.h"
 #include "GameScene.h"
+#include "sound.h"
 
 #ifdef _DEBUG
 INT g_debug_count_fps;
@@ -48,6 +49,9 @@ bool Game::Initialize(HINSTANCE hinstance)
 		//    ‰Šú‰»ˆ—                     //
 		InitRenderer(hinstance, hwnd_);
 		InitInput(hinstance, hwnd_);
+
+		InitSound(hwnd_);
+
 		InitSprite();
 
 		///////////////////////////////////////

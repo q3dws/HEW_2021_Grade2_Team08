@@ -6,6 +6,7 @@
 
 #define _USE_MATH_DEFINES
 #include <math.h>
+#include "sound.h"
 
 Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, bool Is_player) : Skill(game)
 , k_fireball_tex_(LoadTexture(L"Data/Image/skill/Eff_Fireball_Sheet.png"))
@@ -17,6 +18,12 @@ Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, 
 , k_fireball_distination_(Vec2(113 * 3 + (k_fireball_size_.x_ / 2), pos.y_))
 , k_Is_player_(Is_player)
 , k_fireball_delay_(6)
+, k_fireball_SE_{
+	LoadSound(L"Data/SE/Skill/fireball_init.wav"),
+	LoadSound(L"Data/SE/Skill/fireball_atack.wav"),
+	LoadSound(L"Data/SE/Skill/fireball_end.wav"),
+}
+, fireball_atk_affirmation(false)
 {
 	fireball_pos_ = k_fireball_pos_init_;
 	fireball_asc_ = new AnimSpriteComponent(this, 250);
@@ -33,6 +40,8 @@ Fireball::Fireball(Game* game, int layer, Vec2 pos, Player* player, Stage* stg, 
 		k_fireball_distination_ = (Vec2(113 * 3, pos.y_));
 		fireball_stage_num_ = player->Player_getstagenum() - 3;
 	}
+
+	PlaySound(k_fireball_SE_[static_cast<int>(fireball_SE_num::ADVENT)], 0);
 
 	attackcount_ = 0;
 	stg_ = stg;
@@ -51,6 +60,13 @@ void Fireball::UpdateActor(float delta_time)
 
 	if (attackcount_ >= k_fireball_delay_)
 	{
+	
+		if (fireball_atk_affirmation == false)
+		{
+			fireball_atk_affirmation = true;
+			PlaySound(k_fireball_SE_[static_cast<int>(fireball_SE_num::ATTACK)], 0);
+		}
+
 		Fireball::Fireball_parabola(delta_time);
 		Fireball::Fireball_exprosion();
 	}
@@ -101,7 +117,7 @@ void Fireball::Fireball_exprosion()
 			stg_->SetSnow(fireball_stage_num_);
 
 			auto a = new Firepillar(GetGame(),fireball_stage_num_, k_Is_player_, stg_, k_fireball_layer_);
-
+			PlaySound(k_fireball_SE_[static_cast<int>(fireball_SE_num::LEAVE)], 0);
 			SetState(Dead);
 		}
 	}
@@ -112,7 +128,7 @@ void Fireball::Fireball_exprosion()
 			stg_->SetSnow(fireball_stage_num_);
 
 			auto a = new Firepillar(GetGame(), fireball_stage_num_, k_Is_player_, stg_, k_fireball_layer_);
-
+			PlaySound(k_fireball_SE_[static_cast<int>(fireball_SE_num::LEAVE)], 0);
 			SetState(Dead);
 		}
 	}

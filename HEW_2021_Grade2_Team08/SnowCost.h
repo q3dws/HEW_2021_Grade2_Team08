@@ -62,7 +62,7 @@ private:
     int point_state_;
     float motioncount_;
     int point_tex_[3];                       //ポイントのテクスチャ
-
+    const int k_point_SE_;
     enum class point_frame_num : int
     {
         ADVENT = 7,

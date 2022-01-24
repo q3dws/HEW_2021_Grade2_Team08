@@ -27,5 +27,14 @@ private:
     bool    delaycheck_;
     float   machinegun_counttime_;          //’e‚Ìo‚éŠÔ‚ğ”‚¦‚é
     float   machinegun_countbullet_;        //o‚µ‚½’e‚ğ”‚¦‚é
+
+    const int k_machinegun_SE_[3];
+
+    enum class machinegun_SE_num :int
+    {
+        ADVENT,     //“oê
+        ATTACK,     //ËŒ‚‰¹
+        LEAVE,      //‘Şê
+    };
 };
 

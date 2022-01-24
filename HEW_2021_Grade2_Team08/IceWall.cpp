@@ -1,5 +1,5 @@
 #include "IceWall.h"
-
+#include "sound.h"
 
 
 IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(game)
@@ -10,6 +10,11 @@ IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(ga
 , k_Is_player_(Is_player)
 , k_wall_hitsize_(Vec2(90,90))
 , wall_hp_(5)
+, k_wall_SE_{
+	LoadSound(L"Data/SE/Skill/wall_init.wav"),
+	LoadSound(L"Data/SE/Skill/wall_end.wav"),
+	LoadSound(L"Data/SE/Skill/wall_hit.wav"),
+}
 {
 	k_wall_tex_[0] = LoadTexture(L"Data/Image/skill/icewall_in.png");
 	k_wall_tex_[1] = LoadTexture(L"Data/Image/skill/icewall1.png");
@@ -39,6 +44,8 @@ IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(ga
 
 	hitcount_ = 0;
 
+	
+
 	GetGame()->SetIceWall(this);
 }
 
@@ -59,6 +66,7 @@ void IceWall::UpdateActor(float deltatime)
 		motioncount_ += 5 * deltatime;
 		if (motioncount_ >= static_cast<int>(wall_frame_num::ADVENT))
 		{
+			PlaySound(k_wall_SE_[static_cast<int>(wall_SE_num::ADVENT)], 0);
 			IceWall_texchange(static_cast<int>(wall_Motion::IDLE));
 			motioncount_ = 0;
 		}
@@ -126,13 +134,13 @@ void IceWall::IceWall_texchange(int texnum)
 
 	if (texnum == static_cast<int>(wall_Motion::LEAVE))
 	{
-		
+		PlaySound(k_wall_SE_[static_cast<int>(wall_SE_num::LEAVE)], 0);
 		wall_asc_->SetAnimTextures(k_wall_tex_[texnum], wall_size_, static_cast<int>(wall_frame_num::LEAVE), 5.f);
 	}
 
 	if (texnum == static_cast<int>(wall_Motion::HIT))
 	{
-
+		PlaySound(k_wall_SE_[static_cast<int>(wall_SE_num::HIT)], 0);
 		wall_asc_->SetAnimTextures(k_wall_tex_[texnum], wall_size_, static_cast<int>(wall_frame_num::HIT), 5.f);
 	}
 }

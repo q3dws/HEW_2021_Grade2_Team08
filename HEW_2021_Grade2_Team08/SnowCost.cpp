@@ -1,4 +1,5 @@
 #include "SnowCost.h"
+#include "sound.h"
 
 SnowCost::SnowCost(Game* game, bool Is_player) : Actor(game)
 ,snowframe_tex_ (LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/snowcostwaku_yoko.png") )
@@ -94,6 +95,7 @@ SnowPoint::SnowPoint(Game* game, Vec2 pos, Vec2 size,int layer)
     ,LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/yukimemori_yoko.png")
     ,LoadTexture(L"Data/Image/UI/yukicost/yukicost_yoko/yukimemoriyoko_out.png")
     }
+    , k_point_SE_(LoadSound(L"Data/SE/Player/snowup.wav"))
 {
     motioncount_ = 0;
     point_asc_ = new AnimSpriteComponent(this, k_point_layer_);
@@ -103,6 +105,7 @@ SnowPoint::SnowPoint(Game* game, Vec2 pos, Vec2 size,int layer)
     point_texchange(static_cast<int>(point_Motion::IDLE));
 
     SetPosition(k_point_pos_);
+   
 }
 
 SnowPoint::~SnowPoint()
@@ -128,9 +131,11 @@ void SnowPoint::UpdateActor(float deltatime)
     {
     case static_cast<int>(point_Motion::ADVENT):
         //ìoèÍíÜ
-        motioncount_ += 5 * deltatime;
+        motioncount_ += 5 * deltatime;   
+
         if (motioncount_ >= static_cast<int>(point_frame_num::ADVENT))
         {
+            
             point_texchange(static_cast<int>(point_Motion::IDLE));
             motioncount_ = 0;
         }
@@ -192,12 +197,14 @@ void SnowPoint::point_texchange(int texnum)
 
     if (texnum == static_cast<int>(point_Motion::ADVENT))
     {
+        PlaySound(k_point_SE_, 0);
         point_asc_ = new AnimSpriteComponent(this, k_point_layer_ + 10);
         point_asc_->SetAnimTextures(point_tex_[texnum], k_point_size_, static_cast<int>(point_frame_num::ADVENT), 5.f);
     }
 
     if (texnum == static_cast<int>(point_Motion::IDLE))
     {
+        
         point_asc_ = new AnimSpriteComponent(this, k_point_layer_);
         point_asc_->SetAnimTextures(point_tex_[texnum], k_point_size_, static_cast<int>(point_frame_num::IDLE), 5.f);
         //idle_timeto_ = static_cast<int>(charaA_frame_num::ATTACK); //àÍíËéûä‘å„Ç…ë“ã@èÛë‘Ç…

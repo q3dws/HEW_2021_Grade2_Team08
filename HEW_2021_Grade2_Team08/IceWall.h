@@ -41,6 +41,15 @@ private:
         HIT,        //ƒqƒbƒg
     };
 
+    const int k_wall_SE_[3];
+    
+    enum class wall_SE_num :int
+    {
+        ADVENT,     //“oê
+        LEAVE,      //‘Şê
+        HIT,     //”í’e‰¹
+    };
+
 public:
     IceWall(Game* game, Vec2 playerpos, int layer, bool Is_player);
     ~IceWall();

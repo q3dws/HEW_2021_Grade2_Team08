@@ -8,6 +8,7 @@
 ScoreManager::ScoreManager(Game* game)
 	:Actor(game)
 	,SCORE_MAX(99)
+	, k_fight_time_(90)
 {
 	GetGame()->SetScoreManager(this);
 
@@ -47,7 +48,11 @@ ScoreManager::ScoreManager(Game* game)
 
 	
 	//タイマー表示
-	auto timer = new Timer(game, 90);
+	auto timer = new Timer(game, k_fight_time_);
+
+	auto efect = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
+		, Vec2(700, 700), 10
+		, static_cast<int>(Fight_Effects::fight_effects_Motion::READY_IN));
 }
 
 void ScoreManager::UpdateActor(float delttime)
@@ -66,12 +71,13 @@ void ScoreManager::AddScore(int add)
 
 	score1->AddScore(number);
 
-	int a;
+	int addnumber2;
 
-	a = number / 10;
-	score2->AddScore(a);
+	addnumber2 = number / 10;
+	score2->AddScore(addnumber2);
 
-	
+	//auto b = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), Vec2(700, 700), 30, static_cast<int>(fight_effects_Motion::WAKU_IN));
+	//auto a = new Fight_Effects(GetGame(),Vec2(WINDOW_WIDTH /2 , WINDOW_HEIGHT / 2), Vec2(700,700), 20, static_cast<int>(fight_effects_Motion::TIMEUP_IN));
 }
 
 void ScoreManager::EnemyAddScore(int add)

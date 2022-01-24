@@ -107,7 +107,22 @@ protected:
     StateContext<Player>* pplayer_state_context_;
     Stage* stg_;
 
+    const int k_player_SE_[6];
     
+    enum class playerl_SE_num :int
+    {
+        ATTACK,             //攻撃
+        MOVE,
+
+        COLLECT_IN,     //雪集め開始
+        
+        USE_SKILL,          //スキル使用中
+
+        HIT,                    //被ヒット時
+
+        SNOW_UP,       //ゲージが貯まる音
+    };
+
 public:
 
     Player(class Game* game, Stage* stg ,Vec2 size, Vec2 center,int uniquecost, bool Is_player, int who);

@@ -3,6 +3,7 @@
 #include "Texture.h"
 #include "SpriteComponent.h"
 #include "BGSpriteComponent.h"
+#include "Fight_Effects.h"
 
 Timer::Timer(Game* game, int inittime) : Actor(game)
 , remaining_time_(inittime)
@@ -18,6 +19,11 @@ Timer::Timer(Game* game, int inittime) : Actor(game)
 		remaining_time_ = time_MAX_;
 }
 
+Timer::~Timer()
+{
+	auto a = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), Vec2(700, 700), 20, static_cast<int>(Fight_Effects::fight_effects_Motion::TIMEUP_IN));
+}
+
 void Timer::UpdateActor(float delttime)
 {
 	Actor::UpdateActor(delttime);
@@ -30,8 +36,12 @@ void Timer::UpdateActor(float delttime)
 		remaining_time_ -= 1;
 	}
 	
-	if (remaining_time_ <= 0)
+	if (remaining_time_ <= -0.25)
+	{
 		remaining_time_ = 0;
+		SetState(Dead);
+	}
+		
 }
 
 //ŽžŠÔ‚Ì•`‰æ
@@ -45,4 +55,9 @@ void Timer::SetTime(float deltatime)
 
 	int c = (int)(remaining_time_ - (a * 60)) % 10;
 	second_->AddScore(c);
+}
+
+float Timer::GetTime()
+{
+	return remaining_time_;
 }

@@ -5,6 +5,7 @@
 #include "Armor.h"
 #include "IceWall.h"
 #include "Golem.h"
+#include "sound.h"
 
 BigBullet::BigBullet(Game* game, bool Is_player, int layer, Vec2 pos) : Skill(game)
 , k_bigsnow_vel_(10)
@@ -18,6 +19,11 @@ BigBullet::BigBullet(Game* game, bool Is_player, int layer, Vec2 pos) : Skill(ga
 , bigsnow_pos_(pos)
 , bigsnow_state_(static_cast<int>(bigsnow_Motion::IDLE))
 ,motioncount_(0)
+, k_bigsnow_seplus_min_(3)
+, k_bigsnow_SE_{
+	LoadSound(L"Data/SE/Skill/bigsnow_init.wav"),
+	LoadSound(L"Data/SE/Skill/bigsnow_hit.wav"),
+}
 {
 	bigsnow_size_ = Vec2(20, 20);
 
@@ -31,6 +37,8 @@ BigBullet::BigBullet(Game* game, bool Is_player, int layer, Vec2 pos) : Skill(ga
 	bigsnow_rot_ = 0;
 	bigsnow_power_ = 1;
 	bigsnow_distance_count_ = 0;
+
+	PlaySound(k_bigsnow_SE_[static_cast<int>(bigsnow_SE_num::ADVENT)], 0);
 }
 
 BigBullet::~BigBullet()
@@ -48,6 +56,7 @@ void BigBullet::UpdateActor(float delta_time)
 		motioncount_ += 5 * delta_time;
 		if (motioncount_ >= static_cast<int>(bigsnow_frame_num::LEAVE))
 		{
+			
 			SetState(Dead);
 		}
 	}
@@ -196,6 +205,9 @@ void BigBullet::BigBullet_texchange(int texnum)
 
 	if (texnum == static_cast<int>(bigsnow_Motion::LEAVE))
 	{
+		if(bigsnow_power_ >= k_bigsnow_seplus_min_)
+		PlaySound(k_bigsnow_SE_[static_cast<int>(bigsnow_SE_num::LEAVE)], 0);
+
 		bigsnow_asc_->SetAnimTextures(k_bigsnow_tex_[texnum], bigsnow_size_, static_cast<int>(bigsnow_frame_num::LEAVE), 5.f);
 	}
 

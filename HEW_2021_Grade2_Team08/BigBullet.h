@@ -42,6 +42,9 @@ private:
     int bigsnow_state_;
     float motioncount_;
 
+    const int k_bigsnow_SE_[2];
+    const int k_bigsnow_seplus_min_;     //‚±‚êˆÈã‚ÌˆĞ—Í‚Åƒqƒbƒg‚·‚é‚Æ‰¹‚ª‚È‚é
+
     enum class bigsnow_frame_num : int
     {
         IDLE = 1,
@@ -52,6 +55,12 @@ private:
     enum class bigsnow_Motion :int
     {
         IDLE,     //’Êí
+        LEAVE,      //‘Şê
+    };
+
+    enum class bigsnow_SE_num :int
+    {
+        ADVENT,     //toujou
         LEAVE,      //‘Şê
     };
 };

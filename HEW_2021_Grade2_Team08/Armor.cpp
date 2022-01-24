@@ -2,6 +2,7 @@
 
 #include "Armor.h"
 #include "Bullet.h"
+#include "sound.h"
 
 Armor::Armor(Game* game, Vec2 pos, Player* player, Vec2 player_hitsize, bool is_player) : Skill(game)
 , k_armor_pos_(Vec2(-30, 20))
@@ -17,13 +18,17 @@ Armor::Armor(Game* game, Vec2 pos, Player* player, Vec2 player_hitsize, bool is_
 		,LoadTexture(L"Data/Image/skill/armor_brake-Sheet.png")
 	}
 ,k_effect_tex(LoadTexture(L"Data/Image/skill/armor_effect_Sheet.png"))
+, k_armor_SE_{
+	LoadSound(L"Data/SE/Skill/armor_end.wav"),
+	LoadSound(L"Data/SE/Skill/armor_hit.wav"),
+}
 {
 	
 	this->motioncount_ = 0;
 	this->armor_state_ = static_cast<int>(armor_Motion::ADVENT);
 
 	this->armor_asc_ = new AnimSpriteComponent(this, 150);
-
+	
 	armor_life_ = 3;
 	Armor::Armor_texchange(static_cast<int>(armor_Motion::ADVENT));
 	player_ = player;
@@ -44,6 +49,7 @@ Armor::Armor(Game* game, Vec2 pos, Player* player, Vec2 player_hitsize, bool is_
 
 Armor::~Armor()
 {
+	PlaySound(k_armor_SE_[static_cast<int>(armor_SE_num::LEAVE)], 0);
 	GetGame()->RemoveArmor(this);
 }
 
@@ -171,6 +177,7 @@ bool Armor::Get_Isplayer()
 void Armor::Set_Armorhit(int power)
 {
 	armor_life_ -= power;
+	PlaySound(k_armor_SE_[static_cast<int>(armor_SE_num::HIT)], 0);
 
 	if (armor_state_ != static_cast<int>(armor_Motion::LEAVE)
 		&& armor_state_ != static_cast<int>(armor_Motion::ADVENT)

@@ -49,6 +49,13 @@ class Armor :
         LEAVE,      //ëﬁèÍ
     };
 
+    const int k_armor_SE_[2];
+
+    enum class armor_SE_num :int
+    {
+        LEAVE,      //ëﬁèÍ
+        HIT,     //îÌíeâπ
+    };
 
 public:
     Armor(Game* game, Vec2(pos), Player* player, Vec2 player_hitsize, bool is_player);

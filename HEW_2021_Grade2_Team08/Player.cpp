@@ -9,6 +9,7 @@
 #include "Golem.h"
 #include "BigBullet.h"
 #include "IceWall.h"
+#include "sound.h"
 
 #include <memory>
 
@@ -28,12 +29,19 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 	, k_player_damagetime_(2)
 	, k_player_dushspd_(3)
 	, k_player_Inputtime_(0.3)
+	, k_player_SE_{
+	LoadSound(L"Data/SE/Player/plaer_shrow.wav"),
+	LoadSound(L"Data/SE/Player/player_move.wav"),
+	LoadSound(L"Data/SE/Player/player_collect.wav"),
+	LoadSound(L"Data/SE/Player/player_skill.wav"),
+	LoadSound(L"Data/SE/Player/player_hit.wav"),
+	LoadSound(L"Data/SE/Player/snowup.wav"),
+}
 {
 	SetPosIndex(7); // ★初期位置の配列の要素番号を設定（適当にいれてます）
 	if (k_Is_player_)
 	{
 		GetGame()->SetPlayer(this); // ★ゲームにこのプレイヤーのアドレスを教えてます。
-	
 		
 	}
 	else
@@ -125,26 +133,39 @@ void Player::Player_setposnum()
 			|| (GetKeyboardTrigger(DIK_LEFT) && !k_Is_player_))
 		{
 			if (player_pos_num_ % 3 > 0)
+			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::MOVE)], 0);
 				this->player_pos_num_--;
+			}
+				
 		}
 		if ((GetKeyboardTrigger(DIK_D) && k_Is_player_)
 			|| (GetKeyboardTrigger(DIK_RIGHT) && !k_Is_player_))
 		{
 			if (player_pos_num_ % 3 < 2)
+			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::MOVE)], 0);
 				this->player_pos_num_++;
+			}
 		}
 		if ((GetKeyboardTrigger(DIK_W) && k_Is_player_)
 			|| (GetKeyboardTrigger(DIK_UP) && !k_Is_player_))
 		{
 			if (player_pos_num_ > 2)
+			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::MOVE)], 0);
 				this->player_pos_num_ -= 3;
+			}
 
 		}
 		if ((GetKeyboardTrigger(DIK_S) && k_Is_player_)
 			|| (GetKeyboardTrigger(DIK_DOWN) && !k_Is_player_))
 		{
 			if (player_pos_num_ < 6)
+			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::MOVE)], 0);
 				this->player_pos_num_ += 3;
+			}
 		}
 		//描画の優先度変更
 		player_layer_ = 100 + k_player_layer_var * (player_pos_num_ / 3);
@@ -315,6 +336,7 @@ void Player::Player_snow_collect()
 				//手持ちの雪を増やす処理
 				if (player_snow_ < k_player_snow_max_)
 				{
+					PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::COLLECT_IN)], 0);
 					player_snow_ += 2;
 					if (player_snow_ > k_player_snow_max_)
 						player_snow_ = k_player_snow_max_;
@@ -344,6 +366,7 @@ void Player::Player_snow_throw(float deltatime)
 				bullets_.back()->SetPosition(this->GetPosition());
 
 				Player_texchange(static_cast<int>(PlayerMotion::ATTACK));
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::ATTACK)], 0);
 
 				//手持ちの雪を減らす処理
 				player_snow_--;
@@ -369,7 +392,7 @@ void Player::Player_idlecheck(float deltatime)
 			{
 			case static_cast<int>(PlayerMotion::COLLECT_IN):
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_LOOP));
-				
+				//PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::SNOW_UP)], 0);
 				break;
 			case static_cast<int>(PlayerMotion::COLLECT_LOOP):
 				Player_texchange(static_cast<int>(PlayerMotion::COLLECT_OUT));
@@ -408,6 +431,7 @@ void Player::Player_useskill(void)
 		{
 			if (player_snow_ >= k_player_skillcost_[0])
 			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::USE_SKILL)], 0);
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 				//ゴーレムを生成
 				auto a = new Golem(GetGame(), player_pos_, bullettex_, player_layer_, k_Is_player_);
@@ -420,6 +444,7 @@ void Player::Player_useskill(void)
 		{
 			if (player_snow_ >= k_player_skillcost_[1])
 			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::USE_SKILL)], 0);
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 				//壁を生成
 				auto a = new IceWall(GetGame(), player_pos_, player_layer_, k_Is_player_);
@@ -433,6 +458,7 @@ void Player::Player_useskill(void)
 		{
 			if (player_snow_ >= k_player_skillcost_[2])
 			{
+				PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::USE_SKILL)], 0);
 				Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 				//大玉を生成
 				auto a = new BigBullet(GetGame(), k_Is_player_, player_layer_,player_pos_);
@@ -446,6 +472,9 @@ void Player::Player_useskill(void)
 		{
 			if (player_snow_ >= k_player_skillcost_[3])
 			{
+				if (k_who_player_ != static_cast<int>(WHO_Player::CHARAD))
+					PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::USE_SKILL)], 0);
+
 				//固有スキル発動
 				Player_UniqueSkill();
 			}
@@ -487,7 +516,7 @@ void Player::Player_SetHit(float damagetime = 2)
 {
 	damagetime_ = damagetime;
 	Player_texchange(static_cast<int>(PlayerMotion::HIT));
-	
+	PlaySound(k_player_SE_[static_cast<int>(playerl_SE_num::HIT)], 0);
 	idlecount_ = 0;
 }
 

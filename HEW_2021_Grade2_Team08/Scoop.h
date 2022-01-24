@@ -38,6 +38,7 @@ private:
     const float k_scoop_deg_;               //Ç∑Ç≠Ç¢ìäÇ∞ÇÃäpìx
     const bool k_Is_player_;
     Stage* stg_;
+    const int k_scoop_SE_;
 };
 
 class MiniBullet :
@@ -52,6 +53,7 @@ private:
     const float snow_vel_; //ê·ÇÃë¨Ç≥
     bool k_Is_player_;
     int k_damagetime_;
+   
 };
 
 //---------------------------------------------------------------

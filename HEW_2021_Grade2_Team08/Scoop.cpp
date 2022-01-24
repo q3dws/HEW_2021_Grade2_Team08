@@ -5,6 +5,7 @@
 #include "Golem.h"
 #include "Armor.h"
 #include "Game.h"
+#include "sound.h"
 
 Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player, Stage* stg, Player* player) : Skill(game)
 , k_scoop_tex_(LoadTexture(L"Data/Image/skill/snowball_big.png"))
@@ -16,6 +17,9 @@ Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player, Stage* stg, Player
 , k_scoop_distination_(Vec2(113 * 3 + (k_scoop_size_.x_ / 2), pos.y_))
 ,k_Is_player_(Is_player)
 , stg_(stg)
+, k_scoop_SE_{
+	LoadSound(L"Data/SE/Skill/scoop_icepiller.wav"),
+}
 {
 	scoop_pos_ = pos;
 	scoop_asc_ = new SpriteComponent(this, 250);
@@ -35,6 +39,7 @@ Scoop::Scoop(Game* game, int layer, Vec2 pos, bool Is_player, Stage* stg, Player
 
 Scoop::~Scoop()
 {
+	PlaySound(k_scoop_SE_, 0);
 }
 
 void Scoop::UpdateActor(float delta_time)

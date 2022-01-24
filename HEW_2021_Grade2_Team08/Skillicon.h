@@ -29,6 +29,7 @@ private:
 
     const int k_who_player_;
     const bool k_Is_player_;
+    
 public:
     Skillicon(Game* game, bool Is_player,int who, int skillcost0, int skillcost1, int skillcost2, int skillcost3);
     ~Skillicon();

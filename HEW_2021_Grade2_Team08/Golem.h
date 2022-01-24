@@ -19,6 +19,8 @@ private:
     int     deathcount;            //投げた玉の数を数える
 
     int golem_tex_[4];                       //ゴーレムのテクスチャ
+    const int k_golem_SE[4];                        //ゴーレムの効果音
+
     const Vec2 k_golem_pos_;                         //ゴーレムの位置
     Vec2 k_golem_size_;                      //ゴーレムの大きさ
     const int k_golem_layer;                    //ゴーレムの描画の優先度
