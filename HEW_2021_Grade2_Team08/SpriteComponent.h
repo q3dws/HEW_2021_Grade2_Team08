@@ -18,7 +18,7 @@ public:
     void SetRot(const float rot) { rot_ = rot; }
     void SetAlfa(const float alfa) { alfa_ = alfa; }
     int GetDrawOrder() const { return draw_order_; }
-    
+    float GetAlfa() const { return alfa_; };
 private:
     int texture_number_;
     Vec2 top_left_     = Vec2();

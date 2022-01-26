@@ -1,5 +1,5 @@
 #include "CharaA.h"
-
+#include "Scoop.h"
 
 //プレイヤーのテクスチャを変える処理
 void CharaA::Player_texchange(int texnum) 
@@ -73,7 +73,7 @@ void CharaA::Player_UniqueSkill(void)
 
 	Player_texchange(static_cast<int>(PlayerMotion::USE_SKILL));
 	//弾を生成
-	scoops_.emplace_back(new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_, stg_,this));
+	auto a = (new Scoop(GetGame(), player_layer_, player_pos_, k_Is_player_, stg_,this));
 	//scoops_.back()->SetPosition(this->GetPosition());
 
 	//scoops;

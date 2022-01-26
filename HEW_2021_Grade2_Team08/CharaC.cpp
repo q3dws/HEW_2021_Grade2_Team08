@@ -1,5 +1,4 @@
 #include "CharaC.h"
-#include "Armor.h"
 
 //プレイヤーのテクスチャを変える処理
 void CharaC::Player_texchange(int texnum)

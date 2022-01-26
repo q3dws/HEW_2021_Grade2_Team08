@@ -3,6 +3,7 @@
 #include "Game.h"
 #include "Texture.h"
 #include "sprite.h"
+
 SpriteComponent::SpriteComponent(Actor* owner, int draw_order)
     :Component(owner, draw_order)
     , draw_order_(draw_order)

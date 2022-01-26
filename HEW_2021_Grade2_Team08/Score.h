@@ -13,7 +13,7 @@ public:
 	void AddScore(int number);
 private:
 	class SpriteComponent* score;
-	class Actor* temp2;
+	//class Actor* temp2;
 
 	int						g_score;
 	float					g_w, g_h;

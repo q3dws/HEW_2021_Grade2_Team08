@@ -18,7 +18,7 @@ PlayerScore::PlayerScore(Game* game, Vec2(pos))
 	g_h = TEXTURE_HEIGHT;
 	a = 0;
 
-
+	score = new SpriteComponent(this, 50);
 	int number = g_score;
 
 	////スコアボード表示
@@ -56,10 +56,10 @@ void PlayerScore::UpdateActor(float deltatime)
 {
 	Actor::UpdateActor(deltatime);
 
-	delete score;
+	/*delete score;
 	this->RemoveComponent(score);
-	score = new SpriteComponent(this, 50);
-	score->SetTexture(GetGame()->GetTexture(L"Data/Image/UI/scorbord/scornumber_32x32.png"), Vec2(g_w, g_h), Vec2(a, 1.0f), Vec2(0.1f, 1));
+	score = new SpriteComponent(this, 50);*/
+	score->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/scornumber_32x32.png"), Vec2(g_w, g_h), Vec2(a, 1.0f), Vec2(0.1f, 1));
 }
 
 void PlayerScore::AddScore(int number)

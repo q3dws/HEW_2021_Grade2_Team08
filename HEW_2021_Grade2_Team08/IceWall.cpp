@@ -16,10 +16,10 @@ IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(ga
 	LoadSound(L"Data/SE/Skill/wall_hit.wav"),
 }
 {
-	k_wall_tex_[0] = LoadTexture(L"Data/Image/skill/icewall_in.png");
-	k_wall_tex_[1] = LoadTexture(L"Data/Image/skill/icewall1.png");
-	k_wall_tex_[2] = LoadTexture(L"Data/Image/skill/icewall_out.png");
-	k_wall_tex_[3] = LoadTexture(L"Data/Image/skill/icewall_hit.png");
+	k_wall_tex_[0] = LoadTexture(L"Data/Image/skill/icewall_in_2.png");
+	k_wall_tex_[1] = LoadTexture(L"Data/Image/skill/icewall3.png");
+	k_wall_tex_[2] = LoadTexture(L"Data/Image/skill/icewall_out_3.png");
+	k_wall_tex_[3] = LoadTexture(L"Data/Image/skill/icewall_hit_2.png");
 
 	if (Is_player)
 	{
@@ -28,10 +28,10 @@ IceWall::IceWall(Game* game, Vec2 playerpos,int layer,bool Is_player) : Skill(ga
 	}
 	else
 	{
-		k_wall_tex_[0] = LoadTexture(L"Data/Image/skill/icewall_in_Right.png");
-		k_wall_tex_[1] = LoadTexture(L"Data/Image/skill/icewall1_Right.png");
-		k_wall_tex_[2] = LoadTexture(L"Data/Image/skill/icewall_out_Right.png");
-		k_wall_tex_[3] = LoadTexture(L"Data/Image/skill/icewall_hit_Right.png");
+		k_wall_tex_[0] = LoadTexture(L"Data/Image/skill/icewall_in_Right_2.png");
+		k_wall_tex_[1] = LoadTexture(L"Data/Image/skill/icewall3_Right.png");
+		k_wall_tex_[2] = LoadTexture(L"Data/Image/skill/icewall_out_3_Rint.png");
+		k_wall_tex_[3] = LoadTexture(L"Data/Image/skill/icewall_hit_Right_2.png");
 		
 		wall_size_ = (Vec2(wall_size_.x_ * -1, wall_size_.y_ * -1));
 

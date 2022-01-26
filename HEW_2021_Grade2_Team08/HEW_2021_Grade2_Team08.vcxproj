@@ -159,6 +159,7 @@
     <ClCompile Include="CharaB.cpp" />
     <ClCompile Include="CharaC.cpp" />
     <ClCompile Include="CharaD.cpp" />
+    <ClCompile Include="CharaselectScene.cpp" />
     <ClCompile Include="Component.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
@@ -180,6 +181,7 @@
     <ClCompile Include="Machinegun.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="ModeselectScene.cpp" />
     <ClCompile Include="MoveComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -234,6 +236,7 @@
     <ClInclude Include="CharaB.h" />
     <ClInclude Include="CharaC.h" />
     <ClInclude Include="CharaD.h" />
+    <ClInclude Include="CharaselectScene.h" />
     <ClInclude Include="Component.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
@@ -256,6 +259,7 @@
     <ClInclude Include="Machinegun.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="Math.h" />
+    <ClInclude Include="ModeselectScene.h" />
     <ClInclude Include="MoveComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>

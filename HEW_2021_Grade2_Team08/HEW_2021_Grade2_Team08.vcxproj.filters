@@ -229,6 +229,12 @@
     <ClCompile Include="Fight_Effects.cpp">
       <Filter>Score</Filter>
     </ClCompile>
+    <ClCompile Include="CharaselectScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeselectScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -374,6 +380,12 @@
     </ClInclude>
     <ClInclude Include="Fight_Effects.h">
       <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaselectScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeselectScene.h">
+      <Filter>%40ステート\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

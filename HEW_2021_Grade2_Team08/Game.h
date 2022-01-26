@@ -7,7 +7,7 @@
 #include <unordered_map>
 #include "Math.h"
 #include "StateContext.h"
-
+#include "CharaselectScene.h"
 
 class Window;
 
