@@ -91,6 +91,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -149,11 +150,22 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="BGSpriteComponent.cpp" />
+    <ClCompile Include="BlackHole.cpp" />
+    <ClCompile Include="BlackHoleIn.cpp" />
+    <ClCompile Include="BlackHoleOut.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
     <ClCompile Include="Component.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="FallPoint.cpp" />
+    <ClCompile Include="FirstStage.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameScene.cpp" />
+    <ClCompile Include="Icicle.cpp" />
+    <ClCompile Include="IcicleOut.cpp" />
     <ClCompile Include="input.cpp" />
     <ClCompile Include="InputComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -163,10 +175,21 @@
     <ClCompile Include="MoveComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerState.cpp" />
     <ClCompile Include="renderer.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Score.cpp" />
+    <ClCompile Include="SecondStage.cpp" />
+    <ClCompile Include="SecondStageBg.cpp" />
+    <ClCompile Include="Skill.cpp" />
     <ClCompile Include="Snow.cpp" />
+    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="StageBg.cpp" />
+    <ClCompile Include="ThirdStage.cpp" />
+    <ClCompile Include="ThirdStageBg.cpp" />
+    <ClCompile Include="Wall.cpp" />
     <ClCompile Include="sound.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
@@ -174,13 +197,14 @@
     <ClCompile Include="SpriteComponent.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="Stage.cpp" />
     <ClCompile Include="State.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="StateContext.cpp" />
     <ClCompile Include="TestBullet.cpp" />
     <ClCompile Include="Texture.cpp" />
+    <ClCompile Include="WallState.cpp" />
+    <ClCompile Include="WarningPoint.cpp" />
     <ClCompile Include="Window.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -191,11 +215,22 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="BGSpriteComponent.h" />
+    <ClInclude Include="BlackHole.h" />
+    <ClInclude Include="BlackHoleIn.h" />
+    <ClInclude Include="BlackHoleOut.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletManager.h" />
     <ClInclude Include="Component.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="FallPoint.h" />
+    <ClInclude Include="FirstStage.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameScene.h" />
+    <ClInclude Include="Icicle.h" />
+    <ClInclude Include="IcicleOut.h" />
     <ClInclude Include="input.h" />
     <ClInclude Include="InputComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
@@ -205,10 +240,21 @@
     <ClInclude Include="MoveComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerState.h" />
     <ClInclude Include="renderer.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
+    <ClInclude Include="Score.h" />
+    <ClInclude Include="SecondStage.h" />
+    <ClInclude Include="SecondStageBg.h" />
+    <ClInclude Include="Skill.h" />
     <ClInclude Include="Snow.h" />
+    <ClInclude Include="Stage.h" />
+    <ClInclude Include="StageBg.h" />
+    <ClInclude Include="ThirdStage.h" />
+    <ClInclude Include="ThirdStageBg.h" />
+    <ClInclude Include="Wall.h" />
     <ClInclude Include="sound.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClInclude>
@@ -216,13 +262,14 @@
     <ClInclude Include="SpriteComponent.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
-    <ClInclude Include="Stage.h" />
     <ClInclude Include="State.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClInclude>
     <ClInclude Include="StateContext.h" />
     <ClInclude Include="TestBullet.h" />
     <ClInclude Include="Texture.h" />
+    <ClInclude Include="WallState.h" />
+    <ClInclude Include="WarningPoint.h" />
     <ClInclude Include="Window.h" />
   </ItemGroup>
   <ItemGroup>

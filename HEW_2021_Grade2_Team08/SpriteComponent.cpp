@@ -22,8 +22,8 @@ void SpriteComponent::Draw()
 {
     DrawCenter(
         texture_number_,
-        owner_->GetPosition(), 
-        texture_size_,
+        owner_->GetPosition(),
+        texture_size_ * owner_->GetScale() ,
         uv_, 
         uv_wh_);
 }

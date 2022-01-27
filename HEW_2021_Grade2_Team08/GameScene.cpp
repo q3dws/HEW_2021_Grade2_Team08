@@ -9,6 +9,13 @@
 #include "input.h"
 #include "AnimationTestObj.h"
 #include "TestBullet.h"
+#include "Player.h"
+#include "Snow.h"
+#include "FirstStage.h"
+#include "SecondStage.h"
+#include "ThirdStage.h"
+#include "Score.h"
+#include "Icicle.h"
 
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
@@ -34,7 +41,6 @@ StartScene::StartScene(Game* game)
 		game->GetTexture(L"Data/Image/titledoon.png")
 	};
 	bg->SetBGTextures(bgtexs);
-
 }
 StartScene::~StartScene()
 {
@@ -62,67 +68,110 @@ void StartScene::Update(Game* game)
 /////////////////////////////////////////////////////////
 BattleScene::BattleScene(Game* game)
 {
-	auto temp = new Actor(game);
-	temp->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
-	BGSpriteComponent* bg = new BGSpriteComponent(temp, 10);
-	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
-	std::vector<int > bgtexs = {
-		game->GetTexture(L"Data/Image/BattleBG_Test.png")
-	};
-	bg->SetBGTextures(bgtexs);
-	bg = new BGSpriteComponent(temp, 15);
-	bg->SetScreenSize(Vec2(WINDOW_WIDTH, WINDOW_HEIGHT));
-	bgtexs = {
-		game->GetTexture(L"Data/Image/BattleStage_test.png")
-	};
-	bg->SetBGTextures(bgtexs);
-
-	obj = new AnimationTestObj(game);
-	obj->SetPosition(Vec2(300, WINDOW_HEIGHT - 240));
+	Initialize(game);
 	
-	stg = new Stage(game);
+	p_score = new Score(game);
+	p_score2 = new Score2(game);
+	stg = new FirstStage(game);
+	player = new Player(game, stg);
+
 }
 
 BattleScene::~BattleScene()
 {
+	delete p_score;
+	delete p_score2;
+	delete stg; 
+	delete player;
 }
 
 void BattleScene::Initialize(Game* game)
-{
+{	
 }
 
 void BattleScene::HandleInput(Game* game)
 {
-	if (GetKeyboardRelease(DIK_RETURN))
+	if (GetKeyboardRelease(DIK_SPACE))
 	{
-		auto bullet = new TestBullet(game);
-		bullet->SetPosition(obj->GetPosition());
+		game->GetGSM()->ChangeState(new SecondBattleScene(game));
 	}
-	if (GetKeyboardRelease(DIK_W))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_, obj->GetPosition().y_ - 120));
-	}
-	if (GetKeyboardRelease(DIK_S))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_, obj->GetPosition().y_ + 120));
-	}
-	if (GetKeyboardRelease(DIK_A))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_ - 120, obj->GetPosition().y_));
-	}
-	if (GetKeyboardRelease(DIK_D))
-	{
-		obj->SetPosition(Vec2(obj->GetPosition().x_ + 120, obj->GetPosition().y_));
-	}
-	if (GetKeyboardRelease(DIK_E))
-	{
-		stg->SetSnow(0);
-	}
-
-	
 }
 
 void BattleScene::Update(Game* game)
 {
-	 
+}
+
+/////////////////////////////////////////////////////////////
+// Stage2												   //
+/////////////////////////////////////////////////////////////
+SecondBattleScene::SecondBattleScene(Game* game)
+{
+	Initialize(game);
+
+	p_score = new Score(game);
+	p_score2 = new Score2(game);
+	stg2 = new SecondStage(game);
+	player = new Player(game, stg2);
+
+}
+
+SecondBattleScene::~SecondBattleScene()
+{
+	delete p_score;
+	delete p_score2;
+	delete stg2;
+	delete player;
+}
+
+void SecondBattleScene::Initialize(Game* game)
+{
+}
+
+void SecondBattleScene::HandleInput(Game* game)
+{
+	if (GetKeyboardRelease(DIK_SPACE))
+	{
+		game->GetGSM()->ChangeState(new ThirdBattleScene(game));
+	}
+}
+
+void SecondBattleScene::Update(Game* game)
+{
+}
+
+/////////////////////////////////////////////////////////////
+// Stage3												   //
+/////////////////////////////////////////////////////////////
+ThirdBattleScene::ThirdBattleScene(Game* game)
+{
+	Initialize(game);
+
+	p_score = new Score(game);
+	p_score2 = new Score2(game);
+	stg3 = new ThirdStage(game);
+	player = new Player(game, stg3);
+}
+
+ThirdBattleScene::~ThirdBattleScene()
+{
+	delete p_score;
+	delete p_score2;
+	delete stg3;
+	delete player;
+}
+
+void ThirdBattleScene::Initialize(Game* game)
+{
+}
+
+void ThirdBattleScene::HandleInput(Game* game)
+{
+	if (GetKeyboardRelease(DIK_SPACE))
+	{
+		game->GetGSM()->ChangeState(new BattleScene(game));
+	}
+}
+
+void ThirdBattleScene::Update(Game* game)
+{
 }

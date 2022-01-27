@@ -9,6 +9,7 @@ Actor::Actor(Game* game)
     , scale_(1.0f)
     ,rotation_()
     ,game_(game)
+    ,state_(Active)
 {
     game->AddActor(this);
 }

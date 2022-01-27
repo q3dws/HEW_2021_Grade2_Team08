@@ -26,6 +26,8 @@ public:
     void AddSprite(class SpriteComponent* sprite);
     void RemoveSprite(class SpriteComponent* sprite);
 
+    void DeleteActor(class Actor* act);
+
     int GetTexture(wchar_t const * file_name);
     StateContext<Game>* GetGSM() const { return pgame_state_context_; }
 private:
@@ -58,7 +60,7 @@ private:
     bool updating_actors_;
     std::vector<class Actor*> actors_;
     std::vector<class Actor*> pending_actors_;
-    std::vector<class SpriteComponent*> sprites_;
+    std::list<class SpriteComponent*> sprites_;
     StateContext<Game> * pgame_state_context_;
 };
 
