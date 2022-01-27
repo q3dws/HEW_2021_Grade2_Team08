@@ -71,6 +71,13 @@ private:
     int selectchara2_num;
 
     int BGM_ = 0;
+    int SE_[3];
+    enum class SE :int
+    {
+        PUSH,
+        CURSORMOVE,
+        EXIT,
+    };
 };
 
 

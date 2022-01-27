@@ -57,6 +57,15 @@ private:
 
     Vec2 exitsize_;
    
+    int BGM_ = 0;
+
+    int SE_[3];
+    enum class SE :int
+    {
+        PUSH,
+        CURSORMOVE,
+        EXIT,
+    };
 };
 
 

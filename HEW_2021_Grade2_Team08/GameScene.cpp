@@ -69,6 +69,7 @@ StartScene::~StartScene()
 	delete temp1;
 	delete temp2;
 	
+	StopSound(BGM_);
 }
 void StartScene::Initialize(Game* game)
 {
@@ -78,8 +79,9 @@ void StartScene::Initialize(Game* game)
 	texbar = 150;
 
 	startalfa_ = 1.0f;
-	StopSoundAll();
+	
 	BGM_ = LoadSound(L"Data/BGM/title.wav");
+	SE_ = LoadSound(L"Data/SE/Scene/titlepush.wav");
 	PlaySound(BGM_, -1);
 }
 
@@ -88,6 +90,7 @@ void StartScene::HandleInput(Game* game)
 	
 	if (GetKeyboardRelease(DIK_SPACE))
 	{
+		PlaySound(SE_, 0);
 		game->GetGSM()->ChangeState(new ModeselectScene(game));
 		//game->GetGSM()->ChangeState(new BattleScene(game, 0, 0, 1));
 		//game->GetGSM()->ChangeState(new ResultScene(game, 24,24 , 5, 0,0));
@@ -126,7 +129,7 @@ void StartScene::Update(Game* game)
 /////////////////////////////////////////////////////////
 //  BattleScene                                        //
 /////////////////////////////////////////////////////////
-BattleScene::BattleScene(Game* game, int mode, int player1, int player2)
+BattleScene::BattleScene(Game* game, int mode, int player1, int player2, int score)
 {
 	
 	Initialize(game);
@@ -224,6 +227,7 @@ BattleScene::BattleScene(Game* game, int mode, int player1, int player2)
 BattleScene::~BattleScene()
 {
 	p_ScoreManager->SetState(Actor::State::Dead);
+	StopSound(BGM_);
 
 	switch (mode_)
 	{
@@ -269,15 +273,15 @@ void BattleScene::Update(Game* game)
 		switch (mode_)
 		{
 		case static_cast<int>(ModeselectScene::celectMODE::STAGE1):
-			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore() + inhertscore_, p_ScoreManager->GetEnemyScore()
 				, mode_, player1_num_, 0));
 			break;
 		case static_cast<int>(ModeselectScene::celectMODE::STAGE2):
-			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore() + inhertscore_, p_ScoreManager->GetEnemyScore()
 				, mode_, player1_num_, 0));
 			break;
 		case static_cast<int>(ModeselectScene::celectMODE::STAGE3):
-			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore() + inhertscore_, p_ScoreManager->GetEnemyScore()
 				, mode_, player1_num_, 0));
 			break;
 		case static_cast<int>(ModeselectScene::celectMODE::VERSUS):

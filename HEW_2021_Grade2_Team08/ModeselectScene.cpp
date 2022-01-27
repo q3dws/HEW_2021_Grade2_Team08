@@ -85,7 +85,7 @@ ModeselectScene::~ModeselectScene()
 	tempUI1->SetState(Actor::State::Dead);
 	logo->SetState(Actor::State::Dead);
 
-	
+	StopSound(BGM_);
 }
 void ModeselectScene::Initialize(Game* game)
 {
@@ -97,6 +97,14 @@ void ModeselectScene::Initialize(Game* game)
 	charaUIsize = Vec2(50, 50);
 	charaUIpos = Vec2(WINDOW_WIDTH - charaUIsize.x_ / 2, charapos.y_);
 	exitsize_ = Vec2(150, 150);
+
+	SE_[0] = LoadSound(L"Data/SE/Scene/push.wav");
+	SE_[1] = LoadSound(L"Data/SE/Scene/cursormove.wav");
+	SE_[2] = LoadSound(L"Data/SE/Scene/exir.wav");
+	//SE_[2] = LoadSound(L"Data/SE/Scene/titlepush.wav");
+
+	BGM_ = LoadSound(L"Data/BGM/modeselect.wav");
+	PlaySound(BGM_, -1);
 }
 
 void ModeselectScene::HandleInput(Game* game)
@@ -105,17 +113,22 @@ void ModeselectScene::HandleInput(Game* game)
 	{
 		if (cursor == static_cast<int>(celectMODE::EXIT))
 		{
+			PlaySound(SE_[static_cast<int>(SE::EXIT)], 0);
 			game->GetGSM()->ChangeState(new StartScene(game));
+			
 		}
 		else
 		{
+			PlaySound(SE_[static_cast<int>(SE::PUSH)], 0);
 			game->GetGSM()->ChangeState(new CharaselctScene(game, cursor));
 			//game->GetGSM()->ChangeState(new BattleScene(game, 0, 0, 1));
+			
 		}
 		
 	}
 	if (GetKeyboardTrigger(DIK_D) || GetKeyboardTrigger(DIK_RIGHT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		++cursor;
 		if (cursor >= 2)
 		{
@@ -124,6 +137,7 @@ void ModeselectScene::HandleInput(Game* game)
 	}
 	if (GetKeyboardTrigger(DIK_A) || GetKeyboardTrigger(DIK_LEFT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		--cursor;
 		if (cursor < 0)
 		{
@@ -133,14 +147,19 @@ void ModeselectScene::HandleInput(Game* game)
 
 	if (GetKeyboardTrigger(DIK_S) || GetKeyboardTrigger(DIK_DOWN))
 	{
-		if(cursor != static_cast<int>(celectMODE::EXIT))
-		cursorbuffer_ = cursor;
+		if (cursor != static_cast<int>(celectMODE::EXIT))
+		{
+			PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
+			cursorbuffer_ = cursor;
+		}
+		
 
 		cursor = static_cast<int>(celectMODE::EXIT);
 	}
 
 	if ( (GetKeyboardTrigger(DIK_W) || GetKeyboardTrigger(DIK_UP) ) && cursor == static_cast<int>(celectMODE::EXIT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		cursor = cursorbuffer_;
 	}
 }

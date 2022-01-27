@@ -45,6 +45,16 @@ private:
     int p1_ = 0;
     int p2_ = 0;
     bool win_;
+
+    int score_;
+
+    int SE_[3];
+    enum class SE :int
+    {
+        WIN,
+        CLEAR,
+        LOSE,
+    };
 };
 
 

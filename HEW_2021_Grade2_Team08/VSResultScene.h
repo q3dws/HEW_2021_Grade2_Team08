@@ -54,6 +54,14 @@ private:
     int p2score_ = 0;
     int p1_ = 0;
     int p2_ = 0;
+
+    int SE_[3];
+    enum class SE :int
+    {
+        WIN,
+        CLEAR,
+        LOSE,
+    };
 };
 
 

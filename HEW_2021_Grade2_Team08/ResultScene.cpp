@@ -30,6 +30,7 @@ ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int pl
 	mode_ = mode;
 	p1_ = player1;
 	p2_ = player2;
+	score_ = score;
 
 	temp = new Actor(game);
 	temp->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
@@ -56,25 +57,36 @@ ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int pl
 	if (score > enemyscore)
 	{
 		if (mode_ != static_cast<int>(ModeselectScene::celectMODE::STAGE3))
+		{
+			PlaySound(SE_[static_cast<int>(SE::WIN)], 0);
 			youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 				, Vec2(700, 700), 10
 				, static_cast<int>(Fight_Effects::fight_effects_Motion::WIN_ANIM));
+		}
 		else
 		{
+			PlaySound(SE_[static_cast<int>(SE::CLEAR)], 0);
 			youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 				, Vec2(700, 700), 10
 				, static_cast<int>(Fight_Effects::fight_effects_Motion::CLEAR_ANIM));
 		}
 		win_ = true;
 	}
-	else if(score == enemyscore)
+	else if (score == enemyscore)
+	{
+		PlaySound(SE_[static_cast<int>(SE::LOSE)], 0);
 		youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 			, Vec2(700, 700), 10
 			, static_cast<int>(Fight_Effects::fight_effects_Motion::DRAW_IN));
+	}
 	else
+	{
+		PlaySound(SE_[static_cast<int>(SE::LOSE)], 0);
 		youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 			, Vec2(700, 700), 10
 			, static_cast<int>(Fight_Effects::fight_effects_Motion::LOSE_ANIM));
+	}
+		
 	
 	
 
@@ -118,6 +130,10 @@ void ResultScene::Initialize(Game* game)
 	charaUIsize = Vec2(50, 50);
 	charaUIpos = Vec2(WINDOW_WIDTH - charaUIsize.x_ / 2, charapos.y_);
 	exitsize_ = Vec2(150, 150);
+
+	SE_[0] = LoadSound(L"Data/SE/Scene/win.wav");
+	SE_[1] = LoadSound(L"Data/SE/Scene/clear.wav");
+	SE_[2] = LoadSound(L"Data/SE/Scene/lose.wav");
 }
 
 void ResultScene::HandleInput(Game* game)
@@ -125,7 +141,7 @@ void ResultScene::HandleInput(Game* game)
 	if (GetKeyboardRelease(DIK_SPACE))
 	{
 		if(mode_ != static_cast<int>(ModeselectScene::celectMODE::STAGE3) && win_ == true)
-			game->GetGSM()->ChangeState(new BattleScene(game, mode_ + 1, p1_, p2_));
+			game->GetGSM()->ChangeState(new BattleScene(game, mode_ + 1, p1_, p2_, score_));
 		else
 			game->GetGSM()->ChangeState(new ModeselectScene(game));
 

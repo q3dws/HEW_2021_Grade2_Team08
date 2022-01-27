@@ -106,7 +106,7 @@ CharaselctScene::~CharaselctScene()
 	p1select->SetState(Actor::State::Dead);
 	p2select->SetState(Actor::State::Dead);
 
-	
+	StopSound(BGM_);
 }
 void CharaselctScene::Initialize(Game* game)
 {
@@ -121,9 +121,14 @@ void CharaselctScene::Initialize(Game* game)
 	selectchara1_num = -1;
 	selectchara2_num = -1;
 
-	StopSoundAll();
+	
 	BGM_ = LoadSound(L"Data/BGM/charaselect.wav");
 	PlaySound(BGM_, -1);
+
+	SE_[0] = LoadSound(L"Data/SE/Scene/push.wav");
+	SE_[1] = LoadSound(L"Data/SE/Scene/cursormove.wav");
+	SE_[2] = LoadSound(L"Data/SE/Scene/exir.wav");
+		
 }
 
 void CharaselctScene::HandleInput(Game* game)
@@ -132,10 +137,12 @@ void CharaselctScene::HandleInput(Game* game)
 	{
 		if (cursor == static_cast<int>(celectCHARA::EXIT))
 		{
+			PlaySound(SE_[static_cast<int>(SE::EXIT)], 0);
 			game->GetGSM()->ChangeState(new ModeselectScene(game));
 		}
 		else
 		{
+			PlaySound(SE_[static_cast<int>(SE::PUSH)], 0);
 			if (selectchara1_num != -1 && selectchara2_num == -1)
 			{
 				//プレイヤーキャラ2決定
@@ -151,16 +158,17 @@ void CharaselctScene::HandleInput(Game* game)
 			}
 
 			if(mode_ == static_cast<int>(ModeselectScene::celectMODE::ARCADE))
-			game->GetGSM()->ChangeState(new BattleScene(game,mode_, selectchara1_num, selectchara2_num));
+			game->GetGSM()->ChangeState(new BattleScene(game,mode_, selectchara1_num, selectchara2_num, 0));
 
 			if (mode_ == static_cast<int>(ModeselectScene::celectMODE::VERSUS)
 				&& selectchara2_num != -1)
-				game->GetGSM()->ChangeState(new BattleScene(game, mode_, selectchara1_num, selectchara2_num));
+				game->GetGSM()->ChangeState(new BattleScene(game, mode_, selectchara1_num, selectchara2_num, 0));
 		}
 		
 	}
 	if (GetKeyboardTrigger(DIK_D) || GetKeyboardTrigger(DIK_RIGHT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		++cursor;
 		if (cursor >= 3)
 		{
@@ -169,6 +177,7 @@ void CharaselctScene::HandleInput(Game* game)
 	}
 	if (GetKeyboardTrigger(DIK_A) || GetKeyboardTrigger(DIK_LEFT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		--cursor;
 		if (cursor < 0)
 		{
@@ -179,13 +188,18 @@ void CharaselctScene::HandleInput(Game* game)
 	if (GetKeyboardTrigger(DIK_S) || GetKeyboardTrigger(DIK_DOWN))
 	{
 		if (cursor != static_cast<int>(celectCHARA::EXIT))
+		{
+			PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 			cursorbuffer_ = cursor;
+		}
+			
 
 		cursor = static_cast<int>(celectCHARA::EXIT);
 	}
 
 	if ((GetKeyboardTrigger(DIK_W) || GetKeyboardTrigger(DIK_UP)) && cursor == static_cast<int>(celectCHARA::EXIT))
 	{
+		PlaySound(SE_[static_cast<int>(SE::CURSORMOVE)], 0);
 		cursor = cursorbuffer_;
 	}
 }

@@ -34,12 +34,13 @@ private:
     bool checkspece = false;
     float startalfa_;
     int BGM_ = 0;
+    int SE_ = 0;
 };
 
 class BattleScene : public State<class Game>
 {
 public:
-    BattleScene(Game* game,int mode, int player1, int player2);
+    BattleScene(Game* game,int mode, int player1, int player2,int score);
     ~BattleScene() override;
     void Initialize(Game* game) override;
     void HandleInput(Game* game) override;
@@ -60,5 +61,6 @@ private:
     int mode_ = 0;
     int player1_num_;
     int BGM_ = 0;
+    int inhertscore_;
 };
 #endif // !GAMESCENE_H
