@@ -76,8 +76,8 @@ Player::Player(Game* game, Stage* stg, Vec2 size, Vec2 center, int uniquecost, b
 
 	this->bullettex_ = LoadTexture(L"Data/Image/snowball.png"); //弾のテクスチャ
 
-	pplayer_state_context_ = new StateContext<Player>(this);
-	pplayer_state_context_->SetCurrentState(new PlayerIdle(this));
+	//pplayer_state_context_ = new StateContext<Player>(this);
+	//pplayer_state_context_->SetCurrentState(new PlayerIdle(this));
 
 	this->SetPosition(player_pos_);
 
@@ -94,6 +94,10 @@ Player:: ~Player()
 {
 	this->RemoveComponent(asc_);
 	this->GetGame()->RemoveSprite(asc_);
+	snowcost_->SetState(Dead);
+	skillicon_->SetState(Dead);
+	debugcomand_->SetState(Dead);
+	
 }
 void Player::UpdateActor(float deltatime)
 {

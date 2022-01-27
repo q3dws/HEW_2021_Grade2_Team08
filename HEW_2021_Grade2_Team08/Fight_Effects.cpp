@@ -12,6 +12,8 @@ Fight_Effects::Fight_Effects(Game* game, Vec2 pos, Vec2 size, int time, int texn
 		,LoadTexture(L"Data/Image/UI/result/fight.png")
 		,LoadTexture(L"Data/Image/UI/result/ready.png")
 	,LoadTexture(L"Data/Image/UI/result/timeup.png")
+	,LoadTexture(L"Data/Image/UI/result/draw.png")
+	,LoadTexture(L"Data/Image/UI/result/score.png")
 	,LoadTexture(L"Data/Image/UI/result/waku.png")
 		,LoadTexture(L"Data/Image/UI/result/clear_anime.png")
 		,LoadTexture(L"Data/Image/UI/result/lose_anime.png")
@@ -22,6 +24,10 @@ Fight_Effects::Fight_Effects(Game* game, Vec2 pos, Vec2 size, int time, int texn
 		,LoadTexture(L"Data/Image/UI/result/ready_out.png")
 	,LoadTexture(L"Data/Image/UI/result/timeup_in.png")
 		,LoadTexture(L"Data/Image/UI/result/timeup_out.png")
+	,LoadTexture(L"Data/Image/UI/result/draw_in.png")
+		,LoadTexture(L"Data/Image/UI/result/draw_out.png")
+	,LoadTexture(L"Data/Image/UI/result/score_in.png")
+		,LoadTexture(L"Data/Image/UI/result/score_out.png")
 	,LoadTexture(L"Data/Image/UI/result/waku_in.png")
 	,LoadTexture(L"Data/Image/UI/result/waku_out.png")
 		
@@ -78,6 +84,18 @@ void Fight_Effects::Fight_Effects_texchange(int texnum)
 
 		switch (texnum)
 		{
+		case static_cast<int>(fight_effects_Motion::CLEAR):
+			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::CLEAR);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::CLEAR);
+			break;
+		case static_cast<int>(fight_effects_Motion::WIN):
+			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::WIN);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::WIN);
+			break;
+		case static_cast<int>(fight_effects_Motion::LOSE):
+			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::LOSE);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::LOSE);
+			break;
 		case static_cast<int>(fight_effects_Motion::READY):
 			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::READY);
 			fight_effects_next_ = static_cast<int>(fight_effects_Motion::READY_OUT);
@@ -90,9 +108,17 @@ void Fight_Effects::Fight_Effects_texchange(int texnum)
 			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 *  static_cast<int>(fight_effects_frame_num::FIGHT);
 			fight_effects_next_ = static_cast<int>(fight_effects_Motion::FIGHT_OUT);
 			break;
+		case static_cast<int>(fight_effects_Motion::DRAW):
+			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::DRAW);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::DRAW);
+			break;
+		case static_cast<int>(fight_effects_Motion::SCORE):
+			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 * static_cast<int>(fight_effects_frame_num::SCORE);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::SCORE);
+			break;
 		case static_cast<int>(fight_effects_Motion::WAKU):
 			fight_effects_time_ = k_fight_effects_Deadtime_ - 5 *  static_cast<int>(fight_effects_frame_num::WAKU);
-			fight_effects_next_ = static_cast<int>(fight_effects_Motion::WAKU_OUT);
+			fight_effects_next_ = static_cast<int>(fight_effects_Motion::WAKU);
 			break;
 		default:
 			fight_effects_next_ = static_cast<int>(fight_effects_Motion::END);
@@ -173,6 +199,38 @@ void Fight_Effects::Fight_Effects_texchange(int texnum)
 			, static_cast<int>(fight_effects_frame_num::TIMEUP_OUT), 5.f);
 
 		fight_effects_time_ = static_cast<int>(fight_effects_frame_num::TIMEUP_OUT);
+		fight_effects_next_ = static_cast<int>(fight_effects_Motion::END);
+		break;
+	case static_cast<int>(fight_effects_Motion::DRAW_IN):
+		fight_effects_asc_->SetAnimTextures(k_fight_effects_tex_[texnum]
+			, fight_effects_size_
+			, static_cast<int>(fight_effects_frame_num::DRAW_IN), 5.f);
+
+		fight_effects_time_ = static_cast<int>(fight_effects_frame_num::DRAW_IN);
+		fight_effects_next_ = static_cast<int>(fight_effects_Motion::DRAW);
+		break;
+	case static_cast<int>(fight_effects_Motion::DRAW_OUT):
+		fight_effects_asc_->SetAnimTextures(k_fight_effects_tex_[texnum]
+			, fight_effects_size_
+			, static_cast<int>(fight_effects_frame_num::DRAW_OUT), 5.f);
+
+		fight_effects_time_ = static_cast<int>(fight_effects_frame_num::DRAW_OUT);
+		fight_effects_next_ = static_cast<int>(fight_effects_Motion::END);
+		break;
+	case static_cast<int>(fight_effects_Motion::SCORE_IN):
+		fight_effects_asc_->SetAnimTextures(k_fight_effects_tex_[texnum]
+			, fight_effects_size_
+			, static_cast<int>(fight_effects_frame_num::SCORE_IN), 5.f);
+
+		fight_effects_time_ = static_cast<int>(fight_effects_frame_num::SCORE_IN);
+		fight_effects_next_ = static_cast<int>(fight_effects_Motion::SCORE);
+		break;
+	case static_cast<int>(fight_effects_Motion::SCORE_OUT):
+		fight_effects_asc_->SetAnimTextures(k_fight_effects_tex_[texnum]
+			, fight_effects_size_
+			, static_cast<int>(fight_effects_frame_num::SCORE_OUT), 5.f);
+
+		fight_effects_time_ = static_cast<int>(fight_effects_frame_num::SCORE_OUT);
 		fight_effects_next_ = static_cast<int>(fight_effects_Motion::END);
 		break;
 	case static_cast<int>(fight_effects_Motion::WAKU_IN):

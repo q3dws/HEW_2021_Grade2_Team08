@@ -28,7 +28,7 @@ private:
     float fight_effects_deadcount_;
     const int k_fight_effects_Deadtime_;
 
-    const int k_fight_effects_tex_[18];
+    const int k_fight_effects_tex_[26];
     enum class fight_effects_frame_num : int
     {
         CLEAR = 1,    
@@ -37,6 +37,8 @@ private:
         FIGHT = 1,     //
         READY = 1,
         TIMEUP = 1,
+        DRAW = 1,
+        SCORE = 1,
         WAKU = 1,
         CLEAR_ANIM = 6,     //
         LOSE_ANIM = 4,
@@ -47,6 +49,10 @@ private:
         READY_OUT = 4,
         TIMEUP_IN = 4,
         TIMEUP_OUT = 4,
+        DRAW_IN = 8,
+        DRAW_OUT = 4,
+        SCORE_IN = 5,
+        SCORE_OUT = 4,
         WAKU_IN = 5,
         WAKU_OUT = 5,
 
@@ -68,6 +74,8 @@ public:
         FIGHT,     //
         READY,
         TIMEUP,
+        DRAW,
+        SCORE,
         WAKU,
         CLEAR_ANIM,     //ìoèÍ
         LOSE_ANIM,
@@ -78,6 +86,10 @@ public:
         READY_OUT,
         TIMEUP_IN,
         TIMEUP_OUT,
+        DRAW_IN,
+        DRAW_OUT,
+        SCORE_IN,
+        SCORE_OUT,
         WAKU_IN,
         WAKU_OUT,
         END = -1,

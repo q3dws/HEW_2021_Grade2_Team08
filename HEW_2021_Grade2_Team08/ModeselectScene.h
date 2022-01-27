@@ -26,6 +26,10 @@ public:
         VERSUS,
         TUTORIAL,
         EXIT,
+
+        STAGE1,
+        STAGE2,
+        STAGE3,
     };
 private:
     class Actor* temp;

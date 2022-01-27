@@ -10,15 +10,16 @@
 
 
 
-PlayerScore::PlayerScore(Game* game, Vec2(pos))
+PlayerScore::PlayerScore(Game* game, Vec2(pos), Vec2(size))
 	:Actor(game)
 {
 	g_score = 0;	// スコアの初期化
 	g_w = TEXTURE_WIDTH;
 	g_h = TEXTURE_HEIGHT;
 	a = 0;
+	size_ = size;
 
-	score = new SpriteComponent(this, 50);
+	score = new SpriteComponent(this, 350);
 	int number = g_score;
 
 	////スコアボード表示
@@ -59,7 +60,7 @@ void PlayerScore::UpdateActor(float deltatime)
 	/*delete score;
 	this->RemoveComponent(score);
 	score = new SpriteComponent(this, 50);*/
-	score->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/scornumber_32x32.png"), Vec2(g_w, g_h), Vec2(a, 1.0f), Vec2(0.1f, 1));
+	score->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/scornumber_32x32.png"), size_, Vec2(a, 1.0f), Vec2(0.1f, 1));
 }
 
 void PlayerScore::AddScore(int number)

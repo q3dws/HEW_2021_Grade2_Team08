@@ -65,6 +65,10 @@ Skillicon::Skillicon(Game* game, bool Is_player,int who, int skillcost0, int ski
 
 Skillicon::~Skillicon()
 {
+	for (int i = 0; i < k_Skillicon_num_; i++)
+	{
+		icons_[i]->SetState(Dead);
+	}
 }
 
 void Skillicon::UpdateActor(float deltatime)

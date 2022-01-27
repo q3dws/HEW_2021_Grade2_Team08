@@ -8,19 +8,22 @@
 ScoreManager::ScoreManager(Game* game)
 	:Actor(game)
 	,SCORE_MAX(99)
-	, k_fight_time_(90)
+	, k_fight_time_(9)
+	, timeupcheck(false)
+	, gameendflag(false)
+	, timespare_(25)
 {
 	GetGame()->SetScoreManager(this);
 
-	score1 = new PlayerScore(game, Vec2(WINDOW_WIDTH/2 - 60, 50));
-	score2 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 - 80, 50));
-	enemyscore1 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 80, 50));
-	enemyscore2 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 60, 50));
+	score1 = new PlayerScore(game, Vec2(WINDOW_WIDTH/2 - 60, 50), Vec2(35,35));
+	score2 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 - 80, 50), Vec2(35, 35));
+	enemyscore1 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 80, 50), Vec2(35, 35));
+	enemyscore2 = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 60, 50), Vec2(35, 35));
 	number = 0;
 	enemynumber = 0;
 
 	//スコアボード表示
-	auto temp1 = new Actor(game);
+	temp1 = new Actor(game);
 	temp1->SetPosition(Vec2(WINDOW_WIDTH / 2 - 70 - 44, 50));
 	BGSpriteComponent* scorebg1 = new BGSpriteComponent(temp1, 45);
 	scorebg1->SetScreenSize(Vec2(140, 140));
@@ -30,7 +33,7 @@ ScoreManager::ScoreManager(Game* game)
 	scorebg1->SetBGTextures(bgtexs1);
 
 	//スコアボード表示
-	auto temp2 = new Actor(game);
+	temp2 = new Actor(game);
 	temp2->SetPosition(Vec2(WINDOW_WIDTH / 2 + 70 + 42, 50));
 	BGSpriteComponent* scorebg2 = new BGSpriteComponent(temp2, 45);
 	scorebg2->SetScreenSize(Vec2(140, 140));
@@ -40,7 +43,7 @@ ScoreManager::ScoreManager(Game* game)
 	scorebg2->SetBGTextures(bgtexs2);
 	
 	//タイマーが入る所表示
-	auto temp3 = new Actor(game);
+	temp3 = new Actor(game);
 	temp3->SetPosition(Vec2(WINDOW_WIDTH / 2, 50));
 	auto temp3_asc = new SpriteComponent(temp3, 49);
 	temp3_asc->SetTexture(LoadTexture(L"Data/Image/UI/scorbord/time.png")
@@ -48,16 +51,45 @@ ScoreManager::ScoreManager(Game* game)
 
 	
 	//タイマー表示
-	auto timer = new Timer(game, k_fight_time_);
+	timer = new Timer(game, k_fight_time_);
 
 	auto efect = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)
 		, Vec2(700, 700), 10
 		, static_cast<int>(Fight_Effects::fight_effects_Motion::READY_IN));
 }
 
+ScoreManager::~ScoreManager()
+{
+	temp1->SetState(Dead);
+	temp2->SetState(Dead);
+	temp3->SetState(Dead);
+	timer->SetState(Dead);
+
+	score1->SetState(Dead);
+	score2->SetState(Dead);
+	enemyscore1->SetState(Dead);
+	enemyscore2->SetState(Dead);
+}
+
 void ScoreManager::UpdateActor(float delttime)
 {
+	if (! timeupcheck)
+	{
+		if (timer->GetTime() == 0)
+		{
+			auto a = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), Vec2(700, 700), 10, static_cast<int>(Fight_Effects::fight_effects_Motion::TIMEUP_IN));
+			timeupcheck = true;
+		}
+	}
 
+	if (timeupcheck)
+	{
+		timespare_ -= 5 * delttime;
+
+		if (timespare_ <= 0)
+			gameendflag = true;
+
+	}
 }
 
 void ScoreManager::AddScore(int add)
@@ -95,4 +127,19 @@ void ScoreManager::EnemyAddScore(int add)
 
 	a = enemynumber / 10;
 	enemyscore2->AddScore(a);
+}
+
+bool ScoreManager::GetTimeUP()
+{
+	return gameendflag;
+}
+
+int ScoreManager::GetPlayerScore()
+{
+	return number;
+}
+
+int ScoreManager::GetEnemyScore()
+{
+	return enemynumber;
 }

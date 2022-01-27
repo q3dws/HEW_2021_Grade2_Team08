@@ -22,6 +22,8 @@
 #include "enemytestB.h"
 #include "ModeselectScene.h"
 #include "sound.h"
+#include "ResultScene.h"
+#include "VSResultScene.h"
 
 /////////////////////////////////////////////////////////
 //  StartScene                                         //
@@ -88,6 +90,8 @@ void StartScene::HandleInput(Game* game)
 	{
 		game->GetGSM()->ChangeState(new ModeselectScene(game));
 		//game->GetGSM()->ChangeState(new BattleScene(game, 0, 0, 1));
+		//game->GetGSM()->ChangeState(new ResultScene(game, 24,24 , 5, 0,0));
+		//game->GetGSM()->ChangeState(new VSResultScene(game, 24, 24));
 	}
 	
 	
@@ -163,56 +167,45 @@ BattleScene::BattleScene(Game* game, int mode, int player1, int player2)
 
 	sbg->SetBGTextures(sbgtexs);
 
-	
-	stg = new Stage(game);
-	
-	p_ScoreManager = new ScoreManager(game);
-
-	
-
-	switch (player1)
-	{
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAA):
-		player = new CharaA(game, stg, true);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAB):
-		player = new CharaB(game, stg, true);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAC):
-		player = new CharaC(game, stg, true);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAD):
-		player = new CharaD(game, stg, true);
-		break;
-	default:
-		break;
-	}
-
-	switch (player2)
-	{
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAA):
-		player = new CharaA(game, stg, false);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAB):
-		player = new CharaB(game, stg, false);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAC):
-		player = new CharaC(game, stg, false);
-		break;
-	case static_cast<int>(CharaselctScene::celectCHARA::CHARAD):
-		player = new CharaD(game, stg, false);
-		break;
-	default:
-		//player = new CharaA(game, stg, false);
-		break;
-	}
-
-
 	mode_ = mode;
+	if (mode_ == static_cast<int>(ModeselectScene::celectMODE::ARCADE))
+		mode_ = static_cast<int>(ModeselectScene::celectMODE::STAGE1);
+
+	//プレイヤー1生成
+	p_ScoreManager = new ScoreManager(game);
+	player1_num_ = player1;
 
 	StopSoundAll();
 	BGM_ = LoadSound(L"Data/BGM/battle.wav");
-	
+
+	switch (mode_)
+	{
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE1):
+		stg = new Stage(game);
+		Setplayer(game, player1, true);
+		//敵AI生成
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE2):
+		//ステージ2生成
+		Setplayer(game, player1, true);
+		//敵AI生成
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE3):
+		StopSoundAll();
+		BGM_ = LoadSound(L"Data/BGM/lastbattle.wav");
+		//ステージ3生成
+		Setplayer(game, player1, true);
+		//敵AI生成
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::VERSUS):
+		stg = new Stage(game);
+		Setplayer(game, player1, true);
+		Setplayer(game, player2, false);
+		break;
+	default:
+		break;
+	}
+
 	PlaySound(BGM_, -1);
 
 	//player = new CharaA(game, stg, true);
@@ -230,6 +223,32 @@ BattleScene::BattleScene(Game* game, int mode, int player1, int player2)
 
 BattleScene::~BattleScene()
 {
+	p_ScoreManager->SetState(Actor::State::Dead);
+
+	switch (mode_)
+	{
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE1):
+		stg->SetState(Actor::State::Dead);
+		player->SetState(Actor::State::Dead);
+		//敵AI生成
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE2):
+		//ステージ2生成
+		player->SetState(Actor::State::Dead);
+		//敵AI生成
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::STAGE3):
+		
+		player->SetState(Actor::State::Dead);
+		break;
+	case static_cast<int>(ModeselectScene::celectMODE::VERSUS):
+		stg->SetState(Actor::State::Dead);
+		player->SetState(Actor::State::Dead);
+		player2->SetState(Actor::State::Dead);
+		break;
+	default:
+		break;
+	}
 }
 
 void BattleScene::Initialize(Game* game)
@@ -245,5 +264,61 @@ void BattleScene::HandleInput(Game* game)
 
 void BattleScene::Update(Game* game)
 {
+	if (p_ScoreManager->GetTimeUP())
+	{
+		switch (mode_)
+		{
+		case static_cast<int>(ModeselectScene::celectMODE::STAGE1):
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+				, mode_, player1_num_, 0));
+			break;
+		case static_cast<int>(ModeselectScene::celectMODE::STAGE2):
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+				, mode_, player1_num_, 0));
+			break;
+		case static_cast<int>(ModeselectScene::celectMODE::STAGE3):
+			game->GetGSM()->ChangeState(new ResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()
+				, mode_, player1_num_, 0));
+			break;
+		case static_cast<int>(ModeselectScene::celectMODE::VERSUS):
+			game->GetGSM()->ChangeState(new VSResultScene(game, p_ScoreManager->GetPlayerScore(), p_ScoreManager->GetEnemyScore()));
+			break;
+		default:
+			break;
+		}
+	}
+	
+}
 
+void BattleScene::Setplayer(Game* game, int playernum,bool isplayer)
+{
+	switch (playernum)
+	{
+	case static_cast<int>(CharaselctScene::celectCHARA::CHARAA):
+		if(isplayer)
+			player = new CharaA(game, stg, isplayer);
+		else
+			player2 = new CharaA(game, stg, isplayer);
+		break;
+	case static_cast<int>(CharaselctScene::celectCHARA::CHARAB):
+		if (isplayer)
+			player = new CharaB(game, stg, isplayer);
+		else
+			player2 = new CharaB(game, stg, isplayer);
+		break;
+	case static_cast<int>(CharaselctScene::celectCHARA::CHARAC):
+		if (isplayer)
+			player = new CharaC(game, stg, isplayer);
+		else
+			player2 = new CharaC(game, stg, isplayer);
+		break;
+	case static_cast<int>(CharaselctScene::celectCHARA::CHARAD):
+		if (isplayer)
+			player = new CharaD(game, stg, isplayer);
+		else
+			player2 = new CharaD(game, stg, isplayer);
+		break;
+	default:
+		break;
+	}
 }

@@ -22,9 +22,6 @@
     <Filter Include="書き換え不要\input">
       <UniqueIdentifier>{063077fc-0e8d-413d-9fbc-99f1837502b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{fbefdc9c-323c-4059-a0c9-bba4f07f100a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -83,6 +80,9 @@
     <Filter Include="Score">
       <UniqueIdentifier>{3a4ee0a1-7f64-4c41-aa94-3d9d61a33276}</UniqueIdentifier>
     </Filter>
+    <Filter Include="%40ステート\StateMachine\Actor">
+      <UniqueIdentifier>{fbefdc9c-323c-4059-a0c9-bba4f07f100a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -110,7 +110,7 @@
       <Filter>書き換え不要\texture</Filter>
     </ClCompile>
     <ClCompile Include="Actor.cpp">
-      <Filter>Actor</Filter>
+      <Filter>%40ステート\StateMachine\Actor</Filter>
     </ClCompile>
     <ClCompile Include="State.cpp">
       <Filter>%40ステート\State</Filter>
@@ -235,6 +235,12 @@
     <ClCompile Include="ModeselectScene.cpp">
       <Filter>%40ステート\GameScene</Filter>
     </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="VSResultScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -259,7 +265,7 @@
       <Filter>書き換え不要\texture</Filter>
     </ClInclude>
     <ClInclude Include="Actor.h">
-      <Filter>Actor</Filter>
+      <Filter>%40ステート\StateMachine\Actor</Filter>
     </ClInclude>
     <ClInclude Include="State.h">
       <Filter>%40ステート\State</Filter>
@@ -385,6 +391,12 @@
       <Filter>%40ステート\GameScene</Filter>
     </ClInclude>
     <ClInclude Include="ModeselectScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="VSResultScene.h">
       <Filter>%40ステート\GameScene</Filter>
     </ClInclude>
   </ItemGroup>

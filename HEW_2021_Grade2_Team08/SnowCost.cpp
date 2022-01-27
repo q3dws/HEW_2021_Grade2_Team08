@@ -42,6 +42,10 @@ SnowCost::SnowCost(Game* game, bool Is_player) : Actor(game)
 
 SnowCost::~SnowCost()
 {
+    for (int i = 1; i <= k_point_num_; i++)
+    {
+        snowpoints_[i - 1]->SetState(Dead);
+    }
 }
 
 void SnowCost::UpdateActor(float deltatime)

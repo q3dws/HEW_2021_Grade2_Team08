@@ -45,16 +45,20 @@ public:
     void HandleInput(Game* game) override;
     void Update(Game* game) override;
     //void Draw(Game* game) override;
+
+    void Setplayer(Game* game, int playernum, bool isplayer);
+
 private:
     class AnimationTestObj* obj;
     class Player* player;
+    class Player* player2;
     
     class Stage* stg;
 
     class ScoreManager* p_ScoreManager;
     int testtex;
     int mode_ = 0;
-
+    int player1_num_;
     int BGM_ = 0;
 };
 #endif // !GAMESCENE_H

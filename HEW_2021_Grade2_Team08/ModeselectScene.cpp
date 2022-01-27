@@ -41,7 +41,7 @@ ModeselectScene::ModeselectScene(Game* game)
 	arcade_->SetPosition(Vec2(charapos.x_, charapos.y_));
 	arcade_asc_ = new SpriteComponent(arcade_, 21);
 
-	arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_3.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+	arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_arcade_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 	//UI表示
 	tempUI1 = new Actor(game);
@@ -53,13 +53,13 @@ ModeselectScene::ModeselectScene(Game* game)
 	versus_ = new Actor(game);
 	versus_->SetPosition(Vec2(charapos.x_ + bar, charapos.y_));
 	versus_asc_ = new SpriteComponent(versus_, 21);
-	versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_2.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+	versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2p_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 	//チュートリアル
 	tutrial_ = new Actor(game);
 	tutrial_->SetPosition(Vec2(charapos.x_ + bar * 2, charapos.y_));
 	tutrial_asc_ = new SpriteComponent(tutrial_, 21);
-	tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_1.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+	tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_tutorial_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 
 	//exit
@@ -151,9 +151,9 @@ void ModeselectScene::Update(Game* game)
 	{
 	case 0:
 		//キャラ1選択
-		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_3.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_2.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_1.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_arcade.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2p_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_tutorial_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 		exit_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_exit_dark.png"), exitsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 		charaUI1->SetTexture(game->GetTexture(L"Data/Image/Scene/chara_skill4.png"), charaUIsize, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
@@ -161,9 +161,9 @@ void ModeselectScene::Update(Game* game)
 		break;
 	case 1:
 		//versus選択
-		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_3.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_1.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_arcade_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2p.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_tutorial_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 		exit_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_exit_dark.png"), exitsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 		charaUI1->SetTexture(game->GetTexture(L"Data/Image/Scene/chara_skill3.png"), charaUIsize, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
@@ -171,9 +171,9 @@ void ModeselectScene::Update(Game* game)
 		break;
 	case 2:
 		//tutorial選択
-		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_3.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_2.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_1.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_arcade_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2p_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_tutorial.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 		exit_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_exit_dark.png"), exitsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 		charaUI1->SetTexture(game->GetTexture(L"Data/Image/Scene/chara_skill1.png"), charaUIsize, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
@@ -181,9 +181,9 @@ void ModeselectScene::Update(Game* game)
 		break;
 	case static_cast<int>(celectMODE::EXIT):
 		//exit選択
-		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_3.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_2.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
-		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemodedark_1.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		arcade_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_arcade_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		versus_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_2p_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
+		tutrial_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_tutorial_dark.png"), iconsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 		exit_asc_->SetTexture(game->GetTexture(L"Data/Image/Scene/gamemode/gamemode_exit.png"), exitsize_, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));
 
 		charaUI1->SetTexture(game->GetTexture(L"Data/Image/Scene/chara_skill2.png"), charaUIsize, Vec2(0.0f, 0.0f), Vec2(1.0f, 1.0f));

@@ -11,9 +11,9 @@ Timer::Timer(Game* game, int inittime) : Actor(game)
 , count_time_(0)
 , time_vel_(3)
 {
-	second_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 31, 50));
-	second_ten_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 11, 50));
-	minute_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 - 20, 50));
+	second_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 31, 50), Vec2(35, 35));
+	second_ten_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 + 11, 50), Vec2(35, 35));
+	minute_ = new PlayerScore(game, Vec2(WINDOW_WIDTH / 2 - 20, 50), Vec2(35, 35));
 
 	if (remaining_time_ >= time_MAX_)
 		remaining_time_ = time_MAX_;
@@ -21,7 +21,11 @@ Timer::Timer(Game* game, int inittime) : Actor(game)
 
 Timer::~Timer()
 {
-	auto a = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), Vec2(700, 700), 20, static_cast<int>(Fight_Effects::fight_effects_Motion::TIMEUP_IN));
+	//auto a = new Fight_Effects(GetGame(), Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2), Vec2(700, 700), 20, static_cast<int>(Fight_Effects::fight_effects_Motion::TIMEUP_IN));
+
+	second_->SetState(Dead);
+	second_ten_->SetState(Dead);
+	minute_->SetState(Dead);
 }
 
 void Timer::UpdateActor(float delttime)
@@ -36,10 +40,10 @@ void Timer::UpdateActor(float delttime)
 		remaining_time_ -= 1;
 	}
 	
-	if (remaining_time_ <= -0.25)
+	if (remaining_time_ <= 0)
 	{
 		remaining_time_ = 0;
-		SetState(Dead);
+		//SetState(Dead);
 	}
 		
 }
