@@ -329,6 +329,9 @@
     <ClCompile Include="THEBH.cpp">
       <Filter>Stage</Filter>
     </ClCompile>
+    <ClCompile Include="tutorialScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -565,6 +568,9 @@
     </ClInclude>
     <ClInclude Include="THEBH.h">
       <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="tutorialScene.h">
+      <Filter>%40ステート\GameScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -224,6 +224,7 @@
     <ClCompile Include="ThirdStage.cpp" />
     <ClCompile Include="ThirdStageBg.cpp" />
     <ClCompile Include="Timer.cpp" />
+    <ClCompile Include="tutorialScene.cpp" />
     <ClCompile Include="VSResultScene.cpp" />
     <ClCompile Include="Wall.cpp" />
     <ClCompile Include="sound.cpp">
@@ -327,6 +328,7 @@
     <ClInclude Include="ThirdStage.h" />
     <ClInclude Include="ThirdStageBg.h" />
     <ClInclude Include="Timer.h" />
+    <ClInclude Include="tutorialScene.h" />
     <ClInclude Include="VSResultScene.h" />
     <ClInclude Include="Wall.h" />
     <ClInclude Include="sound.h">

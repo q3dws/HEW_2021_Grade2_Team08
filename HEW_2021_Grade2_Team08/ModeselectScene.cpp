@@ -17,6 +17,7 @@
 #include "Stage.h"
 #include "Score.h"
 #include "ScoreManager.h"
+#include "tutorialScene.h"
 #include "sound.h"
 /////////////////////////////////////////////////////////
 //  ModeselectScene                                         //
@@ -115,6 +116,10 @@ void ModeselectScene::HandleInput(Game* game)
 		{
             PlaySound(SE_[static_cast<int>(SE::EXIT)], 0);
 			game->GetGSM()->ChangeState(new StartScene(game));
+		}
+		else if(cursor == static_cast<int>(celectMODE::TUTORIAL))
+		{
+			game->GetGSM()->ChangeState(new tutorialScene(game));
 		}
 		else
 		{

@@ -212,7 +212,7 @@ BattleScene::BattleScene(Game* game, int mode, int player1, int player2, int sco
         stg = new ThirdStage(game);
 		Setplayer(game, player1, true);
 		//ìGAIê∂ê¨
-        enemy_ = RetEnemy();
+        //enemy_ = RetEnemy();
 		break;
 	case static_cast<int>(ModeselectScene::celectMODE::VERSUS):
 		stg = new FirstStage(game);
@@ -260,7 +260,7 @@ BattleScene::~BattleScene()
 		break;
 	case static_cast<int>(ModeselectScene::celectMODE::STAGE3):
 		player->SetState(Actor::State::Dead);
-        enemy_->SetState(Actor::State::Dead);
+        //enemy_->SetState(Actor::State::Dead);
         stg->SetState(Actor::State::Dead);
         StopSoundAll();
 		break;
