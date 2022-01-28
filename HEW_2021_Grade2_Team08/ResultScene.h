@@ -12,7 +12,7 @@ class ResultScene :
     public State<class Game>
 {
 public:
-    ResultScene(Game* game, int score,int enemyscore, int mode, int player1, int player2);
+    ResultScene(Game* game, int score,int enemyscore, int mode, int player1, int player2, int inhertscore);
     ~ResultScene() override;
     void Initialize(Game* game) override;
     void HandleInput(Game* game) override;
@@ -46,6 +46,14 @@ private:
     int p2_ = 0;
     bool win_;
     int score_;
+    int SE_[3];
+    enum class SE :int
+    {
+        WIN,
+        CLEAR,
+        LOSE,
+    };
+    int inhertscore_;
 };
 
 

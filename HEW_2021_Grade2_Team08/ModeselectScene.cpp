@@ -86,14 +86,16 @@ ModeselectScene::~ModeselectScene()
 	tempUI1->SetState(Actor::State::Dead);
 	logo->SetState(Actor::State::Dead);
 
-	
+	StopSound(BGM_);
 }
 void ModeselectScene::Initialize(Game* game)
 {
     SE_[0] = LoadSound(L"Data/SE/Scene/push.wav");
     SE_[1] = LoadSound(L"Data/SE/Scene/cursormove.wav");
     SE_[2] = LoadSound(L"Data/SE/Scene/exir.wav");
-    BGM_ = LoadSound(L"Data/BGM/charaselect.wav");
+    BGM_ = LoadSound(L"Data/BGM/modeselect.wav");
+	SetVolume(BGM_, 0.2);
+	PlaySound(BGM_, -1);
 
 	iconsize_ = (Vec2(300, 300));
 

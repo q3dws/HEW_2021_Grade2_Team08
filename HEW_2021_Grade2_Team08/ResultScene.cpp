@@ -23,11 +23,12 @@
 /////////////////////////////////////////////////////////
 //  ResultScene                                         //
 /////////////////////////////////////////////////////////
-ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int player1, int player2)
+ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int player1, int player2, int inhertscore)
 {
 	Initialize(game);
 
     score_ = score;
+	inhertscore_ = inhertscore;
 	mode_ = mode;
 	p1_ = player1;
 	p2_ = player2;
@@ -56,28 +57,39 @@ ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int pl
 
 	if (score > enemyscore)
 	{
+		win_ = true;
+
 		if (mode_ != static_cast<int>(ModeselectScene::celectMODE::STAGE3))
+		{
+			PlaySound(SE_[static_cast<int>(SE::WIN)], 0);
 			youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 				, Vec2(700, 700), 10
 				, static_cast<int>(Fight_Effects::fight_effects_Motion::WIN_ANIM));
+		}
 		else
 		{
+			PlaySound(SE_[static_cast<int>(SE::CLEAR)], 0);
 			youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 				, Vec2(700, 700), 10
 				, static_cast<int>(Fight_Effects::fight_effects_Motion::CLEAR_ANIM));
 		}
-		win_ = true;
+		
 	}
-	else if(score == enemyscore)
+	else if (score == enemyscore)
+	{
+		PlaySound(SE_[static_cast<int>(SE::LOSE)], 0);
 		youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 			, Vec2(700, 700), 10
 			, static_cast<int>(Fight_Effects::fight_effects_Motion::DRAW_IN));
+	}
 	else
+	{
+		PlaySound(SE_[static_cast<int>(SE::LOSE)], 0);
 		youwinlogo_ = new Fight_Effects(game, Vec2(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2 - 150)
 			, Vec2(700, 700), 10
 			, static_cast<int>(Fight_Effects::fight_effects_Motion::LOSE_ANIM));
-	
-	
+	}
+		
 
 	scorelogo_ = new Fight_Effects(game, scorelogopos
 		, Vec2(500, 500), 10
@@ -89,13 +101,13 @@ ResultScene::ResultScene(Game* game, int score, int enemyscore, int mode, int pl
 	second_digit_ = new PlayerScore(game, Vec2(scorelogopos.x_ + 350, scorelogopos.y_), difitsize);
 	third_digit_ = new PlayerScore(game, Vec2(scorelogopos.x_ + 270, scorelogopos.y_), difitsize);
 
-	int a = (score % 10);
+	int a = (inhertscore % 10);
 	digit_->AddScore(a);
 
-	int b = score / 10;
+	int b = inhertscore / 10;
 	second_digit_->AddScore(b);
 
-	int c = (score / 100);
+	int c = (inhertscore / 100);
 	third_digit_->AddScore(c);
 }
 ResultScene::~ResultScene()
@@ -119,6 +131,10 @@ void ResultScene::Initialize(Game* game)
 	charaUIsize = Vec2(50, 50);
 	charaUIpos = Vec2(WINDOW_WIDTH - charaUIsize.x_ / 2, charapos.y_);
 	exitsize_ = Vec2(150, 150);
+
+	SE_[0] = LoadSound(L"Data/SE/Scene/win.wav");
+	SE_[1] = LoadSound(L"Data/SE/Scene/clear.wav");
+	SE_[2] = LoadSound(L"Data/SE/Scene/lose.wav");
 }
 
 void ResultScene::HandleInput(Game* game)
@@ -126,7 +142,7 @@ void ResultScene::HandleInput(Game* game)
 	if (GetKeyboardRelease(DIK_SPACE))
 	{
 		if(mode_ != static_cast<int>(ModeselectScene::celectMODE::STAGE3) && win_ == true)
-			game->GetGSM()->ChangeState(new BattleScene(game, mode_ + 1, p1_, p2_, score_));
+			game->GetGSM()->ChangeState(new BattleScene(game, mode_ + 1, p1_, p2_, inhertscore_));
 		else
 			game->GetGSM()->ChangeState(new ModeselectScene(game));
 

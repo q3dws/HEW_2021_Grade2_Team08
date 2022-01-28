@@ -135,6 +135,8 @@ VSResultScene::VSResultScene(Game* game, int p1score, int p2score)
 
 	int p2c = (p2score_ / 100);
 	p2third_digit_->AddScore(p2c);
+
+	PlaySound(SE_[static_cast<int>(SE::WIN)], 0);
 }
 VSResultScene::~VSResultScene()
 {
@@ -163,6 +165,10 @@ void VSResultScene::Initialize(Game* game)
 	charaUIsize = Vec2(50, 50);
 	charaUIpos = Vec2(WINDOW_WIDTH - charaUIsize.x_ / 2, charapos.y_);
 	exitsize_ = Vec2(150, 150);
+
+	SE_[0] = LoadSound(L"Data/SE/Scene/win.wav");
+	SE_[1] = LoadSound(L"Data/SE/Scene/clear.wav");
+	SE_[2] = LoadSound(L"Data/SE/Scene/lose.wav");
 }
 
 void VSResultScene::HandleInput(Game* game)
