@@ -8,7 +8,7 @@
 class IcicleOut : public Actor
 {
 public:
-	IcicleOut(Game* game, const Vec2& pos);
+	IcicleOut(Game* game, const Vec2& pos, int layer);
 	void UpdateActor(float deltatime) override;
 private:
 	int texno_;

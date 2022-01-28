@@ -58,7 +58,9 @@ Icicle::Icicle(Game* game, const Vec2& destination, int index_x, int index_y, in
     SetPosIndex(icicle_index);
     SetCollision(Rect(GetPosition(), Vec2(ICICLE_SIZE, ICICLE_SIZE)));
 
-    Icicle_Sprite_ = new SpriteComponent(this, 120);
+    layer_ = 100 + 5 * (index_y % 3 );
+    
+    Icicle_Sprite_ = new SpriteComponent(this, layer_);
     Icicle_Sprite_->SetTexture(texno_, Vec2(ICICLE_SIZE, ICICLE_SIZE), Vec2(0, 0), Vec2(1, 1));
 
 }
@@ -77,6 +79,7 @@ void Icicle::UpdateActor(float deltatime)
         if (CollisionRC(GetGame()->GetPlayer(), this)) // šƒvƒŒƒCƒ„[‚Æ‚±‚Ì‚Â‚ç‚ç‚ª“–‚½‚Á‚Ä‚¢‚½‚çÁ‚¦‚é
         {
             GetGame()->GetScoreManager()->EnemyAddScore(1);
+            GetGame()->GetPlayer()->Player_SetHit(2);
             SetState(Dead);
         }
     }
@@ -99,7 +102,7 @@ void Icicle::UpdateActor(float deltatime)
     
     if (GetPosition().y_ > destination_.y_)
     {
-        ico_ = new IcicleOut(GetGame(), destination_);
+        ico_ = new IcicleOut(GetGame(), destination_, layer_);
         SetState(Dead);
     }
 }

@@ -42,5 +42,6 @@ private:
     FallPoint* fp_;
     IcicleOut* ico_;
     SpriteComponent* Icicle_Sprite_;
+    int layer_;
 };
 #endif
