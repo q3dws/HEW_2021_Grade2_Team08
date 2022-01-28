@@ -87,7 +87,7 @@ void StartScene::Initialize(Game* game)
 
 	startalfa_ = 1.0f;
 	BGM_ = LoadSound(L"Data/BGM/title.wav");
-	SetVolume(BGM_, 0.2);
+	SetVolume(BGM_, 0.15);
     SE_ = LoadSound(L"Data/SE/Scene/titlepush.wav");
 	SetVolume(SE_, 0.6);
 	PlaySound(BGM_, -1);
@@ -100,7 +100,7 @@ void StartScene::HandleInput(Game* game)
 	{
         PlaySound(SE_, 0);
 		game->GetGSM()->ChangeState(new ModeselectScene(game));
-		//game->GetGSM()->ChangeState(new BattleScene(game, 0, 0, 1));
+		//game->GetGSM()->ChangeState(new BattleScene(game, 6, 0, 1, 0));
 		//game->GetGSM()->ChangeState(new ResultScene(game, 24,24 , 5, 0,0));
 		//game->GetGSM()->ChangeState(new VSResultScene(game, 24, 24));
 	}
@@ -223,7 +223,7 @@ BattleScene::BattleScene(Game* game, int mode, int player1, int player2, int sco
 		break;
 	}
 
-	SetVolume(BGM_, 0.2);
+	SetVolume(BGM_, 0.15);
 	PlaySound(BGM_, -1);
 
 	//player = new CharaA(game, stg, true);

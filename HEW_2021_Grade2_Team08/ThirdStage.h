@@ -3,6 +3,7 @@
 #include "BlackHole.h"
 #include "WarningPoint.h"
 #include "ThirdStageBg.h"
+
 #include <vector>
 #define BHTIMER			600
 #define WARNING_MAX		18
@@ -21,12 +22,15 @@ public:
 private:
 	int timer_ = 0;
 	int icicletimer_ = 0;
-	int usetimer_ = 600;
+	int usetimer_ = 1400;
 	int icicle_index = -1;
 	class WarningPoint* pWarning[WARNING_MAX];
-	class BlackHoleIn* pBHI;
-	class BlackHole* pBH;
+	
 	class ThirdStageBg* tsb;
+	class THEBH* blackhole_;
     std::vector<int> icicle_indexs_;
+
+	class Actor* temp2;
+	class Actor* temp3;
 };
 

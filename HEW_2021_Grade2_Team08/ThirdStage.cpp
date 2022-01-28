@@ -1,11 +1,14 @@
 #include "ThirdStage.h"
-#include "Stage.h"
+//#include "Stage.h"
 #include "BlackHole.h"
 #include "BlackHoleIn.h"
 #include "BlackHoleOut.h"
 #include "Icicle.h"
 #include <random>
 #include <vector>
+#include "THEBH.h"
+#include "Actor.h"
+#include "Texture.h"
 
 #define ICICLE_TIME3 40
 ThirdStage::ThirdStage(Game* game)
@@ -14,19 +17,36 @@ ThirdStage::ThirdStage(Game* game)
     icicle_indexs_.emplace_back(0);
     icicle_indexs_.emplace_back(1);
     icicle_indexs_.emplace_back(2);
-	tsb = new ThirdStageBg(game);
+	//tsb = new ThirdStageBg(game);
+
+	temp2 = new Actor(game);
+	temp2->SetPosition(Vec2(WINDOW_WIDTH * 0.5, STAGE_HEIGHT));
+	
+	auto temp2_asc = new SpriteComponent(temp2, 15);
+
+	temp2_asc->SetTexture(LoadTexture(L"Data/Image/stage_2.png")
+		, Vec2(WINDOW_WIDTH, WINDOW_HEIGHT), Vec2(0, 0), Vec2(1, 1));
+
+	temp3 = new Actor(game);
+	temp3->SetPosition(Vec2(WINDOW_WIDTH * 0.5f, WINDOW_HEIGHT * 0.5f));
+	auto temp3_asc = new SpriteComponent(temp3, 10);
+
+	temp3_asc->SetTexture(LoadTexture(L"Data/Image/BackGround_3.png")
+		, Vec2(WINDOW_WIDTH, WINDOW_HEIGHT), Vec2(0, 0), Vec2(1, 1));
+
 }
 
 ThirdStage::~ThirdStage()
 {
     icicle_indexs_.clear();
-    delete tsb;
+    //tsb->SetState(Dead);
+	temp3->SetState(Dead);
+	temp2->SetState(Dead);
+
 	for (int i{}; i < WARNING_MAX; ++i)
 		if(pWarning[i] )
 			delete pWarning[i];
-	if(pBHI)
-		delete pBHI;
-	delete pBH;
+	
 
 	for (int i = 0; i < SNOW_MAX; ++i)
 	{
@@ -67,7 +87,7 @@ void ThirdStage::UpdateActor(float deltatime)
 
 	if (timer_ == usetimer_ - 60)
 	{
-		pBHI = new BlackHoleIn(GetGame());
+		auto a = new THEBH(GetGame(), 120);
 	}
 
 	if (timer_ == usetimer_)
@@ -78,11 +98,15 @@ void ThirdStage::UpdateActor(float deltatime)
 			pWarning[num] = nullptr;
 		}
 		
-		pBHI->SetState(Dead);
+		if (GetSnows())
+			AllSnowDelete();
+
+		/*pBHI->SetState(Dead);
 		pBHI = nullptr;
-		usetimer_ = BHTIMER + mt() % 100;
+		usetimer_ = BHTIMER + mt() % 100;*/
 		
-		pBH = new BlackHole(GetGame(), this);
+		//pBH = new BlackHole(GetGame(), this);
+		
 		timer_ = 0;
 	}
 

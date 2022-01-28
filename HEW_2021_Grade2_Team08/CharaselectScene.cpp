@@ -125,6 +125,7 @@ void CharaselctScene::Initialize(Game* game)
     SE_[1] = LoadSound(L"Data/SE/Scene/cursormove.wav");
     SE_[2] = LoadSound(L"Data/SE/Scene/exir.wav");
     BGM_ = LoadSound(L"Data/BGM/charaselect.wav");
+	SetVolume(BGM_, 0.15);
 	PlaySound(BGM_, -1);
 }
 

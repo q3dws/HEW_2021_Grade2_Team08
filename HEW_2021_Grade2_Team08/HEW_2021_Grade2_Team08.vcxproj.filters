@@ -326,6 +326,9 @@
     <ClCompile Include="EScoop.cpp">
       <Filter>EnemySkills</Filter>
     </ClCompile>
+    <ClCompile Include="THEBH.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -559,6 +562,9 @@
     </ClInclude>
     <ClInclude Include="EScoop.h">
       <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="THEBH.h">
+      <Filter>Stage</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
