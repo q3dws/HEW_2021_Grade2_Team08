@@ -8,7 +8,7 @@
 ScoreManager::ScoreManager(Game* game)
 	:Actor(game)
 	,SCORE_MAX(99)
-	, k_fight_time_(60)
+	, k_fight_time_(90)
 	, timeupcheck(false)
 	, gameendflag(false)
 	, timespare_(20)
