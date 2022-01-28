@@ -7,8 +7,11 @@
 Actor::Actor(Game* game)
     :position_(Vec2())
     , scale_(1.0f)
-    ,rotation_()
-    ,game_(game)
+    , rotation_()
+    , game_(game)
+    , state_(Idle)
+    , position_index_(-1)
+    , collision_()
 {
     game->AddActor(this);
 }
@@ -54,3 +57,22 @@ void Actor::RemoveComponent(Component* component)
     if (iter != components_.end())
         components_.erase(iter);
 }
+#if 0
+bool CollisionRC(Actor const& const rect, Actor const& const center)
+{
+    if (rect->GetPosIndex() == center->GetPosIndex())
+    {
+        float axmin = rect->GetCollision().topleft_.x_;
+        float axmax = rect->GetCollision().bottomright_.x_;
+        float aymin = rect->GetCollision().topleft_.y_;
+        float aymax = rect->GetCollision().bottomright_.y_;
+        Vec2  bcenter = center->GetCollision().center_;
+        if (axmax > bcenter.x_ && axmin < bcenter.x_)
+            if (aymax > bcenter.y_ && aymin < bcenter.y_)
+                return true;
+        return false;
+    }
+}
+#else
+
+#endif

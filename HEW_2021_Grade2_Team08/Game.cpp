@@ -11,6 +11,14 @@
 #include "AnimationTestObj.h"	
 #include "BGSpriteComponent.h"
 #include "GameScene.h"
+#include "sound.h"
+#include "EGolem.h"
+#include "EIceWall.h"
+#include "EArmor.h"
+#include "Ponytail.h"
+#include "Witch.h"
+#include "Robot.h"
+#include "ScoopLady.h"
 
 #ifdef _DEBUG
 INT g_debug_count_fps;
@@ -22,12 +30,10 @@ Game::Game()
 {
 	ZeroMemory(this, sizeof(Window));
 	ZeroMemory(&msg_, sizeof(msg_));
-	
 }
 
 Game::~Game()
-{	
-	
+{
 	//delete pgame_state_context_;
 	timeEndPeriod(1);	// 分解能を戻す
 }
@@ -48,11 +54,14 @@ bool Game::Initialize(HINSTANCE hinstance)
 		//    初期化処理                     //
 		InitRenderer(hinstance, hwnd_);
 		InitInput(hinstance, hwnd_);
+
+		InitSound(hwnd_);
+
 		InitSprite();
 
 		///////////////////////////////////////
 		LoadData();
-	
+
 		ticks_count_ = timeGetTime();
 		return true;
 	}
@@ -73,14 +82,116 @@ void Game::Application()
 		}
 		else //アプリケーションの処理はここから飛ぶ。
 		{
-			if(FpsTimer()) // 60FPSで起動
+			if (FpsTimer()) // 60FPSで起動
 				RunLoop(); // ゲームループ
 		}
 	}
 }
 
+bool Game::AddEGolem(EGolem* egolem)
+{
+    auto iter = std::find(egolems_.begin(), egolems_.end(), nullptr);
+    if (iter != egolems_.end())
+    {
+        *iter = egolem;
+        return true;
+    }
+    else
+    {
+        delete egolem;
+        return false;
+    }
+}
+
+void Game::RemoveEGolem(EGolem* egolem)
+{
+    auto iter = std::find(egolems_.begin(), egolems_.end(), egolem);
+    if (iter != egolems_.end())
+        *iter = nullptr;
+}
+
+void Game::RemoveAllEgolem()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        if (egolems_.at(i))
+        {
+            egolems_.at(i)->SetState(Actor::Dead);
+            egolems_.at(i) = nullptr;
+        }
+    }
+}
+
+bool Game::AddEIceWall(EIceWall* eicewall)
+{
+    auto iter = std::find(eicewalls_.begin(), eicewalls_.end(), nullptr);
+    if (iter != eicewalls_.end())
+    {
+        *iter = eicewall;
+        return true;
+    }
+    else
+    {
+        delete eicewall;
+        return false;
+    }
+}
+
+void Game::RemoveEIceWall(EIceWall* eicewall)
+{
+    auto iter = std::find(eicewalls_.begin(), eicewalls_.end(), eicewall);
+    if (iter != eicewalls_.end())
+        *iter = nullptr;
+}
+
+void Game::RemoveAllEIceWall()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        if (eicewalls_.at(i))
+        {
+            eicewalls_.at(i)->SetState(Actor::Dead);
+            eicewalls_.at(i) = nullptr;
+        }
+    }
+}
+
+bool Game::AddEArmor(EArmor* earmor)
+{
+    auto iter = std::find(earmors_.begin(), earmors_.end(), nullptr);
+    if (iter != earmors_.end())
+    {
+        *iter = earmor;
+        return true;
+    }
+    else
+    {
+        earmor->SetDead();
+        return false;
+    }
+}
+
+void Game::RemoveEArmor(EArmor* earmor)
+{
+    auto iter = std::find(earmors_.begin(), earmors_.end(), earmor);
+    if (iter != earmors_.end())
+        *iter = nullptr;
+}
+
+void Game::RemoveAllEArmor()
+{
+    for (int i = 0; i < 3; ++i)
+    {
+        if (earmors_.at(i))
+        {
+            earmors_.at(i)->SetState(Actor::Dead);
+            earmors_.at(i) = nullptr;
+        }
+    }
+}
+
 void Game::RunLoop()
-{	
+{
 	Input();
 	Update();
 	Draw();
@@ -125,7 +236,7 @@ void Game::Update()
 	deltatime_ = 0.05f;//(timeGetTime() - ticks_count_) / 1000.f;
 	if (deltatime_ > 0.05f) deltatime_ = 0.05f;
 	ticks_count_ = (float)timeGetTime();
-	
+
 	UpdateInput();
 
 	updating_actors_ = true;
@@ -138,6 +249,14 @@ void Game::Update()
 		actors_.emplace_back(pending);
 	}
 	pending_actors_.clear();
+
+	std::vector<Actor*> dead_actors;
+	for (auto actor : actors_)
+		if (actor->GetState() == Actor::Dead)
+			dead_actors.emplace_back(actor);
+
+	for (auto actor : dead_actors)
+		delete actor;
 
 	pgame_state_context_->Update();
 
@@ -157,7 +276,7 @@ void Game::Draw()
 	}
 	// シーンの描画処理
 	//DrawSpriteLeftTop(g_TextureNo, 0.0f, 0.0f, WINDOW_WIDTH, WINDOW_HEIGHT, 0.0f, 0.0f, 1.0f, 1.0f);
-	
+
 
 	// バックバッファ、フロントバッファ入れ替え
 	Present();
@@ -171,7 +290,7 @@ void Game::LoadData()
 
 void Game::UnloadData()
 {
-	
+
 	while (!actors_.empty())
 		delete actors_.back();
 }
@@ -196,6 +315,7 @@ void Game::RemoveActor(Actor* actor)
 	auto iter = std::find(pending_actors_.begin(), pending_actors_.end(), actor);
 	if (iter != pending_actors_.end())
 	{
+		//pending_actors_.erase(iter);
 		std::iter_swap(iter, pending_actors_.end() - 1);
 		pending_actors_.pop_back();
 	}
@@ -203,6 +323,7 @@ void Game::RemoveActor(Actor* actor)
 	iter = std::find(actors_.begin(), actors_.end(), actor);
 	if (iter != actors_.end())
 	{
+		//actors_.erase(iter);
 		std::iter_swap(iter, actors_.end() - 1);
 		actors_.pop_back();
 	}
@@ -221,10 +342,87 @@ void Game::AddSprite(SpriteComponent* sprite)
 void Game::RemoveSprite(SpriteComponent* sprite)
 {
 	auto iter = std::find(sprites_.begin(), sprites_.end(), sprite);
-	sprites_.erase(iter);
+    if (iter != sprites_.end())
+	    sprites_.erase(iter);
 }
 
-int Game::GetTexture(wchar_t const * file_name)
+int Game::GetTexture(wchar_t const* file_name)
 {
 	return LoadTexture(file_name);
+}
+
+std::vector<int>& Game::RetEnemyStack()
+{
+    return enemystack_;
+}
+
+void Game::SetThreeEnemy(int pnum)
+{
+    enemystack_.clear();
+    switch (pnum)
+    {
+    case static_cast<int>(CharaselctScene::celectCHARA::CHARAA):
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAB));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAC));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAD));
+        break;
+    case static_cast<int>(CharaselctScene::celectCHARA::CHARAB):
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAA));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAC));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAD));
+        break;
+    case static_cast<int>(CharaselctScene::celectCHARA::CHARAC):
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAA));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAB));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAD));
+        break;
+    case static_cast<int>(CharaselctScene::celectCHARA::CHARAD):
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAA));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAB));
+        enemystack_.emplace_back(static_cast<int>(CharaselctScene::celectCHARA::CHARAC));
+        break;
+    default:
+        break;
+    }
+    std::random_device seed_gen;
+    std::mt19937 engine(seed_gen());
+    std::shuffle(enemystack_.begin(), enemystack_.end(), engine);
+}
+
+
+
+
+void Game::RemoveIceWall(IceWall* iceWall)
+{
+	auto iter = std::find(icewall_.begin(), icewall_.end(), iceWall);
+	if (iter != icewall_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, icewall_.end() - 1);
+		icewall_.pop_back();
+	}
+
+}
+
+void Game::RemoveArmor(Armor* armor)
+{
+	auto iter = std::find(armor_.begin(), armor_.end(), armor);
+	if (iter != armor_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, armor_.end() - 1);
+		armor_.pop_back();
+	}
+
+}
+
+void Game::RemoveGolem(Golem* golem)
+{
+	auto iter = std::find(golem_.begin(), golem_.end(), golem);
+	if (iter != golem_.end())
+	{
+		//pending_actors_.erase(iter);
+		std::iter_swap(iter, golem_.end() - 1);
+		golem_.pop_back();
+	}
 }

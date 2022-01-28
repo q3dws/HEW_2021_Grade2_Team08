@@ -10,6 +10,7 @@ public:
     AnimationTestObj(class Game* game);
     void UpdateActor(float deltatime) override;
 private:
-    
+    int testtex;
+    StateContext<AnimationTestObj> *statecontext_;
 };
 #endif // !ANIMATIONTESTOBJ_H

@@ -22,9 +22,6 @@
     <Filter Include="書き換え不要\input">
       <UniqueIdentifier>{063077fc-0e8d-413d-9fbc-99f1837502b3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Actor">
-      <UniqueIdentifier>{fbefdc9c-323c-4059-a0c9-bba4f07f100a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="リソース ファイル">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
@@ -73,6 +70,27 @@
     </Filter>
     <Filter Include="%40ステート\GameScene">
       <UniqueIdentifier>{f49c9d40-5a82-4461-be05-29aed1933f03}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Player">
+      <UniqueIdentifier>{4f859a08-09d9-49e3-8d41-948b089fef9b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Skill">
+      <UniqueIdentifier>{7921671d-4c28-4a23-b77f-40a8c6bc782d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Score">
+      <UniqueIdentifier>{3a4ee0a1-7f64-4c41-aa94-3d9d61a33276}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Stage">
+      <UniqueIdentifier>{14697662-81a8-4186-82ba-3f70a30a50ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enemy">
+      <UniqueIdentifier>{66a7df56-fedc-45a7-b9ec-37a366b9dbeb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="EnemySkills">
+      <UniqueIdentifier>{9fc09aa1-2222-44a2-a48e-18088e649e8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{fbefdc9c-323c-4059-a0c9-bba4f07f100a}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -138,8 +156,176 @@
     </ClCompile>
     <ClCompile Include="BattleStage.cpp" />
     <ClCompile Include="TestBullet.cpp" />
-    <ClCompile Include="Snow.cpp" />
-    <ClCompile Include="Stage.cpp" />
+    <ClCompile Include="Wall.cpp" />
+    <ClCompile Include="WallState.cpp" />
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="BulletManager.cpp" />
+    <ClCompile Include="EnemyState.cpp" />
+    <ClCompile Include="Player.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerState.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaA.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaB.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="enemytestB.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Golem.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillMediator.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCost.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="IceWall.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="BigBullet.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Armor.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Scoop.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaC.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Fireball.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaD.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Machinegun.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skillicon.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="DEBUG_Comand.cpp">
+      <Filter>Player</Filter>
+    </ClCompile>
+    <ClCompile Include="SnowCost_tate.cpp">
+      <Filter>Skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreManager.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="Timer.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="Fight_Effects.cpp">
+      <Filter>Score</Filter>
+    </ClCompile>
+    <ClCompile Include="CharaselectScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ModeselectScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ResultScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="VSResultScene.cpp">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdStage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="ThirdStageBg.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="WarningPoint.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="StageBg.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Stage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Snow.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondStageBg.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="SecondStage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="IcicleOut.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Icicle.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="FirstStage.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="FallPoint.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackHole.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackHoleIn.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="BlackHoleOut.cpp">
+      <Filter>Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="Ponytail.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Robot.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoopLady.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="Witch.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EArmor.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EBigBullet.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EGolem.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EIceWall.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EMachinegun.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="EFireBall.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
+    <ClCompile Include="EScoop.cpp">
+      <Filter>EnemySkills</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Window.h">
@@ -204,8 +390,176 @@
     </ClInclude>
     <ClInclude Include="BattleStage.h" />
     <ClInclude Include="TestBullet.h" />
-    <ClInclude Include="Snow.h" />
-    <ClInclude Include="Stage.h" />
+    <ClInclude Include="Wall.h" />
+    <ClInclude Include="WallState.h" />
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="BulletManager.h" />
+    <ClInclude Include="EnemyState.h" />
+    <ClInclude Include="PlayerState.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaA.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaB.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="enemytestB.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Golem.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillMediator.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCost.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="IceWall.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="BigBullet.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Armor.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Scoop.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaC.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Fireball.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaD.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Machinegun.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skillicon.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="DEBUG_Comand.h">
+      <Filter>Player</Filter>
+    </ClInclude>
+    <ClInclude Include="SnowCost_tate.h">
+      <Filter>Skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreManager.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Timer.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Fight_Effects.h">
+      <Filter>Score</Filter>
+    </ClInclude>
+    <ClInclude Include="CharaselectScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ModeselectScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ResultScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="VSResultScene.h">
+      <Filter>%40ステート\GameScene</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdStage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="ThirdStageBg.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="WarningPoint.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="StageBg.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Stage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Snow.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondStageBg.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="SecondStage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="IcicleOut.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Icicle.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="FirstStage.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="FallPoint.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackHole.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackHoleIn.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="BlackHoleOut.h">
+      <Filter>Stage</Filter>
+    </ClInclude>
+    <ClInclude Include="Ponytail.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Robot.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoopLady.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Witch.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="EArmor.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EBigBullet.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EGolem.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EIceWall.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EMachinegun.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EFireBall.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
+    <ClInclude Include="EScoop.h">
+      <Filter>EnemySkills</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Text Include="sankou_1.txt">

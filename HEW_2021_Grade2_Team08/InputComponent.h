@@ -7,7 +7,7 @@ class InputComponent :
 {
 public:
     InputComponent(class Actor* owner);
-    void ProcessInput(const 
+    //void ProcessInput(const 
 protected:
 };
 #endif // !INPUTCOMPONENT_H

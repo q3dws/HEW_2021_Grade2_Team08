@@ -7,7 +7,7 @@ class TestBullet :
     public Actor
 {
 public:
-    TestBullet(class Game* game);
+    TestBullet(class Game* game, int testtex);
     void UpdateActor(float delta_time) override;
 private:
     float death_timer;

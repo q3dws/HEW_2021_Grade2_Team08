@@ -2,7 +2,7 @@
 #include "Actor.h"
 BGSpriteComponent::BGSpriteComponent(Actor* owner, int drawOrder)
     :SpriteComponent(owner, drawOrder)
-    ,scroll_speed_(0)
+    , scroll_speed_(0)
 {
 }
 
